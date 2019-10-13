@@ -26,7 +26,8 @@ module.exports = {
     'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
     'react/prop-types': [0],
     'jsx-quotes': ['error', 'prefer-single'],
-    'semi': 0
+    'semi': 0,
+    'jsx-a11y/label-has-associated-control': [ 2, {'depth': 3,}],
   },
   settings: {
     'import/resolver': {

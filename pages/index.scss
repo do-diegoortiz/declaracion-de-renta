@@ -1,44 +1,78 @@
-.hero {
-  width: 100%;
-  color: #333;
-}
 .title {
   margin: 0;
   width: 100%;
-  padding-top: 80px;
+  padding-top: 8rem;
   line-height: 1.15;
-  font-size: 48px;
+  font-size: 4rem;
 }
 .title,
 .description {
   text-align: center;
 }
-.row {
-  max-width: 880px;
-  margin: 80px auto 40px;
+.description{
+  font-size: 2rem;
+}
+
+// Created Styles
+
+.cover {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  align-items: flex-start;
+  height: 16vh;
+  width: 100%;
+  position: relative; /*required to use z-index*/
+  z-index: 10;
 }
-.card {
-  padding: 18px 18px 24px;
-  width: 220px;
-  text-align: left;
-  text-decoration: none;
-  color: #434343;
-  border: 1px solid #9b9b9b;
+
+.formContainer > *:not([type="date"]) {
+  border-top: 0.1rem solid white;
+  border-bottom: 0.1rem solid white;
 }
-.card:hover {
-  border-color: #067df7;
+
+.formContainer input[type="submit"] {
+  background:#FF5A5F;
+  border-top: 0.1rem solid #FF5A5F;
+  border-bottom: 0.1rem solid #FF5A5F;
+  color:white;
 }
-.card h3 {
-  margin: 0;
-  color: #067df7;
-  font-size: 18px;
+
+.formContainer > * {
+  border: 0;
+  padding: 1rem;
+  background:white;
+  line-height: 5rem;
+  font-size: 2rem;
+  border-radius: 0;
+  outline: 0;
+  border-right: 0.1rem solid rgba(0,0,0,0.2);
+  -webkit-appearance: none;
 }
-.card p {
-  margin: 0;
-  padding: 12px 0 0;
-  font-size: 13px;
-  color: #333;
+
+.formContainer > *:last-child {
+  border-right: 0;
+}
+
+.formContainer {
+  display: flex;
+  border: 2rem solid rgba(0,0,0,.3);
+  border-radius: 0.5rem;
+  margin: 1rem auto;
+}
+
+.formTitle {
+  font-size: 3rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.addButton {
+  background:rgb(90, 140, 255);
+  border-top: 0.1rem solid rgb(90, 140, 255);
+  border-bottom: 0.1rem solid rgb(90, 140, 255);
+  color:white;
+  display: block;
+  height: 3rem;
+  width: 10rem;
+  margin: 0 auto;
+  cursor: pointer;
 }

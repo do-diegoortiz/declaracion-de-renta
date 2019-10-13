@@ -6,34 +6,57 @@ const Home = () => (
   <div>
     <Head>
       <title>Inicio</title>
-      {/* <link rel='icon' href='/favicon.ico' /> */}
+      <link rel='icon' href='/favicon.ico' />
     </Head>
 
-    <div className={css.hero}>
-      <h1 className={css.title}>Welcome to Next.js!</h1>
-      <p className={css.description}>
-        To get started, edit
-        <code>pages/index.js</code>
-        and save to reload.
-      </p>
+    <h1 className={css.title}>Optimiza la declaración de renta</h1>
+    <p className={css.description}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </p>
 
-      <div className={css.row}>
-        <a href='https://nextjs.org/docs' className={css.card}>
-          <h3>Documentation &rarr;</h3>
-          <p>Learn more about Next.js in the documentation.</p>
-        </a>
-        <a href='https://nextjs.org/learn' className={css.card}>
-          <h3>Next.js Learn &rarr;</h3>
-          <p>Learn about Next.js by following an interactive tutorial!</p>
-        </a>
-        <a
-          href='https://github.com/zeit/next.js/tree/master/examples'
-          className={css.card}
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Find other example boilerplates on the Next.js GitHub.</p>
-        </a>
-      </div>
+    <h2 className={css.formTitle}>
+      Ingresos
+    </h2>
+
+    <div className={css.cover}>
+      <form className={css.formContainer}>
+        <label className={css.inputIcon} htmlFor='salario'>Contrato</label>
+        <select name='' id=''>
+          <option value='nomina'>Nomina</option>
+          <option value='prestaciones'>Prestacion</option>
+        </select>
+
+        <input type='text' placeholder='($) Salario mensual en COP' />
+
+        <label htmlFor='de'>De</label>
+        <input type='date' name='de' />
+
+        <label htmlFor='hasta'>Hasta</label>
+        <input type='date' name='hasta' value='2019-12-31' />
+
+        <input type='submit' value='Calcular' />
+      </form>
+    </div>
+
+    <button type='button' className={css.addButton}>
+      Agregar +
+    </button>
+
+    <h2 className={css.formTitle}>
+      Deducciones
+    </h2>
+
+    <div className={css.cover}>
+      <form className={css.formContainer}>
+        <label htmlFor='de'>De</label>
+        <input type='date' name='de' />
+
+        <label htmlFor='hasta'>Hasta</label>
+        <input type='date' name='hasta' value='2019-12-31' />
+
+        <input type='submit' value='Calcular' />
+      </form>
     </div>
   </div>
 )
