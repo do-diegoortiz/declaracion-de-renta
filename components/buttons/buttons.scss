@@ -1,0 +1,21 @@
+.blueButton {
+  background:rgb(90, 140, 255);
+  border-top: 0.1rem solid rgb(90, 140, 255);
+  border-bottom: 0.1rem solid rgb(90, 140, 255);
+  color:white;
+  display: block;
+  height: 3rem;
+  width: 10rem;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.disabledButton {
+  border-radius: 5rem;
+  border-style: hidden;
+  background-color: gray;
+  color: gray;
+  font-size: 1.6rem;
+  min-width: 12rem;
+  padding: 1rem;
+}
