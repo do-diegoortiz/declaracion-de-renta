@@ -9,18 +9,16 @@ class Income extends React.Component {
   state = {
     income: [],
     fromDate: new Date(),
-    toDate: new Date('2019-12-31'),
+    toDate: moment(new Date(2019, 11, 31), 'YYYY-MM-DD'),
     showSummary: false,
   }
 
-  handleIncomeChange = e => {
-    e.preventDefault()
-    e.persist()
-
+  handleIncomeChange = newIncome => {
     this.setState((prevState) => {
       const incomeCopy = [...prevState.income]
-      if (e.target) {
-        const newValue = parseInt(e.target.value, 0)
+      if (newIncome) {
+        const newValue = parseInt(newIncome, 0)
+        // This position is hardCoded while we add support for more income sources
         incomeCopy[0] = newValue
       }
 
@@ -28,19 +26,20 @@ class Income extends React.Component {
     })
   }
 
-  handleFromDateChange = e => {
+  handleDateChange = e => {
     e.preventDefault()
     e.persist()
 
     this.setState(() => {
-      let fromDateCopy = new Date();
+      let newDateCopy = new Date();
+
       if (e.target) {
-        const newFromDate = moment(e.target.value, 'YYYY-MM-DD')
-        fromDateCopy = newFromDate
+        newDateCopy = moment(e.target.value, 'YYYY-MM-DD')
       }
 
-      return { fromDate: fromDateCopy }
+      return { [e.target.name]: newDateCopy }
     })
+    console.log(this.state.fromDate)
   }
 
   calculateIncome = e => {
@@ -49,10 +48,9 @@ class Income extends React.Component {
   }
 
   render (){
-    const { income, fromDate, showSummary } = this.state
+    const { income, fromDate, toDate, showSummary } = this.state
 
-    const lastDayOfTheYearForTesting = moment(new Date(2019, 11, 31), 'YYYY-MM-DD')
-    const totalDays = lastDayOfTheYearForTesting.diff(fromDate, 'days', false)
+    const totalDays = toDate.diff(fromDate, 'days', false)
 
     const total = income.map(salary => (
       <h1 key={salary}>
@@ -75,25 +73,32 @@ class Income extends React.Component {
             <option value='prestaciones'>Prestacion</option>
           </select>
     
-          <input
+          <NumberFormat
+            thousandSeparator={true}
+            prefix='$'
+            placeholder='($) Salario mensual en COP'
+            name='income'
+            decimalScale='0'
+            onValueChange={(values) => {this.handleIncomeChange(values.value)}}
+          />
+          {/* <input
             type='number'
             name='income'
             step='100'
-            placeholder='($) Salario mensual en COP'
-            onChange={this.handleIncomeChange}
-          />
+            required
+          /> */}
     
           <label htmlFor='de'>De</label>
-          <input type='date' name='de' onChange={this.handleFromDateChange} />
+          <input type='date' name='fromDate' onChange={e => this.handleDateChange(e)} />
     
           <label htmlFor='hasta'>Hasta</label>
-          <input type='date' name='hasta' value='2019-12-31' />
+          <input type='date' name='toDate' defaultValue='2019-12-31' onChange={e => this.handleDateChange(e)} />
     
           <input type='submit' value='Calcular' />
         </form>
 
       </div>
-      {showSummary > 0 ? total : ''}
+      {showSummary ? total : ''}
     
       <BlueButton label='Agregar +' onClick={this.calculateIncome} />
     </>
