@@ -13,52 +13,6 @@
   font-size: 2rem;
 }
 
-// Created Styles
-
-.cover {
-  display: flex;
-  align-items: flex-start;
-  height: 16vh;
-  width: 100%;
-  position: relative; /*required to use z-index*/
-  z-index: 10;
-}
-
-.formContainer > *:not([type="date"]) {
-  border-top: 0.1rem solid white;
-  border-bottom: 0.1rem solid white;
-}
-
-.formContainer input[type="submit"] {
-  background:#FF5A5F;
-  border-top: 0.1rem solid #FF5A5F;
-  border-bottom: 0.1rem solid #FF5A5F;
-  color:white;
-}
-
-.formContainer > * {
-  border: 0;
-  padding: 1rem;
-  background:white;
-  line-height: 5rem;
-  font-size: 2rem;
-  border-radius: 0;
-  outline: 0;
-  border-right: 0.1rem solid rgba(0,0,0,0.2);
-  -webkit-appearance: none;
-}
-
-.formContainer > *:last-child {
-  border-right: 0;
-}
-
-.formContainer {
-  display: flex;
-  border: 2rem solid rgba(0,0,0,.3);
-  border-radius: 0.5rem;
-  margin: 1rem auto;
-}
-
 .formTitle {
   font-size: 3rem;
   text-align: center;
