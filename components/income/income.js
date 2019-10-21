@@ -2,24 +2,25 @@ import React from 'react';
 import { BlueButton } from '../buttons/buttons'
 import NumberFormat from 'react-number-format'
 import moment from 'moment'
+import Summary from './summary/summary'
 
 import css from './income.scss'
 
 class Income extends React.Component {
   state = {
-    income: [],
+    income: 0,
     fromDate: new Date(),
     toDate: moment(new Date(2019, 11, 31), 'YYYY-MM-DD'),
     showSummary: false,
+    contract: 'nomina'
   }
 
   handleIncomeChange = newIncome => {
-    this.setState((prevState) => {
-      const incomeCopy = [...prevState.income]
+    this.setState(() => {
+      let incomeCopy
       if (newIncome) {
         const newValue = parseInt(newIncome, 0)
-        // This position is hardCoded while we add support for more income sources
-        incomeCopy[0] = newValue
+        incomeCopy = newValue
       }
 
       return { income: incomeCopy }
@@ -39,7 +40,10 @@ class Income extends React.Component {
 
       return { [e.target.name]: newDateCopy }
     })
-    console.log(this.state.fromDate)
+  }
+
+  handleContractChange = e => {
+    this.setState({contract: e.target.value})
   }
 
   calculateIncome = e => {
@@ -48,29 +52,18 @@ class Income extends React.Component {
   }
 
   render (){
-    const { income, fromDate, toDate, showSummary } = this.state
+    const { income, fromDate, toDate, showSummary, contract } = this.state
 
     const totalDays = toDate.diff(fromDate, 'days', false)
-
-    const total = income.map(salary => (
-      <h1 key={salary}>
-      En este trabajo los ingresos del año serán:
-        <NumberFormat
-          value={(salary / 30) * totalDays}
-          thousandSeparator={true}
-          prefix='$'
-          decimalScale='0'
-        />
-      </h1>
-    ))
 
     return <>
       <div className={css.cover}>
         <form className={css.formContainer} onSubmit={this.calculateIncome}>
-          <label htmlFor='salario'>Contrato</label>
-          <select name='' id=''>
-            <option value='nomina'>Nomina</option>
+          <label htmlFor='contract'>Contrato</label>
+          <select name='contract' id='contract' value={contract} onChange={this.handleContractChange}>
+            <option value='nomina'>Nómina</option>
             <option value='prestaciones'>Prestacion</option>
+            <option value='contratista'>Contratista</option>
           </select>
     
           <NumberFormat
@@ -80,13 +73,8 @@ class Income extends React.Component {
             name='income'
             decimalScale='0'
             onValueChange={(values) => {this.handleIncomeChange(values.value)}}
-          />
-          {/* <input
-            type='number'
-            name='income'
-            step='100'
             required
-          /> */}
+          />
     
           <label htmlFor='de'>De</label>
           <input type='date' name='fromDate' onChange={e => this.handleDateChange(e)} />
@@ -98,7 +86,8 @@ class Income extends React.Component {
         </form>
 
       </div>
-      {showSummary ? total : ''}
+
+      {showSummary && <Summary income={income} totalDays={totalDays} contract={contract} />}
     
       <BlueButton label='Agregar +' onClick={this.calculateIncome} />
     </>

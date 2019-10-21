@@ -1,0 +1,46 @@
+.SummaryContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 26rem;
+  background: #fff;
+  margin: 1rem auto;
+  padding: 1rem;
+}
+
+.TotalNumber input {
+  font-size: 3rem;
+  color: green;
+  text-align: center;
+}
+
+.Subtitle {
+  font-size: 1.8rem;
+  align-self: flex-start;
+}
+
+.PlusDetail {
+  font-size: 1.6rem;
+  align-self: flex-start;
+  width: 38%;
+  display: flex;
+  justify-content: space-between;
+  input {
+    color: green;
+    font-size: 1.6rem;
+  }
+}
+
+.LessDetail {
+  font-size: 1.6rem;
+  align-self: flex-start;
+  width: 38%;
+  display: flex;
+  justify-content: space-between;
+  input {
+    color: red;
+    font-size: 1.6rem;
+  }
+}
