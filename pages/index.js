@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Income from '../components/income/income'
+import Deductions from '../components/deductions/deductions'
 
 import css from './index.scss'
 
@@ -28,6 +29,11 @@ class Home extends React.Component {
         <h2 className={css.formTitle}>
           Deducciones
         </h2>
+        <p className={css.description}>
+          Escriba en cada casilla el valor total que esperar pagar en el año.
+        </p>
+
+        <Deductions />
         <ul>
           <h1>Info personal</h1>
           <li>Información reportada por terceros</li>
@@ -131,17 +137,6 @@ class Home extends React.Component {
           <li>Dependientes</li>
           <li>Donaciones</li>
         </ul>
-        <div className={css.cover}>
-          <form className={css.formContainer}>
-            <label htmlFor='de'>De</label>
-            <input type='date' name='de' />
-
-            <label htmlFor='hasta'>Hasta</label>
-            <input type='date' name='hasta' value='2019-12-31' />
-
-            <input type='submit' value='Calcular' />
-          </form>
-        </div>
       </div>
     )
   }
