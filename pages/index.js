@@ -1,12 +1,77 @@
 import React from 'react'
 import Head from 'next/head'
+import moment from 'moment'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 
 import css from './index.scss'
 
 class Home extends React.Component {
+  state = {
+    // INCOME
+    income: 0,
+    fromDate: new Date(),
+    toDate: moment(new Date(2019, 11, 31), 'YYYY-MM-DD'),
+    showSummary: false,
+    contract: 'nomina',
+
+    // DEDUCTIONS
+    prepaidMedicine: 0,
+    indepSocialSecurity: 0,
+    dependants: 0,
+    donations: 0,
+    voluntaryContributions: 0
+  }
+
+  handleIncomeChange = newIncome => {
+    this.setState(() => {
+      let incomeCopy
+      if (newIncome) {
+        const newValue = parseInt(newIncome, 0)
+        incomeCopy = newValue
+      }
+
+      return { income: incomeCopy }
+    })
+  }
+
+  handleDateChange = e => {
+    e.preventDefault()
+    e.persist()
+
+    this.setState(() => {
+      let newDateCopy = new Date();
+
+      if (e.target) {
+        newDateCopy = moment(e.target.value, 'YYYY-MM-DD')
+      }
+
+      return { [e.target.name]: newDateCopy }
+    })
+  }
+
+  handleContractChange = e => {
+    this.setState({contract: e.target.value})
+  }
+
+  calculateIncome = e => {
+    e.preventDefault()
+    this.setState({ showSummary: true })
+  }
+
+  // DEDUCTIONS
+  handleDeductionChange = e => {
+    e.preventDefault()
+    this.setState({[e.target.name]: e.target.value})
+    console.log(this.state)
+  }
+
   render() {
+    const {
+      income, fromDate, toDate, showSummary, contract, //INCOME
+      prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions //DEDUCTIONS
+    } = this.state
+    
     return (
       <div>
         <Head>
@@ -24,7 +89,17 @@ class Home extends React.Component {
           Ingresos
         </h2>
 
-        <Income />
+        <Income
+          handleIncomeChange={this.handleIncomeChange}
+          handleDateChange={this.handleDateChange}
+          handleContractChange={this.handleContractChange}
+          calculateIncome={this.calculateIncome}
+          income={income}
+          fromDate={fromDate}
+          toDate={toDate}
+          showSummary={showSummary}
+          contract={contract}
+        />
 
         <h2 className={css.formTitle}>
           Deducciones
@@ -33,7 +108,14 @@ class Home extends React.Component {
           Escriba en cada casilla el valor total que esperar pagar en el año.
         </p>
 
-        <Deductions />
+        <Deductions
+          handleDeductionChange={this.handleDeductionChange}
+          prepaidMedicine={prepaidMedicine}
+          indepSocialSecurity={indepSocialSecurity}
+          dependants={dependants}
+          donations={donations}
+          voluntaryContributions={voluntaryContributions}
+        />
         <ul>
           <h1>Info personal</h1>
           <li>Información reportada por terceros</li>

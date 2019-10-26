@@ -4,14 +4,6 @@ import NumberFormat from 'react-number-format'
 import css from './deductions.scss'
 
 class Deductions extends React.Component {
-  state = {
-
-  }
-
-  handleDeductionChange(value) {
-    console.log(value)
-  }
-
   render() {
     return <form className={css.formContainer}>
       <div className={css.formGroup}>
@@ -22,7 +14,7 @@ class Deductions extends React.Component {
           placeholder='$0'
           name='prepaidMedicine'
           decimalScale='0'
-          onValueChange={(values) => {this.handleDeductionChange(values.value)}}
+          onChange={(e) => {this.props.handleDeductionChange(e)}}
         />
       </div>
 
@@ -32,9 +24,9 @@ class Deductions extends React.Component {
           thousandSeparator={true}
           prefix='$'
           placeholder='$0'
-          name='prepaidMedicine'
+          name='indepSocialSecurity'
           decimalScale='0'
-          onValueChange={(values) => {this.handleDeductionChange(values.value)}}
+          onChange={(e) => {this.props.handleDeductionChange(e)}}
         />
       </div>
 
@@ -43,10 +35,10 @@ class Deductions extends React.Component {
         <NumberFormat
           thousandSeparator={true}
           prefix='$'
-          placeholder='$0'
-          name='prepaidMedicine'
+          placeholder='$0 (2M/ Cabeza)'
+          name='dependants'
           decimalScale='0'
-          onValueChange={(values) => {this.handleDeductionChange(values.value)}}
+          onChange={(e) => {this.props.handleDeductionChange(e)}}
         />
       </div>
 
@@ -56,9 +48,9 @@ class Deductions extends React.Component {
           thousandSeparator={true}
           prefix='$'
           placeholder='$0'
-          name='prepaidMedicine'
+          name='donations'
           decimalScale='0'
-          onValueChange={(values) => {this.handleDeductionChange(values.value)}}
+          onChange={(e) => {this.props.handleDeductionChange(e)}}
         />
       </div>
 
@@ -68,22 +60,16 @@ class Deductions extends React.Component {
           thousandSeparator={true}
           prefix='$'
           placeholder='$0'
-          name='prepaidMedicine'
+          name='voluntaryContributions'
           decimalScale='0'
-          onValueChange={(values) => {this.handleDeductionChange(values.value)}}
+          onChange={(e) => {this.props.handleDeductionChange(e)}}
         />
       </div>
 
       {/* <h1>Aportes voluntarios a fondos de pensiones y retiro de cesantías</h1>
       <li>Certificado de aportes y Retenciones de pensiones voluntarias Individual 2018 #1</li>
       <li>Certificado tributario de cesantías año actual</li>
-      <li>Certificado tributario de cesantías año anterior</li>
-
-      <h1>Deducciones</h1>
-      <li>Medicina prepagada</li>
-      <li>Aportes como independiente a seguridad social</li>
-      <li>Dependientes</li>
-      <li>Donaciones</li> */}
+      <li>Certificado tributario de cesantías año anterior</li> */}
     </form>
   }
 }
