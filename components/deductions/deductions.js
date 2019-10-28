@@ -1,5 +1,5 @@
 import React from 'react'
-import NumberFormat from 'react-number-format'
+import DeductionInput from './deductionInput/deductionInput'
 
 import css from './deductions.scss'
 
@@ -8,61 +8,41 @@ class Deductions extends React.Component {
     return <form className={css.formContainer}>
       <div className={css.formGroup}>
         <label className={css.label}>Medicina Prepagada</label>
-        <NumberFormat
-          thousandSeparator={true}
-          prefix='$'
-          placeholder='$0'
+        <DeductionInput
           name='prepaidMedicine'
-          decimalScale='0'
-          onChange={(e) => {this.props.handleDeductionChange(e)}}
+          onChange={this.props.handleDeductionChange}
         />
       </div>
 
       <div className={css.formGroup}>
         <label className={css.label}>Aportes Como Ind. a SS</label>
-        <NumberFormat
-          thousandSeparator={true}
-          prefix='$'
-          placeholder='$0'
+        <DeductionInput
           name='indepSocialSecurity'
-          decimalScale='0'
-          onChange={(e) => {this.props.handleDeductionChange(e)}}
+          onChange={this.props.handleDeductionChange}
         />
       </div>
 
       <div className={css.formGroup}>
         <label className={css.label}>Dependientes</label>
-        <NumberFormat
-          thousandSeparator={true}
-          prefix='$'
-          placeholder='$0 (2M/ Cabeza)'
+        <DeductionInput
           name='dependants'
-          decimalScale='0'
-          onChange={(e) => {this.props.handleDeductionChange(e)}}
+          onChange={this.props.handleDeductionChange}
         />
       </div>
 
       <div className={css.formGroup}>
         <label className={css.label}>Donaciones</label>
-        <NumberFormat
-          thousandSeparator={true}
-          prefix='$'
-          placeholder='$0'
+        <DeductionInput
           name='donations'
-          decimalScale='0'
-          onChange={(e) => {this.props.handleDeductionChange(e)}}
+          onChange={this.props.handleDeductionChange}
         />
       </div>
 
       <div className={css.formGroup}>
         <label className={css.label}>Aportes a Pens Voluntar.</label>
-        <NumberFormat
-          thousandSeparator={true}
-          prefix='$'
-          placeholder='$0'
+        <DeductionInput
           name='voluntaryContributions'
-          decimalScale='0'
-          onChange={(e) => {this.props.handleDeductionChange(e)}}
+          onChange={this.props.handleDeductionChange}
         />
       </div>
 

@@ -1,10 +1,13 @@
 import React from 'react'
 import Head from 'next/head'
 import moment from 'moment'
+import NumberFormat from 'react-number-format'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 
 import css from './index.scss'
+
+const UVT = 33156
 
 class Home extends React.Component {
   state = {
@@ -60,10 +63,8 @@ class Home extends React.Component {
   }
 
   // DEDUCTIONS
-  handleDeductionChange = e => {
-    e.preventDefault()
-    this.setState({[e.target.name]: e.target.value})
-    console.log(this.state)
+  handleDeductionChange = (e, newValue) => {
+    this.setState({[e.target.name]: newValue})
   }
 
   render() {
@@ -71,6 +72,8 @@ class Home extends React.Component {
       income, fromDate, toDate, showSummary, contract, //INCOME
       prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions //DEDUCTIONS
     } = this.state
+
+    const totalDays = toDate.diff(fromDate, 'days', false)
     
     return (
       <div>
@@ -116,6 +119,18 @@ class Home extends React.Component {
           donations={donations}
           voluntaryContributions={voluntaryContributions}
         />
+
+        <h3 style={{'color': 'red'}}>
+          Valor a consignar en pensiones voluntarias:
+          <NumberFormat
+            // MEJORAR FORMULA PARA NO RESTAR TODO, SINO SOLO CUANDO PASE DEL 5%
+            value={(income / 30 * totalDays ) > (UVT * 1090) ? (((income / 30) * totalDays * 0.1) - prepaidMedicine - indepSocialSecurity - dependants - donations - voluntaryContributions) : 0 }
+            thousandSeparator={true}
+            prefix='$'
+            decimalScale='0'
+          />
+        </h3>
+
         <ul>
           <h1>Info personal</h1>
           <li>Información reportada por terceros</li>
