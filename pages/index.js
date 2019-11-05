@@ -131,14 +131,14 @@ class Home extends React.Component {
           />
         </h3>
 
-        <ul>
+        <ul className= {css.primary}>
           <h1>Info personal</h1>
           <li>Información reportada por terceros</li>
           <li>Formulario del año anterior</li>
 
           <h1>Productos financieros</h1>
           <li>Certificado anual de retención en la fuente de cada banco</li>
-          <li>
+          <li className= {css.list}>
             <h3>Productos no bancarios</h3>
             <ul>
               <li>Comisionistas de bolsa</li>
@@ -149,7 +149,7 @@ class Home extends React.Component {
               <li>Efectivo</li>
             </ul>
           </li>
-          <li>
+          <li className ={css.list}>
             <h3>Deudas no bancarias</h3>
             <ul>
               <li>Créditos educativos</li>
@@ -158,7 +158,7 @@ class Home extends React.Component {
           </li>
 
           <h1>Bienes</h1>
-          <li>
+          <li className = {css.list}>
             <h3>Bienes Personales</h3>
             <ul>
               <li>Vehiculos personales</li>
@@ -167,7 +167,7 @@ class Home extends React.Component {
               <li>Otros bienes o articulos personales</li>
             </ul>
           </li>
-          <li>
+          <li className = {css.list}>
             <h3>Bienes De Tu Negocio Personal</h3>
             <ul>
               <li>Maquinas o bienes de uso comercial</li>
@@ -178,7 +178,7 @@ class Home extends React.Component {
 
 
           <h1>Ingresos</h1>
-          <li>
+          <li className ={css.list}>
             <h3>Ingresos laborales o pensionales</h3>
             <ul>
               <li>Salario (Certificado ingresos y retenciones de cada trabajo)</li>
@@ -187,16 +187,16 @@ class Home extends React.Component {
               <li>Pensiones de jubilación</li>
             </ul>
           </li>
-          <li>
+          <li className={css.list}>
             <h3>Ingresos por arrendamientos</h3>
-            <ul>
+            <ul className ={css.try}>
               <li>Arrendamiento de bienes raices</li>
               <li>Arrendamiento de vehículos</li>
               <li>Arrendamiento de maquinaria</li>
               <li>Arrendamiento de otros bienes</li>
             </ul>
           </li>
-          <li>
+          <li className={css.list}>
             <h3>Ingresos por venta de bienes</h3>
             <ul>
               <li>Venta de vehículo</li>
@@ -211,7 +211,7 @@ class Home extends React.Component {
               </li>
             </ul>
           </li>
-          <li>
+          <li className={css.list}>
             <h3>Ingresos ocasionales</h3>
             <ul>
               <li>Herencia, legado o donación</li>

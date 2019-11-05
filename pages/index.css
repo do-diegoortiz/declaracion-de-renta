@@ -1,0 +1,23 @@
+.title {
+  margin: 0;
+  width: 100%;
+  padding-top: 8rem;
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+.title,
+.description {
+  text-align: center;
+}
+
+.description {
+  font-size: 2rem;
+}
+
+.formTitle {
+  font-size: 3rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+/*# sourceMappingURL=index.css.map */
