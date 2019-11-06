@@ -4,6 +4,16 @@ import DeductionInput from './deductionInput/deductionInput'
 import css from './deductions.scss'
 
 class Deductions extends React.Component {
+  // https://www.youtube.com/watch?v=sHHbAlznq08
+  // Deducciones:
+  // Dependientes (Hasta el 10% del ingreso bruto o hasta 384 UVT)
+  // Medicina prepagada o Plan Complementario (Hasta 16UVT mensual)
+  // Intereses de prestamos de vivienda
+  // 50% del 4 x 1000
+  // Aporte a cesantias hasta por 2500 UVT
+
+  // Rentas exentas:
+  // Cesatias e intereses de cesantias
   render() {
     return <form className={css.formContainer}>
       <div className={css.formGroup}>

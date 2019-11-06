@@ -7,13 +7,15 @@ import css from './income.scss'
 
 class Income extends React.Component {
   render (){
-    const { income, fromDate, toDate, showSummary, contract } = this.props
+    const { income, fromDate, toDate, showSummary, contract, incomeSources } = this.props
 
     const totalDays = toDate.diff(fromDate, 'days', false)
+    const forms = [];
 
-    return <>
-      <div className={css.cover}>
-        <form className={css.formContainer} onSubmit={this.props.calculateIncome}>
+    for (let i = 0; i < incomeSources; i++) {
+      forms.push(
+        <form className={css.formContainer} onSubmit={this.props.calculateIncome}  key={i}>
+          <h1>{i+1}</h1>
           <label htmlFor='contract'>Contrato</label>
           <select name='contract' id='contract' value={contract} onChange={this.props.handleContractChange}>
             <option value='nomina'>Nómina</option>
@@ -39,12 +41,17 @@ class Income extends React.Component {
     
           <input type='submit' value='Calcular' />
         </form>
+      )
+    }
 
+    return <>
+      <div className={css.cover}>
+        {forms}
       </div>
 
+      <BlueButton label='Agregar Ingreso+' onClick={this.props.increaseIncomeSources} />
+
       {showSummary && <Summary income={income} totalDays={totalDays} contract={contract} />}
-    
-      <BlueButton label='Agregar +' onClick={this.props.calculateIncome} />
     </>
   }
 }

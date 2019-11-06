@@ -12,6 +12,7 @@ const UVT = 33156
 class Home extends React.Component {
   state = {
     // INCOME
+    incomeSources: 2,
     income: 0,
     fromDate: new Date(),
     toDate: moment(new Date(2019, 11, 31), 'YYYY-MM-DD'),
@@ -67,9 +68,14 @@ class Home extends React.Component {
     this.setState({[e.target.name]: newValue})
   }
 
+  increaseIncomeSources = () => {
+    this.setState({incomeSources: this.state.incomeSources + 1})
+    this.calculateIncome
+  }
+
   render() {
     const {
-      income, fromDate, toDate, showSummary, contract, //INCOME
+      incomeSources, income, fromDate, toDate, showSummary, contract, //INCOME
       prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions //DEDUCTIONS
     } = this.state
 
@@ -97,6 +103,8 @@ class Home extends React.Component {
           handleDateChange={this.handleDateChange}
           handleContractChange={this.handleContractChange}
           calculateIncome={this.calculateIncome}
+          increaseIncomeSources={this.increaseIncomeSources}
+          incomeSources={incomeSources}
           income={income}
           fromDate={fromDate}
           toDate={toDate}
