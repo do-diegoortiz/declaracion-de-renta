@@ -133,14 +133,14 @@ class Home extends React.Component {
 
         <ul className= {css.primary}>
           <h1>Info personal</h1>
-          <li>Información reportada por terceros</li>
-          <li>Formulario del año anterior</li>
+          <li className={css.para}>Información reportada por terceros</li>
+          <li className={css.para}>Formulario del año anterior</li>
 
           <h1>Productos financieros</h1>
-          <li>Certificado anual de retención en la fuente de cada banco</li>
+          <li className={css.para}>Certificado anual de retención en la fuente de cada banco</li>
           <li className= {css.list}>
-            <h3>Productos no bancarios</h3>
-            <ul>
+            <h3 className={css.listTitle}>Productos no bancarios</h3>
+            <ul className={css.por}>
               <li>Comisionistas de bolsa</li>
               <li>Acciones de sociedades privadas</li>
               <li>Cooperativas de ahorro y compañias de financiamiento</li>
@@ -150,8 +150,8 @@ class Home extends React.Component {
             </ul>
           </li>
           <li className ={css.list}>
-            <h3>Deudas no bancarias</h3>
-            <ul>
+            <h3 className={css.listTitle}>Deudas no bancarias</h3>
+            <ul className={css.por}>
               <li>Créditos educativos</li>
               <li>Deudas con terceros</li>
             </ul>
@@ -159,8 +159,8 @@ class Home extends React.Component {
 
           <h1>Bienes</h1>
           <li className = {css.list}>
-            <h3>Bienes Personales</h3>
-            <ul>
+            <h3 className={css.listTitle}>Bienes Personales</h3>
+            <ul className={css.por}>
               <li>Vehiculos personales</li>
               <li>Bienes raices</li>
               <li>Bienes raices sobre planos</li>
@@ -168,8 +168,8 @@ class Home extends React.Component {
             </ul>
           </li>
           <li className = {css.list}>
-            <h3>Bienes De Tu Negocio Personal</h3>
-            <ul>
+            <h3 className={css.listTitle}>Bienes De Tu Negocio Personal</h3>
+            <ul className={css.por}>
               <li>Maquinas o bienes de uso comercial</li>
               <li>Inventarios</li>
               <li>Bienes raices para desarrollo del negocio</li>
@@ -179,8 +179,8 @@ class Home extends React.Component {
 
           <h1>Ingresos</h1>
           <li className ={css.list}>
-            <h3>Ingresos laborales o pensionales</h3>
-            <ul>
+            <h3 className={css.listTitle}>Ingresos laborales o pensionales</h3>
+            <ul className={css.por1}>
               <li>Salario (Certificado ingresos y retenciones de cada trabajo)</li>
               <li>Honorarios, servicios o comisiones como independiente (Cta cobro o cert+retenciones e Información de Gastos)</li>
               <li>Negocio propio</li>
@@ -188,8 +188,8 @@ class Home extends React.Component {
             </ul>
           </li>
           <li className={css.list}>
-            <h3>Ingresos por arrendamientos</h3>
-            <ul className ={css.try}>
+            <h3 className={css.listTitle}>Ingresos por arrendamientos</h3>
+            <ul className={css.por}>
               <li>Arrendamiento de bienes raices</li>
               <li>Arrendamiento de vehículos</li>
               <li>Arrendamiento de maquinaria</li>
@@ -197,23 +197,23 @@ class Home extends React.Component {
             </ul>
           </li>
           <li className={css.list}>
-            <h3>Ingresos por venta de bienes</h3>
-            <ul>
+            <h3 className={css.listTitle}>Ingresos por venta de bienes</h3>
+            <ul className={css.por}>
               <li>Venta de vehículo</li>
               <li>Venta de bienes raices incluyendo lote</li>
               <li>Venta de acciones o participaciones en sociedades</li>
-              <li>
+              <li className={css.list1}>
                 Venta de otros bienes
                 <ul>
-                  <li>(e.g. venta de computador a LEC y su rte/fte, con fecha aproximada)</li>
-                  <li>(e.g. compra del mismo)</li>
+                  <li className ={css.listte}>(e.g. venta de computador a LEC y su rte/fte, con fecha aproximada)</li>
+                  <li className ={css.listte}>(e.g. compra del mismo)</li>
                 </ul>
               </li>
             </ul>
           </li>
           <li className={css.list}>
-            <h3>Ingresos ocasionales</h3>
-            <ul>
+            <h3 className={css.listTitle}>Ingresos ocasionales</h3>
+            <ul className={css.por}>
               <li>Herencia, legado o donación</li>
               <li>Liquidación sociedad conyugal</li>
               <li>Indemnisaciones y subsidios estatales</li>

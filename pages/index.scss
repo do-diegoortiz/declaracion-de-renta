@@ -41,7 +41,7 @@
   border-bottom: 0.1em solid lightgray;
 }
 
-.primary li {
+.primary .para {
   list-style-type: none;
   padding:1rem 0.6rem;
   height:1.5rem;
@@ -51,11 +51,19 @@
   background: #fff;
 }
 
-.primary li:nth-child(odd) {
+.primary .para:nth-child(odd) {
   border-bottom: 0.1em solid gray;
 }
 
-.list h3 {
+.list {
+  list-style-type:none;
+  height:inherit;
+  line-height: 1.5rem;
+  border-bottom: 0.1em solid lightgray;
+  background: #fff;
+
+}
+.listTitle {
   padding:0.6rem 2rem;
   font-weight:bold;
   font-size:1.3rem;
@@ -66,16 +74,51 @@
   border-bottom: 0.1rem solid lightgray;
 }
 
-.list h3 > ul > li {
+.por {
+width:40%;
+margin:1rem 6rem;
+border-radius:2rem;
+background: rgb(199, 196, 196);
+}
+
+.por1 {
+  width:70%;
+  margin:1rem 6rem;
+  border-radius:2rem;
+  background: rgb(199, 196, 196);
+}
+.por li ,.por1 li {
   list-style-type: none;
   padding:1rem 0.6rem;
+  width:220%;
   height:1.5rem;
   font-size:1.3em;
   line-height: 1.5rem;
-  border-bottom: 0.1em solid lightgray;
-  background: #fff;
-  z-index:22;
+  border-bottom: 0.1em solid gray;
 }
-.list h3 > ul > li:hover {
+
+.por1 li {
+  width:124%;
+}
+
+.por li:last-child, .por1 li:last-child {
+  border-bottom:0;
+}
+
+.por li:hover {
   background: lightskyblue;
+}
+
+.por .list1 {
+  border-radius:2rem;
+  border-top-left-radius: 0;
+  border-top-right-radius:0;
+  background: lightblue;
+}
+
+.listte {
+  margin:0 auto;
+  height:1.5rem;
+  line-height: 1.5rem;
+  border:2px solid seagreen;
 }
