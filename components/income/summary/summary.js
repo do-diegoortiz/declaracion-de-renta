@@ -6,7 +6,7 @@ import css from './summary.scss';
 
 export const Summary = ({ income, totalDays, contract }) => {
   Summary.propTypes = {
-    income: PropTypes.number.isRequired,
+    income: PropTypes.array.isRequired,
     totalDays: PropTypes.number.isRequired,
     contract: PropTypes.string.isRequired
   };

@@ -1,46 +1,62 @@
 import React from 'react';
+import moment from 'moment'
 import { BlueButton } from '../buttons/buttons'
-import NumberFormat from 'react-number-format'
 import Summary from './summary/summary'
+import FormIncome from './formIncome/formIncome'
 
 import css from './income.scss'
 
 class Income extends React.Component {
-  render (){
-    const { income, fromDate, toDate, showSummary, contract, incomeSources } = this.props
+  state = {
+    datesPerIncome: [
+      {
+        fromDate: new Date(),
+        toDate: moment(new Date(2019, 11, 31))
+      }
+    ]
+  }
 
-    const totalDays = toDate.diff(fromDate, 'days', false)
+  handleDateChange = (e, index) => {
+    // e.preventDefault()
+    // e.persist()
+    const datesCopy = [...this.state.datesPerIncome]
+    let newDateCopy = new Date();
+
+    if (e.target) {
+      newDateCopy = moment(e.target.value, 'YYYY-MM-DD')
+    }
+    
+    datesCopy[index][e.target.name] = newDateCopy
+
+    const newWorkedDays = datesCopy[index].toDate.diff(datesCopy[index].fromDate, 'days', false)
+
+    this.setState({datesPerIncome:datesCopy})
+    this.props.handleWorkedDays(newWorkedDays, index)
+  }
+
+  render (){
+    const { showSummary, incomeSources } = this.props
+    // income, contract
+    
     const forms = [];
 
-    for (let i = 0; i < incomeSources; i++) {
+    for (let incomeIndex = 0; incomeIndex < incomeSources.length; incomeIndex++) {
+      const fromDate = new Date()
+      const toDate = moment(new Date(2019, 11, 31), 'YYYY-MM-DD')
+      const totalDays = 
+
       forms.push(
-        <form className={css.formContainer} onSubmit={this.props.calculateIncome}  key={i}>
-          <h1>{i+1}</h1>
-          <label htmlFor='contract'>Contrato</label>
-          <select name='contract' id='contract' value={contract} onChange={this.props.handleContractChange}>
-            <option value='nomina'>Nómina</option>
-            <option value='prestaciones'>Prestacion</option>
-            <option value='contratista'>Contratista</option>
-          </select>
-    
-          <NumberFormat
-            thousandSeparator={true}
-            prefix='$'
-            placeholder='($) Salario mensual en COP'
-            name='income'
-            decimalScale='0'
-            onValueChange={(values) => {this.props.handleIncomeChange(values.value)}}
-            required
+        <>
+          <FormIncome
+            handleDateChange={this.handleDateChange}
+            handleIncomeChange={this.props.handleIncomeChange}
+            handleContractChange={this.props.handleContractChange}
+            contract={incomeSources[incomeIndex].contract}
+            incomeIndex={incomeIndex}
+            key={incomeIndex}
           />
-    
-          <label htmlFor='de'>De</label>
-          <input type='date' name='fromDate' onChange={e => this.props.handleDateChange(e)} />
-    
-          <label htmlFor='hasta'>Hasta</label>
-          <input type='date' name='toDate' defaultValue='2019-12-31' onChange={e => this.props.handleDateChange(e)} />
-    
-          <input type='submit' value='Calcular' />
-        </form>
+          <h1>{incomeSources[incomeIndex].workedDays}</h1>
+        </>
       )
     }
 

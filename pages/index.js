@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
@@ -11,13 +10,15 @@ const UVT = 33156
 
 class Home extends React.Component {
   state = {
-    // INCOME
-    incomeSources: 2,
-    income: 0,
-    fromDate: new Date(),
-    toDate: moment(new Date(2019, 11, 31), 'YYYY-MM-DD'),
     showSummary: false,
-    contract: 'nomina',
+    // INCOME
+    incomeSources: [
+      {
+        income: [],
+        workedDays: 0,
+        contract: 'nomina'
+      }
+    ],
 
     // DEDUCTIONS
     prepaidMedicine: 0,
@@ -39,23 +40,15 @@ class Home extends React.Component {
     })
   }
 
-  handleDateChange = e => {
-    e.preventDefault()
-    e.persist()
-
-    this.setState(() => {
-      let newDateCopy = new Date();
-
-      if (e.target) {
-        newDateCopy = moment(e.target.value, 'YYYY-MM-DD')
-      }
-
-      return { [e.target.name]: newDateCopy }
-    })
-  }
-
   handleContractChange = e => {
     this.setState({contract: e.target.value})
+  }
+
+  handleWorkedDays = (days, index) => {
+    const sourcesCopy = [...this.state.incomeSources]
+    sourcesCopy[index].workedDays = days
+
+    this.setState({incomeSources: sourcesCopy})
   }
 
   calculateIncome = e => {
@@ -75,11 +68,12 @@ class Home extends React.Component {
 
   render() {
     const {
-      incomeSources, income, fromDate, toDate, showSummary, contract, //INCOME
+      showSummary, incomeSources, //INCOME
       prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions //DEDUCTIONS
     } = this.state
 
-    const totalDays = toDate.diff(fromDate, 'days', false)
+    const totalDays = 10
+    // const totalDays = toDate.diff(fromDate, 'days', false)
     
     return (
       <div>
@@ -100,16 +94,12 @@ class Home extends React.Component {
 
         <Income
           handleIncomeChange={this.handleIncomeChange}
-          handleDateChange={this.handleDateChange}
           handleContractChange={this.handleContractChange}
+          handleWorkedDays={this.handleWorkedDays}
           calculateIncome={this.calculateIncome}
           increaseIncomeSources={this.increaseIncomeSources}
-          incomeSources={incomeSources}
-          income={income}
-          fromDate={fromDate}
-          toDate={toDate}
           showSummary={showSummary}
-          contract={contract}
+          incomeSources={incomeSources}
         />
 
         <h2 className={css.formTitle}>
@@ -128,7 +118,7 @@ class Home extends React.Component {
           voluntaryContributions={voluntaryContributions}
         />
 
-        <h3 style={{'color': 'red'}}>
+        {/* <h3 style={{'color': 'red'}}>
           Valor a consignar en pensiones voluntarias:
           <NumberFormat
             // MEJORAR FORMULA PARA NO RESTAR TODO, SINO SOLO CUANDO PASE DEL 5%
@@ -137,7 +127,7 @@ class Home extends React.Component {
             prefix='$'
             decimalScale='0'
           />
-        </h3>
+        </h3> */}
 
         <ul>
           <h1>Info personal</h1>
