@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format'
 import css from './formIncome.scss';
 
-const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange, contract, incomeIndex }) => {
+const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange, showSummary, contract, incomeIndex }) => {
   FormIncome.propTypes = {
     handleDateChange: PropTypes.func.isRequired,
     handleIncomeChange: PropTypes.func.isRequired,
     handleContractChange: PropTypes.func.isRequired,
+    showSummary: PropTypes.func.isRequired,
     contract: PropTypes.string.isRequired,
     incomeIndex: PropTypes.number.isRequired,
   };
 
   return (
-    <form className={css.formContainer}>
-    {/* <form className={css.formContainer} onSubmit={calculateIncome}  key={incomeIndex}></form> */}
+    <form className={css.formContainer} onSubmit={showSummary}  key={incomeIndex}>
       <h1>{incomeIndex+1}</h1>
       <label htmlFor='contract'>Contrato</label>
       <select name='contract' id='contract' value={contract} onChange={handleContractChange}>
@@ -29,7 +29,7 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
         placeholder='($) Salario mensual en COP'
         name='income'
         decimalScale='0'
-        onValueChange={(values) => {handleIncomeChange(values.value)}}
+        onValueChange={(values) => {handleIncomeChange(values.value, incomeIndex)}}
         required
       />
 

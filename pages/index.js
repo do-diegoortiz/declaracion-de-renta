@@ -10,7 +10,7 @@ const UVT = 33156
 
 class Home extends React.Component {
   state = {
-    showSummary: false,
+    summaryVisible: false,
     // INCOME
     incomeSources: [
       {
@@ -28,16 +28,15 @@ class Home extends React.Component {
     voluntaryContributions: 0
   }
 
-  handleIncomeChange = newIncome => {
-    this.setState(() => {
-      let incomeCopy
-      if (newIncome) {
-        const newValue = parseInt(newIncome, 0)
-        incomeCopy = newValue
-      }
+  handleIncomeChange = (newIncome, index) => {
+    if (newIncome) {
+      const newValue = parseInt(newIncome, 0)
 
-      return { income: incomeCopy }
-    })
+      const sourcesCopy = [...this.state.incomeSources]
+      sourcesCopy[index].income = newValue
+
+      this.setState({incomeSources: sourcesCopy})
+    }
   }
 
   handleContractChange = e => {
@@ -51,9 +50,9 @@ class Home extends React.Component {
     this.setState({incomeSources: sourcesCopy})
   }
 
-  calculateIncome = e => {
+  showSummary = e => {
     e.preventDefault()
-    this.setState({ showSummary: true })
+    this.setState({ summaryVisible: true })
   }
 
   // DEDUCTIONS
@@ -72,12 +71,12 @@ class Home extends React.Component {
     )
 
     this.setState({incomeSources: sourcesCopy})
-    this.calculateIncome
+    this.showSummary
   }
 
   render() {
     const {
-      showSummary, incomeSources, //INCOME
+      summaryVisible, incomeSources, //INCOME
       prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions //DEDUCTIONS
     } = this.state
 
@@ -105,9 +104,9 @@ class Home extends React.Component {
           handleIncomeChange={this.handleIncomeChange}
           handleContractChange={this.handleContractChange}
           handleWorkedDays={this.handleWorkedDays}
-          calculateIncome={this.calculateIncome}
+          showSummary={this.showSummary}
           increaseIncomeSources={this.increaseIncomeSources}
-          showSummary={showSummary}
+          summaryVisible={summaryVisible}
           incomeSources={incomeSources}
         />
 

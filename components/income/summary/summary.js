@@ -54,7 +54,7 @@ export const Summary = ({ income, totalDays, contract }) => {
   return <div class={css.SummaryContainer}>
     <h1 key={income}>
       En este trabajo los ingresos totales son:
-      <p class={css.TotalNumber}>
+      <p className={css.TotalNumber}>
         <NumberFormat
           value={totalIncome}
           thousandSeparator={true}

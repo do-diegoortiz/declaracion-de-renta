@@ -35,21 +35,18 @@ class Income extends React.Component {
   }
 
   render (){
-    const { showSummary, incomeSources } = this.props
+    const { summaryVisible, incomeSources, showSummary } = this.props
     // income, contract
     
     const forms = [];
 
     for (let incomeIndex = 0; incomeIndex < incomeSources.length; incomeIndex++) {
-      const fromDate = new Date()
-      const toDate = moment(new Date(2019, 11, 31), 'YYYY-MM-DD')
-      const totalDays = 
-
       forms.push(
         <FormIncome
           handleDateChange={this.handleDateChange}
           handleIncomeChange={this.props.handleIncomeChange}
           handleContractChange={this.props.handleContractChange}
+          showSummary={showSummary}
           contract={incomeSources[incomeIndex].contract}
           incomeIndex={incomeIndex}
           key={incomeIndex}
@@ -64,7 +61,7 @@ class Income extends React.Component {
 
       <BlueButton label='Agregar Ingreso+' onClick={this.props.increaseIncomeSources} />
 
-      {showSummary && <Summary income={income} totalDays={totalDays} contract={contract} />}
+      {summaryVisible && <Summary income={incomeSources[0].income} totalDays={incomeSources[0].workedDays} contract={incomeSources[0].contract} />}
     </>
   }
 }
