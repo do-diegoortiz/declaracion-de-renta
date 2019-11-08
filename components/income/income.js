@@ -25,7 +25,7 @@ class Income extends React.Component {
     if (e.target) {
       newDateCopy = moment(e.target.value, 'YYYY-MM-DD')
     }
-    
+
     datesCopy[index][e.target.name] = newDateCopy
 
     const newWorkedDays = datesCopy[index].toDate.diff(datesCopy[index].fromDate, 'days', false)
@@ -46,17 +46,14 @@ class Income extends React.Component {
       const totalDays = 
 
       forms.push(
-        <>
-          <FormIncome
-            handleDateChange={this.handleDateChange}
-            handleIncomeChange={this.props.handleIncomeChange}
-            handleContractChange={this.props.handleContractChange}
-            contract={incomeSources[incomeIndex].contract}
-            incomeIndex={incomeIndex}
-            key={incomeIndex}
-          />
-          <h1>{incomeSources[incomeIndex].workedDays}</h1>
-        </>
+        <FormIncome
+          handleDateChange={this.handleDateChange}
+          handleIncomeChange={this.props.handleIncomeChange}
+          handleContractChange={this.props.handleContractChange}
+          contract={incomeSources[incomeIndex].contract}
+          incomeIndex={incomeIndex}
+          key={incomeIndex}
+        />
       )
     }
 

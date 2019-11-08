@@ -62,7 +62,16 @@ class Home extends React.Component {
   }
 
   increaseIncomeSources = () => {
-    this.setState({incomeSources: this.state.incomeSources + 1})
+    const sourcesCopy = [...this.state.incomeSources]
+    sourcesCopy.push(
+      {
+        income: [],
+        workedDays: 0,
+        contract: 'nomina'
+      }
+    )
+
+    this.setState({incomeSources: sourcesCopy})
     this.calculateIncome
   }
 
