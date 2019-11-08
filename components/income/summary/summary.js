@@ -51,7 +51,7 @@ export const Summary = ({ income, totalDays, contract }) => {
       break;
   }
 
-  return <div class={css.SummaryContainer}>
+  return <div className={css.SummaryContainer}>
     <h1 key={income}>
       En este trabajo los ingresos totales son:
       <p className={css.TotalNumber}>

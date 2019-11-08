@@ -16,6 +16,19 @@ class Income extends React.Component {
     ]
   }
 
+  createNewForm = () => {
+    const datesCopy = [...this.state.datesPerIncome]
+    datesCopy.push(
+      {
+        fromDate: new Date(),
+        toDate: moment(new Date(2019, 11, 31))
+      }
+    )
+
+    this.setState({datesPerIncome: datesCopy})
+    this.props.increaseIncomeSources()
+  }
+
   handleDateChange = (e, index) => {
     // e.preventDefault()
     // e.persist()
@@ -39,6 +52,7 @@ class Income extends React.Component {
     // income, contract
     
     const forms = [];
+    const jobsSummary = [];
 
     for (let incomeIndex = 0; incomeIndex < incomeSources.length; incomeIndex++) {
       forms.push(
@@ -52,6 +66,14 @@ class Income extends React.Component {
           key={incomeIndex}
         />
       )
+
+      jobsSummary.push(
+        <Summary
+          income={incomeSources[incomeIndex].income}
+          totalDays={incomeSources[incomeIndex].workedDays}
+          contract={incomeSources[incomeIndex].contract}
+        />
+      )
     }
 
     return <>
@@ -59,9 +81,9 @@ class Income extends React.Component {
         {forms}
       </div>
 
-      <BlueButton label='Agregar Ingreso+' onClick={this.props.increaseIncomeSources} />
+      <BlueButton label='Agregar Ingreso+' onClick={this.createNewForm} />
 
-      {summaryVisible && <Summary income={incomeSources[0].income} totalDays={incomeSources[0].workedDays} contract={incomeSources[0].contract} />}
+      {summaryVisible && jobsSummary}
     </>
   }
 }

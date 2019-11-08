@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import NumberFormat from 'react-number-format'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 
@@ -14,7 +13,7 @@ class Home extends React.Component {
     // INCOME
     incomeSources: [
       {
-        income: [],
+        income: 0,
         workedDays: 0,
         contract: 'nomina'
       }
@@ -26,6 +25,20 @@ class Home extends React.Component {
     dependants: 0,
     donations: 0,
     voluntaryContributions: 0
+  }
+
+  increaseIncomeSources = () => {
+    const sourcesCopy = [...this.state.incomeSources]
+    sourcesCopy.push(
+      {
+        income: [],
+        workedDays: 0,
+        contract: 'nomina'
+      }
+    )
+
+    this.setState({incomeSources: sourcesCopy})
+    this.showSummary
   }
 
   handleIncomeChange = (newIncome, index) => {
@@ -60,29 +73,12 @@ class Home extends React.Component {
     this.setState({[e.target.name]: newValue})
   }
 
-  increaseIncomeSources = () => {
-    const sourcesCopy = [...this.state.incomeSources]
-    sourcesCopy.push(
-      {
-        income: [],
-        workedDays: 0,
-        contract: 'nomina'
-      }
-    )
-
-    this.setState({incomeSources: sourcesCopy})
-    this.showSummary
-  }
-
   render() {
     const {
       summaryVisible, incomeSources, //INCOME
       prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions //DEDUCTIONS
     } = this.state
 
-    const totalDays = 10
-    // const totalDays = toDate.diff(fromDate, 'days', false)
-    
     return (
       <div>
         <Head>
