@@ -72,6 +72,7 @@ class Income extends React.Component {
           income={incomeSources[incomeIndex].income}
           totalDays={incomeSources[incomeIndex].workedDays}
           contract={incomeSources[incomeIndex].contract}
+          incomeIndex={incomeIndex}
         />
       )
     }
@@ -83,7 +84,9 @@ class Income extends React.Component {
 
       <BlueButton label='Agregar Ingreso+' onClick={this.createNewForm} />
 
-      {summaryVisible && jobsSummary}
+      <div className={css.summaryContainer}>
+        {summaryVisible && jobsSummary}
+      </div>
     </>
   }
 }

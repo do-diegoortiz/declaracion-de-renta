@@ -4,11 +4,12 @@ import NumberFormat from 'react-number-format'
 
 import css from './summary.scss';
 
-export const Summary = ({ income, totalDays, contract }) => {
+export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
   Summary.propTypes = {
     income: PropTypes.array.isRequired,
     totalDays: PropTypes.number.isRequired,
-    contract: PropTypes.string.isRequired
+    contract: PropTypes.string.isRequired,
+    incomeIndex: PropTypes.number.isRequired
   };
 
   let totalSalary = 0
@@ -52,8 +53,8 @@ export const Summary = ({ income, totalDays, contract }) => {
   }
 
   return <div className={css.SummaryContainer}>
-    <h1 key={income}>
-      En este trabajo los ingresos totales son:
+    <h2 key={income}>
+      Ingresos totales trabajo # {incomeIndex + 1}:
       <p className={css.TotalNumber}>
         <NumberFormat
           value={totalIncome}
@@ -62,7 +63,7 @@ export const Summary = ({ income, totalDays, contract }) => {
           decimalScale='0'
         />
       </p>
-    </h1>
+    </h2>
     <h3 className={css.Subtitle}>Desglosados así:</h3>
     <p className={css.PlusDetail}>
       Salario: &nbsp;

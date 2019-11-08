@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  flex: 1 0 26rem;
   height: 26rem;
   background: #fff;
   margin: 1rem auto;
@@ -24,7 +24,7 @@
 .PlusDetail {
   font-size: 1.6rem;
   align-self: flex-start;
-  width: 38%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   input {
@@ -36,7 +36,7 @@
 .LessDetail {
   font-size: 1.6rem;
   align-self: flex-start;
-  width: 38%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   input {
