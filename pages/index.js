@@ -52,8 +52,11 @@ class Home extends React.Component {
     }
   }
 
-  handleContractChange = e => {
-    this.setState({contract: e.target.value})
+  handleContractChange = (e, index) => {
+    const sourcesCopy = [...this.state.incomeSources]
+    sourcesCopy[index].contract = e.target.value
+
+    this.setState({incomeSources: sourcesCopy})
   }
 
   handleWorkedDays = (days, index) => {
