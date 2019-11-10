@@ -31,7 +31,7 @@ class Home extends React.Component {
     const sourcesCopy = [...this.state.incomeSources]
     sourcesCopy.push(
       {
-        income: [],
+        income: 0,
         workedDays: 0,
         contract: 'nomina'
       }
