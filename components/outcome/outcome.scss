@@ -1,0 +1,23 @@
+.SummaryContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 26rem;
+  height: 26rem;
+  background: #fff;
+  margin: 1rem auto;
+  padding: 1rem;
+}
+
+.TotalBadNumber input {
+  font-size: 3rem;
+  color: red;
+  text-align: center;
+}
+
+.TotalNumber input {
+  font-size: 3rem;
+  color: green;
+  text-align: center;
+}

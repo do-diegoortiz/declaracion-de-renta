@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
+import Outcome from '../components/outcome/outcome'
 
 import css from './index.scss'
 
@@ -125,6 +126,11 @@ class Home extends React.Component {
           voluntaryContributions={voluntaryContributions}
         />
 
+        <Outcome
+          income="0"
+          incomeWithoutTaxes="0"
+        />
+
         {/* <h3 style={{'color': 'red'}}>
           Valor a consignar en pensiones voluntarias:
           <NumberFormat
@@ -136,7 +142,7 @@ class Home extends React.Component {
           />
         </h3> */}
 
-        <ul>
+        {/* <ul>
           <h1>Info personal</h1>
           <li>Información reportada por terceros</li>
           <li>Formulario del año anterior</li>
@@ -238,7 +244,7 @@ class Home extends React.Component {
           <li>Aportes como independiente a seguridad social</li>
           <li>Dependientes</li>
           <li>Donaciones</li>
-        </ul>
+        </ul> */}
       </div>
     )
   }
