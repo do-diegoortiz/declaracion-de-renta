@@ -33,11 +33,8 @@ class Deductions extends React.Component {
       </div>
 
       <div className={css.formGroup}>
-        <label className={css.label}>Dependientes</label>
-        <DeductionInput
-          name='dependants'
-          onChange={this.props.handleDeductionChange}
-        />
+        <label className={css.label}>Cantidad Dependientes</label>
+        <input type="number" name='dependants' onChange={this.props.handleDeductionChange} />
       </div>
 
       <div className={css.formGroup}>

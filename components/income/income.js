@@ -75,8 +75,10 @@ class Income extends React.Component {
       )
 
       if (incomeSources[incomeIndex].contract === 'nomina') {
+        // If income is below certain UVT's is not 9% but 8%. Because 1% of Solidaridad wouldn't be included
         totalIncomeNoTaxes += incomeSources[incomeIndex].income * (incomeSources[incomeIndex].workedDays/30) * 0.09
       } else {
+        // As independant you pay based on the 40% of your salary. 12.5% in health and 16% in retirement.
         totalIncomeNoTaxes += incomeSources[incomeIndex].income * (incomeSources[incomeIndex].workedDays/30) * 0.4 * 0.285
       }
     }
@@ -90,7 +92,7 @@ class Income extends React.Component {
 
       <div className={css.summaryContainer}>
         {summaryVisible && jobsSummary}
-        {summaryVisible && jobsSummary.length > 1 && <TotalSummary
+        {summaryVisible && <TotalSummary
           income={totalIncome}
           incomeWithoutTaxes={totalIncomeNoTaxes}
         />}

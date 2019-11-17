@@ -9,6 +9,7 @@
 Ingresar todos los ingresos del año, todas las deducciones. El sistema calculara el valor óptimo que deberias gastar en medicina prepagada, pensiones voluntarias, dependientes, intereses de vivienda y donaciones.
 
 ## Tareas pendientes
+* UI: Mejorar columna resumen (3) cuando hay 2 fuente de ingresos.
 * Calculos perfectos para cada tipo de contrato
 * Ponder agregar n ingresos en el año
 * Calcular la ingresos no constitutivos de renta automáticamente
