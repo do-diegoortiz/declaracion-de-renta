@@ -4,10 +4,10 @@ import NumberFormat from 'react-number-format'
 
 import css from './outcome.scss';
 
-export const Outcome = ({ liquidIncome, incomeWithoutTaxes }) => {
+export const Outcome = ({ liquidIncome, totalDeductions }) => {
   Outcome.propTypes = {
     liquidIncome: PropTypes.number.isRequired,
-    incomeWithoutTaxes: PropTypes.number.isRequired,
+    totalDeductions: PropTypes.number.isRequired,
   };
 
   return <div className={css.SummaryContainer} key={liquidIncome}>
@@ -26,7 +26,7 @@ export const Outcome = ({ liquidIncome, incomeWithoutTaxes }) => {
       Deducciones Totales:
       <span className={css.TotalNumber}>
         <NumberFormat
-          value={incomeWithoutTaxes}
+          value={totalDeductions + (liquidIncome - totalDeductions) * 0.25}
           thousandSeparator={true}
           prefix='$'
           decimalScale='0'
@@ -39,7 +39,7 @@ export const Outcome = ({ liquidIncome, incomeWithoutTaxes }) => {
       Renta Líquida Cedular de Trabajo:
       <span className={css.TotalBadNumber}>
         <NumberFormat
-          value={liquidIncome - (liquidIncome * 0.25)}
+          value={liquidIncome - totalDeductions - ((liquidIncome - totalDeductions) * 0.25)}
           thousandSeparator={true}
           prefix='$'
           decimalScale='0'
@@ -52,13 +52,24 @@ export const Outcome = ({ liquidIncome, incomeWithoutTaxes }) => {
       Valor de renta a pagar:
       <span className={css.TotalBadNumber}>
         <NumberFormat
-          value={(liquidIncome - (liquidIncome * 0.25)) * 0.28}
+          value={(liquidIncome - ((liquidIncome - totalDeductions) * 0.25)) * 0.28}
           thousandSeparator={true}
           prefix='$'
           decimalScale='0'
         />
       </span>
     </h2>
+    {/* <h3 style={{'color': 'red'}}>
+      Valor a consignar en pensiones voluntarias:
+      <NumberFormat
+        // MEJORAR FORMULA PARA NO RESTAR TODO, SINO SOLO CUANDO PASE DEL 5%
+        value={(income / 30 * totalDays ) > (UVT * 1090) ? (((income / 30) * totalDays * 0.1) - prepaidMedicine - indepSocialSecurity - dependants - donations - voluntaryContributions) : 0 }
+        thousandSeparator={true}
+        prefix='$'
+        decimalScale='0'
+      />
+    </h3> */}
+
   </ div>
 }
 

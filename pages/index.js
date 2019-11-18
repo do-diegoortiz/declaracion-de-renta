@@ -26,7 +26,8 @@ class Home extends React.Component {
     indepSocialSecurity: 0,
     dependants: 0,
     donations: 0,
-    voluntaryContributions: 0
+    voluntaryContributions: 0,
+    totalDeductions: 0
   }
 
   increaseIncomeSources = () => {
@@ -90,13 +91,32 @@ class Home extends React.Component {
 
   // DEDUCTIONS
   handleDeductionChange = (e, newValue) => {
-    this.setState({[e.target.name]: newValue})
+    if(e.target.name === 'dependants') {
+      const totalIncome = this.state.incomeSources.map(x => x.income * (x.workedDays/30)).reduce((acum, current)=> acum + current)
+
+      // Theory says you can substract 10% of your income for every dependant
+      this.setState({dependants: e.target.value * totalIncome * 0.1})  
+    } else {
+      this.setState({[e.target.name]: parseInt(newValue)})
+    }
+
+    this.updateTotalDeductions()
+  }
+
+  updateTotalDeductions = () => {
+    // TODO: This update is not getting the last updated values from handleDeductionChange
+    this.setState({totalDeductions: this.state.prepaidMedicine
+      + this.state.indepSocialSecurity
+      + this.state.dependants
+      + this.state.donations
+      + this.state.voluntaryContributions
+    })
   }
 
   render() {
     const {
       summaryVisible, incomeSources, incomeOutOfTaxes, //INCOME
-      prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions //DEDUCTIONS
+      prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
     } = this.state
 
     const totalIncome = incomeSources.map(x => x.income * (x.workedDays/30)).reduce((acum, current)=> acum + current)
@@ -147,19 +167,8 @@ class Home extends React.Component {
 
         <Outcome
           liquidIncome={totalIncome - incomeOutOfTaxes}
-          incomeWithoutTaxes="0"
+          totalDeductions={totalDeductions}
         />
-
-        {/* <h3 style={{'color': 'red'}}>
-          Valor a consignar en pensiones voluntarias:
-          <NumberFormat
-            // MEJORAR FORMULA PARA NO RESTAR TODO, SINO SOLO CUANDO PASE DEL 5%
-            value={(income / 30 * totalDays ) > (UVT * 1090) ? (((income / 30) * totalDays * 0.1) - prepaidMedicine - indepSocialSecurity - dependants - donations - voluntaryContributions) : 0 }
-            thousandSeparator={true}
-            prefix='$'
-            decimalScale='0'
-          />
-        </h3> */}
 
         {/* <ul>
           <h1>Info personal</h1>
