@@ -4,10 +4,10 @@ import NumberFormat from 'react-number-format'
 
 import css from './totalSummary.scss';
 
-export const TotalSummary = ({ income, incomeWithoutTaxes }) => {
+export const TotalSummary = ({ income, incomeOutOfTaxes }) => {
   TotalSummary.propTypes = {
     income: PropTypes.number.isRequired,
-    incomeWithoutTaxes: PropTypes.number.isRequired,
+    incomeOutOfTaxes: PropTypes.number.isRequired,
   };
 
   return <div className={css.SummaryContainer} key={income}>
@@ -26,7 +26,7 @@ export const TotalSummary = ({ income, incomeWithoutTaxes }) => {
       Ingresos no constitutivos de renta:
       <span className={css.TotalNumber}>
         <NumberFormat
-          value={incomeWithoutTaxes}
+          value={incomeOutOfTaxes}
           thousandSeparator={true}
           prefix='$'
           decimalScale='0'
@@ -38,7 +38,7 @@ export const TotalSummary = ({ income, incomeWithoutTaxes }) => {
       Renta liquida:
       <span className={css.TotalBadNumber}>
         <NumberFormat
-          value={income - incomeWithoutTaxes}
+          value={income - incomeOutOfTaxes}
           thousandSeparator={true}
           prefix='$'
           decimalScale='0'

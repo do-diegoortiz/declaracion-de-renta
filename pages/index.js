@@ -19,6 +19,7 @@ class Home extends React.Component {
         contract: 'nomina'
       }
     ],
+    incomeOutOfTaxes: 0,
 
     // DEDUCTIONS
     prepaidMedicine: 0,
@@ -70,6 +71,21 @@ class Home extends React.Component {
   showSummary = e => {
     e.preventDefault()
     this.setState({ summaryVisible: true })
+
+    let outOfTaxCopy = 0
+    const incomeSources = [...this.state.incomeSources]
+
+    for (let i = 0; i < incomeSources.length; i++) {
+      if (incomeSources[i].contract === 'nomina') {
+        // If income is below certain UVT's is not 9% but 8%. Because 1% of Solidaridad wouldn't be included
+        outOfTaxCopy += incomeSources[i].income * (incomeSources[i].workedDays/30) * 0.09
+      } else {
+        // As independant you pay based on the 40% of your salary. 12.5% in health and 16% in retirement.
+        outOfTaxCopy += incomeSources[i].income * (incomeSources[i].workedDays/30) * 0.4 * 0.285
+      }
+    }
+
+    this.setState({ incomeOutOfTaxes: outOfTaxCopy })
   }
 
   // DEDUCTIONS
@@ -79,9 +95,11 @@ class Home extends React.Component {
 
   render() {
     const {
-      summaryVisible, incomeSources, //INCOME
+      summaryVisible, incomeSources, incomeOutOfTaxes, //INCOME
       prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions //DEDUCTIONS
     } = this.state
+
+    const totalIncome = incomeSources.map(x => x.income * (x.workedDays/30)).reduce((acum, current)=> acum + current)
 
     return (
       <div>
@@ -108,6 +126,7 @@ class Home extends React.Component {
           increaseIncomeSources={this.increaseIncomeSources}
           summaryVisible={summaryVisible}
           incomeSources={incomeSources}
+          incomeOutOfTaxes={incomeOutOfTaxes}
         />
 
         <h2 className={css.formTitle}>
@@ -127,7 +146,7 @@ class Home extends React.Component {
         />
 
         <Outcome
-          income="0"
+          liquidIncome={totalIncome - incomeOutOfTaxes}
           incomeWithoutTaxes="0"
         />
 

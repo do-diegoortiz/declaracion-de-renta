@@ -4,18 +4,18 @@ import NumberFormat from 'react-number-format'
 
 import css from './outcome.scss';
 
-export const Outcome = ({ income, incomeWithoutTaxes }) => {
+export const Outcome = ({ liquidIncome, incomeWithoutTaxes }) => {
   Outcome.propTypes = {
-    income: PropTypes.number.isRequired,
+    liquidIncome: PropTypes.number.isRequired,
     incomeWithoutTaxes: PropTypes.number.isRequired,
   };
 
-  return <div className={css.SummaryContainer} key={income}>
+  return <div className={css.SummaryContainer} key={liquidIncome}>
     <h2>
       Renta Líquida:
       <span className={css.TotalBadNumber}>
         <NumberFormat
-          value={income}
+          value={liquidIncome}
           thousandSeparator={true}
           prefix='$'
           decimalScale='0'
@@ -39,7 +39,7 @@ export const Outcome = ({ income, incomeWithoutTaxes }) => {
       Renta Líquida Cedular de Trabajo:
       <span className={css.TotalBadNumber}>
         <NumberFormat
-          value={income - incomeWithoutTaxes}
+          value={liquidIncome - (liquidIncome * 0.25)}
           thousandSeparator={true}
           prefix='$'
           decimalScale='0'
@@ -52,7 +52,7 @@ export const Outcome = ({ income, incomeWithoutTaxes }) => {
       Valor de renta a pagar:
       <span className={css.TotalBadNumber}>
         <NumberFormat
-          value={income - incomeWithoutTaxes}
+          value={(liquidIncome - (liquidIncome * 0.25)) * 0.28}
           thousandSeparator={true}
           prefix='$'
           decimalScale='0'
