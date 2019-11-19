@@ -96,21 +96,36 @@ class Home extends React.Component {
 
       // Theory says you can substract 10% of your income for every dependant
       this.setState({dependants: e.target.value * totalIncome * 0.1})  
+      this.updateTotalDeductions('dependants', e.target.value * totalIncome * 0.1)
     } else {
       this.setState({[e.target.name]: parseInt(newValue)})
+      this.updateTotalDeductions(e.target.name, parseInt(newValue))
     }
-
-    this.updateTotalDeductions()
   }
 
-  updateTotalDeductions = () => {
+  updateTotalDeductions = (deduction, value) => {
     // TODO: This update is not getting the last updated values from handleDeductionChange
-    this.setState({totalDeductions: this.state.prepaidMedicine
-      + this.state.indepSocialSecurity
-      + this.state.dependants
-      + this.state.donations
-      + this.state.voluntaryContributions
-    })
+    if(deduction === 'dependants'){
+      this.setState({totalDeductions: this.state.prepaidMedicine
+        + this.state.indepSocialSecurity
+        + value
+        + this.state.donations
+        + this.state.voluntaryContributions
+      })
+    } else {
+      const deductions = ['prepaidMedicine', 'indepSocialSecurity', 'donations', 'voluntaryContributions']
+      let newTotal = this.state.dependants
+
+      deductions.forEach(item => {
+        if (deduction === item){
+          newTotal += (value || 0)
+        } else {
+          newTotal += this.state[item]
+        }
+      })
+      this.setState({totalDeductions: newTotal})
+    }
+    
   }
 
   render() {
