@@ -6,8 +6,6 @@ import Outcome from '../components/outcome/outcome'
 
 import css from './index.scss'
 
-const UVT = 33156
-
 class Home extends React.Component {
   state = {
     summaryVisible: false,
