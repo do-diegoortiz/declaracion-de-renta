@@ -13,5 +13,6 @@ Ingresar todos los ingresos del año, todas las deducciones. El sistema calcular
 * Perfeccionar calculos para cada tipo de contrato
 * Mostrar el desglose de las deducciones
 * Poner primer fecha default como enero 1
-* Validar inputs de deducciones para no pasar el 40% del ingreso liquido
+* Agregar Unit Testing
 * UI: Remove income source
+* UI: Cambiar alerts por warning amigables

@@ -15,12 +15,15 @@ class Deductions extends React.Component {
   // Rentas exentas:
   // Cesatias e intereses de cesantias
   render() {
+    const {prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions, totalIncome} = this.props
+
     return <form className={css.formContainer}>
       <div className={css.formGroup}>
         <label className={css.label}>Medicina Prepagada</label>
         <DeductionInput
           name='prepaidMedicine'
           onChange={this.props.handleDeductionChange}
+          value={prepaidMedicine}
         />
       </div>
 
@@ -29,12 +32,13 @@ class Deductions extends React.Component {
         <DeductionInput
           name='indepSocialSecurity'
           onChange={this.props.handleDeductionChange}
+          value={indepSocialSecurity}
         />
       </div>
 
       <div className={css.formGroup}>
         <label className={css.label}>Cantidad Dependientes</label>
-        <input type="number" name='dependants' onChange={this.props.handleDeductionChange} />
+        <input type="number" name='dependants' onChange={this.props.handleDeductionChange} value={dependants / 0.1 / (totalIncome || 1)} />
       </div>
 
       <div className={css.formGroup}>
@@ -42,6 +46,7 @@ class Deductions extends React.Component {
         <DeductionInput
           name='donations'
           onChange={this.props.handleDeductionChange}
+          value={donations}
         />
       </div>
 
@@ -50,6 +55,7 @@ class Deductions extends React.Component {
         <DeductionInput
           name='voluntaryContributions'
           onChange={this.props.handleDeductionChange}
+          value={voluntaryContributions}
         />
       </div>
 

@@ -89,41 +89,60 @@ class Home extends React.Component {
 
   // DEDUCTIONS
   handleDeductionChange = (e, newValue) => {
-    if(e.target.name === 'dependants') {
-      const totalIncome = this.state.incomeSources.map(x => x.income * (x.workedDays/30)).reduce((acum, current)=> acum + current)
+    let totalDeductions = 0
+    const totalIncome = this.state.incomeSources.map(x => x.income * (x.workedDays/30)).reduce((acum, current)=> acum + current)
+    const liquidIncome = totalIncome - this.state.incomeOutOfTaxes
 
-      // Theory says you can substract 10% of your income for every dependant
-      this.setState({dependants: e.target.value * totalIncome * 0.1})  
-      this.updateTotalDeductions('dependants', e.target.value * totalIncome * 0.1)
+    if (e.target.name === 'dependants') {
+      totalDeductions = this.getTotalDeductionsDependants(e.target.value * totalIncome * 0.1)
+      const deductionsOverTheLimit = totalDeductions + ((liquidIncome - totalDeductions) * 0.25) > (liquidIncome * 0.4)
+
+      if (deductionsOverTheLimit) {
+        alert("Lo sentimos, las deducciones no pueden exceder el 40% del ingreso liquido")
+      } else {
+        // Theory says you can substract 10% of your income for every dependant
+        this.setState({
+          dependants: e.target.value * totalIncome * 0.1,
+          totalDeductions: totalDeductions
+        })  
+      }
     } else {
-      this.setState({[e.target.name]: parseInt(newValue)})
-      this.updateTotalDeductions(e.target.name, parseInt(newValue))
+      totalDeductions = this.getTotalDeductionsStandard(e.target.name, parseInt(newValue))
+      const deductionsOverTheLimit = totalDeductions + ((liquidIncome - totalDeductions) * 0.25) > (liquidIncome * 0.4)
+
+      if (deductionsOverTheLimit) {
+        alert("Lo sentimos, las deducciones no pueden exceder el 40% del ingreso liquido")
+        this.setState({[e.target.name]: this.state[e.target.name]})
+      } else {
+        this.setState({
+          [e.target.name]: parseInt(newValue),
+          totalDeductions: totalDeductions
+        })
+      }
     }
   }
 
-  updateTotalDeductions = (deduction, value) => {
-    // TODO: This update is not getting the last updated values from handleDeductionChange
-    if(deduction === 'dependants'){
-      this.setState({totalDeductions: this.state.prepaidMedicine
-        + this.state.indepSocialSecurity
-        + value
-        + this.state.donations
-        + this.state.voluntaryContributions
-      })
-    } else {
-      const deductions = ['prepaidMedicine', 'indepSocialSecurity', 'donations', 'voluntaryContributions']
-      let newTotal = this.state.dependants
+  getTotalDeductionsDependants(value) {
+    return this.state.prepaidMedicine
+      + this.state.indepSocialSecurity
+      + value
+      + this.state.donations
+      + this.state.voluntaryContributions
+  }
 
-      deductions.forEach(item => {
-        if (deduction === item){
-          newTotal += (value || 0)
-        } else {
-          newTotal += this.state[item]
-        }
-      })
-      this.setState({totalDeductions: newTotal})
-    }
-    
+  getTotalDeductionsStandard(deduction, value) {
+    const deductions = ['prepaidMedicine', 'indepSocialSecurity', 'donations', 'voluntaryContributions']
+    let newTotal = this.state.dependants
+
+    deductions.forEach(item => {
+      if (deduction === item){
+        newTotal += (value || 0)
+      } else {
+        newTotal += this.state[item]
+      }
+    })
+
+    return newTotal
   }
 
   render() {
@@ -176,6 +195,7 @@ class Home extends React.Component {
           dependants={dependants}
           donations={donations}
           voluntaryContributions={voluntaryContributions}
+          totalIncome={totalIncome}
         />
 
         <Outcome
