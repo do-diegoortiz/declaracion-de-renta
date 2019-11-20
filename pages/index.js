@@ -201,6 +201,7 @@ class Home extends React.Component {
         <Outcome
           liquidIncome={totalIncome - incomeOutOfTaxes}
           totalDeductions={totalDeductions}
+          prepaidMedicine={prepaidMedicine}
         />
 
         {/* <ul>

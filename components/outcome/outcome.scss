@@ -1,16 +1,21 @@
 .SummaryContainer {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1 0 26rem;
-  height: 16rem;
+  height: 18rem;
   background: #fff;
   margin: 1rem auto;
   padding: 1rem;
 }
 
-.TotalContainer {
+.TotalsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.SubTotalContainer {
   display: flex;
   width: 100%;
 }
@@ -46,4 +51,14 @@
   flex-basis: 50%;
   display: flex;
   justify-content: flex-end;
+}
+
+.Advice {
+  flex-basis: 50%;
+  font-size: 1.4rem;
+}
+
+.AdviceValues input {
+  width: 8.5rem;
+  font-weight: 700;
 }
