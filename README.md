@@ -15,5 +15,3 @@ Ingresar todos los ingresos del año, todas las deducciones. El sistema calcular
 * Poner primer fecha default como enero 1
 * Validar inputs de deducciones para no pasar el 40% del ingreso liquido
 * UI: Remove income source
-* UI: Mejorar columna resumen (3) cuando hay 2 fuente de ingresos.
-* UI: Cambio de tamaño en income form cuand se selecciona contratista

@@ -4,20 +4,46 @@
   justify-content: center;
   align-items: center;
   flex: 1 0 26rem;
-  height: 26rem;
+  height: 16rem;
   background: #fff;
   margin: 1rem auto;
   padding: 1rem;
 }
 
-.TotalBadNumber input {
-  font-size: 3rem;
-  color: red;
-  text-align: center;
+.TotalContainer {
+  display: flex;
+  width: 100%;
 }
 
-.TotalNumber input {
-  font-size: 3rem;
-  color: green;
-  text-align: center;
+.TotalBadNumber {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: flex-start;
+  
+  input {
+    font-size: 3rem;
+    color: red;
+    text-align: center;
+    width: 22rem;
+  }
+}
+
+.TotalNumber {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: flex-start;
+  
+  input {
+    font-size: 3rem;
+    color: green;
+    text-align: center;
+    width: 22rem;
+  }
+}
+
+.Title {
+  align-self: center;
+  flex-basis: 50%;
+  display: flex;
+  justify-content: flex-end;
 }

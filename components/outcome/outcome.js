@@ -24,8 +24,8 @@ export const Outcome = ({ liquidIncome, totalDeductions }) => {
   }
 
   return <div className={css.SummaryContainer} key={liquidIncome}>
-    <h2>
-      Renta Líquida:
+    <h2 className={css.TotalContainer}>
+      <span className={css.Title}>Renta Líquida:</span>
       <span className={css.TotalBadNumber}>
         <NumberFormat
           value={liquidIncome}
@@ -33,10 +33,10 @@ export const Outcome = ({ liquidIncome, totalDeductions }) => {
           prefix='$'
           decimalScale='0'
         />
-      </span>
+      </span> 
     </h2>
-    <h2>
-      Deducciones Totales:
+    <h2 className={css.TotalContainer}>
+      <span className={css.Title}>Deducciones Totales:</span>
       <span className={css.TotalNumber}>
         <NumberFormat
           value={totalDeductions + (liquidIncome - totalDeductions) * 0.25}
@@ -47,9 +47,9 @@ export const Outcome = ({ liquidIncome, totalDeductions }) => {
       </span>
     </h2>
 
-    <h2>
+    <h2 className={css.TotalContainer}>
       {/* Renta liquida menos total de deducciones (Que no deben exeder el 40%) */}
-      Renta Líquida Cedular de Trabajo:
+      <span className={css.Title}>Renta Líquida Cedular de Trabajo:</span>
       <span className={css.TotalBadNumber}>
         <NumberFormat
           value={liquidIncomeMinusDeductions}
@@ -60,9 +60,9 @@ export const Outcome = ({ liquidIncome, totalDeductions }) => {
       </span>
     </h2>
 
-    <h2>
+    <h2 className={css.TotalContainer}>
       {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
-      Valor de renta a pagar:
+      <span className={css.Title}>Valor de renta a pagar:</span>
       <span className={css.TotalBadNumber}>
         <NumberFormat
           value={totalValueToPay}
