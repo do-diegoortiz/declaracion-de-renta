@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "tests": "jest"
   },
   "dependencies": {
     "@zeit/next-sass": "1.0.1",
@@ -22,12 +23,19 @@
     "sass-resources-loader": "2.0.1"
   },
   "devDependencies": {
+    "@babel/core": "7.7.2",
     "babel-eslint": "8",
+    "babel-jest": "24.9.0",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "1.15.1",
     "eslint": "4.x",
     "eslint-config-airbnb": "18.0.1",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.16.0",
-    "eslint-plugin-react-hooks": "1.7.0"
+    "eslint-plugin-react-hooks": "1.7.0",
+    "jest": "24.9.0",
+    "react-addons-test-utils": "15.6.2",
+    "react-test-renderer": "16.12.0"
   }
 }
