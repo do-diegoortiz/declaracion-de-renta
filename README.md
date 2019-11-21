@@ -13,6 +13,7 @@ Ingresar todos los ingresos del año, todas las deducciones. El sistema calcular
 * Mostrar el desglose de las deducciones
 * Poner primer fecha default como enero 1
 * Agregar Unit Testing
+* Agregar botón para resetear inputs y volver a empezar
 * UI: Remove income source
 * UI: Cambiar alerts por warning amigables
 * UI: Hacerlo mobile

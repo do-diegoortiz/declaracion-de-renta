@@ -1,20 +1,28 @@
 .title {
   margin: 0;
   width: 100%;
-  padding-top: 8rem;
+  padding-top: 4rem;
   line-height: 1.15;
   font-size: 4rem;
 }
-.title,
-.description {
+
+.title, .description {
   text-align: center;
 }
+
 .description{
   font-size: 2rem;
+  padding: 1rem;
 }
 
 .formTitle {
   font-size: 3rem;
   text-align: center;
   margin-top: 2rem;
+}
+
+@media (max-width: 560px) {
+  .description {
+      text-align: justify;
+  }
 }

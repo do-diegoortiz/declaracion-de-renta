@@ -15,8 +15,8 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
 
   return (
     <form className={css.formContainer} onSubmit={showSummary}  key={incomeIndex}>
-      <h1>{incomeIndex+1}</h1>
-      <label htmlFor='contract'>Contrato</label>
+      <h1 className={css.hideMobile}>{incomeIndex+1}</h1>
+      <label htmlFor='contract' className={css.hideMobile}>Contrato</label>
       <select name='contract' className={css.contract} id='contract' value={contract} onChange={ e => handleContractChange(e, incomeIndex)}>
         <option value='nomina'>Nómina</option>
         <option value='prestaciones'>Prestacion</option>
@@ -34,10 +34,10 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
           required
         />
 
-      <label htmlFor='de'>De</label>
+      <label htmlFor='de' className={css.hideMobile}>De</label>
       <input type='date' name='fromDate' onChange={e => handleDateChange(e, incomeIndex)} />
 
-      <label htmlFor='hasta'>Hasta</label>
+      <label htmlFor='hasta' className={css.hideMobile}>Hasta</label>
       <input type='date' name='toDate' defaultValue='2019-12-31' onChange={e => handleDateChange(e, incomeIndex)} />
 
       <input type='submit' value='Calcular' />

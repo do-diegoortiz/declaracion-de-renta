@@ -7,3 +7,9 @@
 body {
     background: #F0F2F8;
 }
+
+@media (max-width: 560px) {
+    .hideMobile {
+        display: none;
+    }
+}

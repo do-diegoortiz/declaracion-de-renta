@@ -162,8 +162,7 @@ class Home extends React.Component {
 
         <h1 className={css.title}>Optimiza la declaración de renta</h1>
         <p className={css.description}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Hay algunas cosas que puedes hacer para reducir legalmente el valor final a pagar por ingresos de trabajo del 2019. Pero las debes hacer antes del 31 de diciembre de 2019.
         </p>
 
         <h2 className={css.formTitle}>
@@ -185,7 +184,7 @@ class Home extends React.Component {
           Deducciones
         </h2>
         <p className={css.description}>
-          Escriba en cada casilla el valor total que esperar pagar en el año.
+          Escriba en cada casilla el valor total que espera pagar en el año.
         </p>
 
         <Deductions
@@ -198,11 +197,11 @@ class Home extends React.Component {
           totalIncome={totalIncome}
         />
 
-        <Outcome
+        {summaryVisible && <Outcome
           liquidIncome={totalIncome - incomeOutOfTaxes}
           totalDeductions={totalDeductions}
           prepaidMedicine={prepaidMedicine}
-        />
+        />}
 
         {/* <ul>
           <h1>Info personal</h1>
