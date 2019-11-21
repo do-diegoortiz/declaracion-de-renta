@@ -28,6 +28,7 @@
 
 .formContainer {
   display: flex;
+  flex-wrap: wrap;
   border: 2rem solid rgba(0,0,0,.3);
   border-radius: 0.5rem;
   margin: -1rem auto 0rem;
@@ -39,4 +40,19 @@
 
 .contract {
   min-width: 14rem;
+}
+
+.salaryContainer {
+  flex: 1 0 10rem;
+}
+
+@media (max-width: 560px) {
+  .formContainer {
+    flex-direction: column;
+  }
+
+  .formContainer > * {
+    height: 4rem;
+    line-height: 2rem;
+  }
 }

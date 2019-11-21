@@ -15,4 +15,5 @@ Ingresar todos los ingresos del año, todas las deducciones. El sistema calcular
 * Agregar Unit Testing
 * UI: Remove income source
 * UI: Cambiar alerts por warning amigables
+* UI: Hacerlo mobile
 * UX: Actualizar para que los consejos finales no se muestren hasta después de haber ingresado todas las deducciones

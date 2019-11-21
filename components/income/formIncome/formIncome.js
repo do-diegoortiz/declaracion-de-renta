@@ -23,15 +23,16 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
         <option value='contratista'>Contratista</option>
       </select>
 
-      <NumberFormat
-        thousandSeparator={true}
-        prefix='$'
-        placeholder='($) Salario mensual en COP'
-        name='income'
-        decimalScale='0'
-        onValueChange={(values) => {handleIncomeChange(values.value, incomeIndex)}}
-        required
-      />
+        <NumberFormat
+          className={css.salaryContainer}
+          thousandSeparator={true}
+          prefix='$'
+          placeholder='($) Salario mensual en COP'
+          name='income'
+          decimalScale='0'
+          onValueChange={(values) => {handleIncomeChange(values.value, incomeIndex)}}
+          required
+        />
 
       <label htmlFor='de'>De</label>
       <input type='date' name='fromDate' onChange={e => handleDateChange(e, incomeIndex)} />

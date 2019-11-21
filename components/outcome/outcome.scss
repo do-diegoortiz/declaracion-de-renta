@@ -1,18 +1,20 @@
 .SummaryContainer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   flex: 1 0 26rem;
-  height: 18rem;
-  background: #fff;
-  margin: 1rem auto;
-  padding: 1rem;
 }
 
 .TotalsContainer {
   display: flex;
   flex-direction: column;
+  flex-basis: 53rem;
   width: 50%;
+  height: 14rem;
+  background: #fff;
+  margin: 1rem auto;
+  padding: 1rem;
 }
 
 .SubTotalContainer {
