@@ -18,7 +18,7 @@ export const TotalSummary = ({ income, incomeOutOfTaxes }) => {
           value={income}
           thousandSeparator={true}
           prefix='$'
-          decimalScale='0'
+          decimalScale={0}
         />
       </span>
     </h2>
@@ -29,7 +29,7 @@ export const TotalSummary = ({ income, incomeOutOfTaxes }) => {
           value={incomeOutOfTaxes}
           thousandSeparator={true}
           prefix='$'
-          decimalScale='0'
+          decimalScale={0}
         />
       </span>
     </h2>
@@ -41,7 +41,7 @@ export const TotalSummary = ({ income, incomeOutOfTaxes }) => {
           value={income - incomeOutOfTaxes}
           thousandSeparator={true}
           prefix='$'
-          decimalScale='0'
+          decimalScale={0}
         />
       </span>
     </h2>

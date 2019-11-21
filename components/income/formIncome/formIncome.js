@@ -29,7 +29,7 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
           prefix='$'
           placeholder='($) Salario mensual en COP'
           name='income'
-          decimalScale='0'
+          decimalScale={0}
           onValueChange={(values) => {handleIncomeChange(values.value, incomeIndex)}}
           required
         />

@@ -67,7 +67,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
             value={liquidIncome}
             thousandSeparator={true}
             prefix='$'
-            decimalScale='0'
+            decimalScale={0}
           />
         </span> 
       </div>
@@ -79,7 +79,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
             value={totalDeductions + (liquidIncome - totalDeductions) * 0.25}
             thousandSeparator={true}
             prefix='$'
-            decimalScale='0'
+            decimalScale={0}
           />
         </span>
       </h2>
@@ -92,7 +92,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
             value={liquidIncomeMinusDeductions}
             thousandSeparator={true}
             prefix='$'
-            decimalScale='0'
+            decimalScale={0}
           />
         </span>
       </h2>
@@ -105,7 +105,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
             value={totalValueToPay}
             thousandSeparator={true}
             prefix='$'
-            decimalScale='0'
+            decimalScale={0}
           />
         </span>
       </h2>
@@ -125,7 +125,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
                   value={maxValueToAddInDeductions}
                   thousandSeparator={true}
                   prefix='$'
-                  decimalScale='0'
+                  decimalScale={0}
                 />
               </span>
               que dejarían tu valor a pagar de renta en el mínimo posible y te ahorrarias 
@@ -134,7 +134,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
                   value={savingsWithAdviceInVoluntaryRetirementContributions}
                   thousandSeparator={true}
                   prefix='$'
-                  decimalScale='0'
+                  decimalScale={0}
                 />
               </span>
             </li>

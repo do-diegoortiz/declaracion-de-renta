@@ -18,7 +18,7 @@ export const DeductionInput = ({ name, onChange, value }) => {
       prefix='$'
       placeholder='$0'
       name={name}
-      decimalScale='0'
+      decimalScale={0}
       onValueChange={values => temporaryValue = values.value}
       onChange={e => onChange(e, temporaryValue)}
       value={value ? value : null}

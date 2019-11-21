@@ -60,7 +60,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
           value={totalIncome}
           thousandSeparator={true}
           prefix='$'
-          decimalScale='0'
+          decimalScale={0}
         />
       </p>
     </h2>
@@ -71,7 +71,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
         value={totalSalary}
         thousandSeparator={true}
         prefix='$'
-        decimalScale='0'
+        decimalScale={0}
       />
     </p>
     <p className={css.LessDetail}>
@@ -80,7 +80,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
         value={health}
         thousandSeparator={true}
         prefix='$'
-        decimalScale='0'
+        decimalScale={0}
       />
     </p>
     <p className={css.LessDetail}>
@@ -89,7 +89,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
         value={retirement}
         thousandSeparator={true}
         prefix='$'
-        decimalScale='0'
+        decimalScale={0}
       />
     </p>
     <p className={css.LessDetail}>
@@ -98,7 +98,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
         value={solidarity}
         thousandSeparator={true}
         prefix='$'
-        decimalScale='0'
+        decimalScale={0}
       />
     </p>
     <p className={css.LessDetail}>
@@ -107,7 +107,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
         value={retention}
         thousandSeparator={true}
         prefix='$'
-        decimalScale='0'
+        decimalScale={0}
       />
     </p>
 
@@ -117,7 +117,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
         value={perks/2}
         thousandSeparator={true}
         prefix='$'
-        decimalScale='0'
+        decimalScale={0}
       />
     </p>
     <p className={css.PlusDetail}>
@@ -126,7 +126,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
         value={perks}
         thousandSeparator={true}
         prefix='$'
-        decimalScale='0'
+        decimalScale={0}
       />
     </p>
     <p className={css.PlusDetail}>
@@ -135,7 +135,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
         value={perks}
         thousandSeparator={true}
         prefix='$'
-        decimalScale='0'
+        decimalScale={0}
       />
     </p>
   </ div>
