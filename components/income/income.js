@@ -11,7 +11,7 @@ class Income extends React.Component {
   state = {
     datesPerIncome: [
       {
-        fromDate: new Date(),
+        fromDate: moment(new Date(2019, 0, 1)),
         toDate: moment(new Date(2019, 11, 31))
       }
     ]
@@ -19,9 +19,11 @@ class Income extends React.Component {
 
   createNewForm = () => {
     const datesCopy = [...this.state.datesPerIncome]
+    const previousIndex = datesCopy.length - 1
+
     datesCopy.push(
       {
-        fromDate: new Date(),
+        fromDate: datesCopy[previousIndex].toDate,
         toDate: moment(new Date(2019, 11, 31))
       }
     )
@@ -45,6 +47,7 @@ class Income extends React.Component {
 
   render (){
     const { summaryVisible, incomeSources, showSummary, incomeOutOfTaxes } = this.props
+    const { datesPerIncome } = this.state
     
     const forms = [];
     const jobsSummary = [];
@@ -59,6 +62,8 @@ class Income extends React.Component {
           showSummary={showSummary}
           contract={incomeSources[incomeIndex].contract}
           incomeIndex={incomeIndex}
+          fromDate={datesPerIncome[incomeIndex].fromDate}
+          toDate={datesPerIncome[incomeIndex].toDate}
           key={incomeIndex}
         />
       )

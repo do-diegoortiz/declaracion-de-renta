@@ -1,9 +1,10 @@
 import React from 'react';
+import moment from 'moment'
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format'
 import css from './formIncome.scss';
 
-const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange, showSummary, contract, incomeIndex }) => {
+const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange, showSummary, contract, incomeIndex, fromDate, toDate }) => {
   FormIncome.propTypes = {
     handleDateChange: PropTypes.func.isRequired,
     handleIncomeChange: PropTypes.func.isRequired,
@@ -11,6 +12,8 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
     showSummary: PropTypes.func.isRequired,
     contract: PropTypes.string.isRequired,
     incomeIndex: PropTypes.number.isRequired,
+    fromDate: PropTypes.instanceOf(moment).isRequired,
+    toDate: PropTypes.instanceOf(moment).isRequired
   };
 
   return (
@@ -23,22 +26,22 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
         <option value='contratista'>Contratista</option>
       </select>
 
-        <NumberFormat
-          className={css.salaryContainer}
-          thousandSeparator={true}
-          prefix='$'
-          placeholder='($) Salario mensual en COP'
-          name='income'
-          decimalScale={0}
-          onValueChange={(values) => {handleIncomeChange(values.value, incomeIndex)}}
-          required
-        />
+      <NumberFormat
+        className={css.salaryContainer}
+        thousandSeparator={true}
+        prefix='$'
+        placeholder='($) Salario mensual en COP'
+        name='income'
+        decimalScale={0}
+        onValueChange={(values) => {handleIncomeChange(values.value, incomeIndex)}}
+        required
+      />
 
       <label htmlFor='de' className={css.hideMobile}>De</label>
-      <input type='date' name='fromDate' onChange={e => handleDateChange(e, incomeIndex)} />
+      <input type='date' name='fromDate' value={fromDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
 
       <label htmlFor='hasta' className={css.hideMobile}>Hasta</label>
-      <input type='date' name='toDate' defaultValue='2019-12-31' onChange={e => handleDateChange(e, incomeIndex)} />
+      <input type='date' name='toDate' value={toDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
 
       <input type='submit' value='Calcular' />
     </form>

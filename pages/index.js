@@ -13,7 +13,7 @@ class Home extends React.Component {
     incomeSources: [
       {
         income: 0,
-        workedDays: 0,
+        workedDays: 365,
         contract: 'nomina'
       }
     ],
@@ -50,6 +50,10 @@ class Home extends React.Component {
       sourcesCopy[index].income = newValue
 
       this.setState({incomeSources: sourcesCopy})
+
+      if(sourcesCopy.length === 1 && newValue === 0) {
+        this.setState({summaryVisible: false})
+      }
     }
   }
 
