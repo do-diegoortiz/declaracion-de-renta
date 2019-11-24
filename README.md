@@ -21,6 +21,7 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * Mostrar el desglose de las deducciones
 * Agregar test unitarios para cada caso de uso
 * Agregar botón para resetear inputs y volver a empezar
+* Abstraer totalIncome en un solo lugar
 * UI: Remove income source
 * UI: Tooltips de ayuda en cada input (deducciones especialmente)
 * UI: Cambiar alerts por warning amigables

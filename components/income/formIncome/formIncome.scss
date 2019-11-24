@@ -49,6 +49,7 @@
 @media (max-width: 560px) {
   .formContainer {
     flex-direction: column;
+    border: 1.4rem solid rgba(0,0,0,.3);
   }
 
   .formContainer > * {

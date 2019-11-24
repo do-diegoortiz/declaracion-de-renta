@@ -19,7 +19,7 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
   return (
     <form className={css.formContainer} onSubmit={showSummary}  key={incomeIndex}>
       <h1 className={css.hideMobile}>{incomeIndex+1}</h1>
-      <label htmlFor='contract' className={css.hideMobile}>Contrato</label>
+      <label id='contract' className={css.hideMobile}>Contrato</label>
       <select name='contract' className={css.contract} aria-labelledby='contract' value={contract} onChange={ e => handleContractChange(e, incomeIndex)}>
         <option value='nomina'>Nómina</option>
         <option value='prestaciones'>Prestación</option>

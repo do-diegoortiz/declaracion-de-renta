@@ -150,7 +150,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, income
           <ol>
             <p>Estos son algunos consejos que puedes seguir:</p>
             {prepaidMedicine ? null : <li>Si alcanzas a afiliarte por un mes a medicina prepagada, hazlo. Además de tener mejor servicio de salud, con un plan de $500.000 te ahorrarás <b>${savingsForOneMonthOfPrepaidMedicine}</b> en el pago de renta</li>}
-            maxValueToAddInDeductions
+
             <li>Puedes afiliarte a un fondo de pensiones voluntarias y aportar hasta 
               <span className={css.AdviceValues}>
                 <NumberFormat

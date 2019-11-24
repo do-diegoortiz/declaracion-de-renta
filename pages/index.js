@@ -180,7 +180,19 @@ class Home extends React.Component {
       prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
     } = this.state
 
-    const totalIncome = incomeSources.map(x => x.income * (x.workedDays/30)).reduce((acum, current)=> acum + current)
+    const incomes = incomeSources.map(x => {
+      switch(x.contract) {
+        case 'nomina':
+          return x.income > (828116 * 4) ?
+            x.income * (x.workedDays/30) * (0.91 + (2.5 /12)) :
+            x.income * (x.workedDays/30) * (0.92 + (2.5 /12))
+        case 'prestaciones':
+          return x.income * (x.workedDays/30)
+        case 'contratista':
+          return x.income * (x.workedDays/30)
+      }
+    })
+    const totalIncome = incomes.reduce((acum, current)=> acum + current)
 
     return (
       <div>

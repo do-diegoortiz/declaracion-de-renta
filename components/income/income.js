@@ -53,7 +53,19 @@ class Income extends React.Component {
     
     const forms = [];
     const jobsSummary = [];
-    const totalIncome = incomeSources.map(x => x.income * (x.workedDays/30)).reduce((acum, current)=> acum + current)
+    const incomes = incomeSources.map(x => {
+      switch(x.contract) {
+        case 'nomina':
+          return x.income > (828116 * 4) ?
+            x.income * (x.workedDays/30) * (0.91 + (2.5 /12)) :
+            x.income * (x.workedDays/30) * (0.92 + (2.5 /12))
+        case 'prestaciones':
+          return x.income * (x.workedDays/30)
+        case 'contratista':
+          return x.income * (x.workedDays/30)
+      }
+    })
+    const totalIncome = incomes.reduce((acum, current)=> acum + current)
 
     for (let incomeIndex = 0; incomeIndex < incomeSources.length; incomeIndex++) {
       forms.push(
@@ -73,7 +85,7 @@ class Income extends React.Component {
       jobsSummary.push(
         <Summary
           income={incomeSources[incomeIndex].income}
-          totalDays={incomeSources[incomeIndex].workedDays}
+          workedDays={incomeSources[incomeIndex].workedDays}
           contract={incomeSources[incomeIndex].contract}
           retention={incomeSources[incomeIndex].retention}
           incomeIndex={incomeIndex}

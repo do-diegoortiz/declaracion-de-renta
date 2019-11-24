@@ -4,10 +4,10 @@ import NumberFormat from 'react-number-format'
 
 import css from './summary.scss';
 
-export const Summary = ({ income, totalDays, contract, retention, incomeIndex }) => {
+export const Summary = ({ income, workedDays, contract, retention, incomeIndex }) => {
   Summary.propTypes = {
     income: PropTypes.number.isRequired,
-    totalDays: PropTypes.number.isRequired,
+    workedDays: PropTypes.number.isRequired,
     contract: PropTypes.string.isRequired,
     retention: PropTypes.number.isRequired,
     incomeIndex: PropTypes.number.isRequired
@@ -22,36 +22,39 @@ export const Summary = ({ income, totalDays, contract, retention, incomeIndex })
 
   switch(contract) {
     case 'nomina':
-      totalSalary = (income / 30) * totalDays;
+      totalSalary = (income / 30) * workedDays;
       health = totalSalary * 0.04
       retirement = health
       solidarity = income > (828116 * 4) ? totalSalary * 0.01 : 0
-      perks = income * (totalDays/365)
-      totalIncome = totalSalary - health - retirement - solidarity - retention + perks * 2.5
+      perks = totalSalary / 12
+      // I won't substract retention here (pending)
+      totalIncome = totalSalary - health - retirement - solidarity + perks * 2.5
       break;
 
     case 'prestaciones':
-      totalSalary = (income / 30) * totalDays;
+      totalSalary = (income / 30) * workedDays;
       health = totalSalary * 0.4 * 0.16
       retirement = totalSalary * 0.4 * 0.125
-      solidarity = totalSalary * 0.01
+      solidarity = totalSalary * 0.4 * 0.01
       perks = 0
-      totalIncome = totalSalary - health - retirement - solidarity - retention
+      // I won't substract retention here (pending)
+      totalIncome = totalSalary - health - retirement - solidarity
       break;
 
     case 'contratista':
-      totalSalary = (income / 30) * totalDays;
+      totalSalary = (income / 30) * workedDays;
       health = totalSalary * 0.4 * 0.16
       retirement = totalSalary * 0.4 * 0.125
       solidarity = 0
       perks = 0
+      // Not sure if I should ignore "solidarity" in this contract
       totalIncome = totalSalary - health - retirement
       break;
   }
 
   return <div className={css.SummaryContainer} key={income}>
     <h2>
-      Ingresos totales trabajo # {incomeIndex + 1}:
+      Ingresos brutos de trabajo # {incomeIndex + 1}:
       <p className={css.TotalNumber}>
         <NumberFormat
           value={totalIncome}
