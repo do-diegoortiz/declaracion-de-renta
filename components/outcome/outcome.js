@@ -47,8 +47,8 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, income
   const savingsForOneMonthOfPrepaidMedicine = calculateSavings(500000)
 
   // For math, the maximum value to discount in regular deductions is 20% (the other 20% comes from the 25% of 80% [100% - 20%])
-  const maxValueToAddInDeductions = (0.2 * liquidIncome) - totalDeductions
-  const savingsWithAdviceInVoluntaryRetirementContributions = calculateSavings(maxValueToAddInDeductions)
+  const maxValueToAddInDeductions = (0.2 * liquidIncome) - totalDeductions - totalRetentions
+  const savingsWithAdviceInVoluntaryRetirementContributions = calculateSavings(maxValueToAddInDeductions) - totalRetentions
 
   function calculateSavings(adviceValue) {
     let totalTaxCopy = 0
