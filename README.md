@@ -13,8 +13,7 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 
 ## Tareas pendientes
 * Perfeccionar calculos para cada tipo de contrato
-    * Calculo de rete fuente para ciertos salarios (+ input modificable)
-    * Verificar en FORM 220 si descuentos de prestaciones se descuentan del ingreso bruto
+* Hacer la retención total del outcome modificable
 * Mostrar el desglose de las deducciones
 * Agregar test unitarios para cada caso de uso
 * Agregar botón para resetear inputs y volver a empezar

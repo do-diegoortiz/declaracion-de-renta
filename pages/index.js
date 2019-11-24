@@ -80,7 +80,7 @@ class Home extends React.Component {
     if (contract === 'nomina') {
       // Table to calculate properly this value is here: https://www.gerencie.com/retencion-en-la-fuente-por-ingresos-laborales.html
       // Here we are using 19% since is the most common
-      sourcesCopy[index].retention = income > 4770183 ? ((income - 87 * UVT) * 0.19) * (sourcesCopy[index].workedDays/30) : 0
+      sourcesCopy[index].retention = income > 4770183 ? ((income - 87 * UVT) * 0.19) : 0
     } else if(contract === 'prestaciones') {
       // I've read we had to add 1% about ICA in certain scenarios
       // TODO: Verify is its 11% before paying health+retirement or over the base salary
@@ -231,6 +231,7 @@ class Home extends React.Component {
           liquidIncome={totalIncome - incomeOutOfTaxes}
           totalDeductions={totalDeductions}
           prepaidMedicine={prepaidMedicine}
+          incomeSources={incomeSources}
         />}
 
         {/* <ul>

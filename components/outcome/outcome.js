@@ -6,22 +6,39 @@ import css from './outcome.scss';
 
 const UVT = 34270
 
-export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
+export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, incomeSources }) => {
   Outcome.propTypes = {
     liquidIncome: PropTypes.number.isRequired,
     totalDeductions: PropTypes.number.isRequired,
-    prepaidMedicine: PropTypes.number
+    prepaidMedicine: PropTypes.number,
+    incomeSources: PropTypes.array
   };
+
+  const totalRetentions = incomeSources.reduce((x, y) => (x + y.retention), 0)
+
+  const retentions = incomeSources.map((income, i) => {
+    return income.retention > 0 ? <h2 className={css.SubTotalContainer}>
+      <span className={css.Title}>Rte.Fte Trabajo #{i+1}</span>
+      <span className={css.TotalNumber}>
+        <NumberFormat
+          value={income.retention}
+          thousandSeparator={true}
+          prefix='$'
+          decimalScale={0}
+        />
+      </span>
+    </h2> : null
+  })
 
   // If totalDeductions plus 25% of (liquid - totalDeductions) is bigger than top limit 40%, we use 40%
   const liquidIncomeMinusDeductions = (totalDeductions + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.4 : liquidIncome - totalDeductions - ((liquidIncome - totalDeductions) * 0.25)
-  let totalValueToPay = 0
+  let totalTaxes = 0
   if (liquidIncomeMinusDeductions > (UVT * 4100)) {
-    totalValueToPay = ((liquidIncomeMinusDeductions - (UVT * 4100)) * 0.33) + (UVT * 788)
+    totalTaxes = ((liquidIncomeMinusDeductions - (UVT * 4100)) * 0.33) + (UVT * 788)
   } else if (liquidIncomeMinusDeductions > (UVT * 1700)) {
-    totalValueToPay = ((liquidIncomeMinusDeductions - (UVT * 1700)) * 0.28) + (UVT * 116)
+    totalTaxes = ((liquidIncomeMinusDeductions - (UVT * 1700)) * 0.28) + (UVT * 116)
   } else if (liquidIncomeMinusDeductions > (UVT * 1090)) {
-    totalValueToPay = ((liquidIncomeMinusDeductions - (UVT * 1090)) * 0.19)
+    totalTaxes = ((liquidIncomeMinusDeductions - (UVT * 1090)) * 0.19)
   }
 
   // Variable to know if I should advice about ways to improve the final payment or not. 38% is pretty close to 40%
@@ -34,34 +51,34 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
   const savingsWithAdviceInVoluntaryRetirementContributions = calculateSavings(maxValueToAddInDeductions)
 
   function calculateSavings(adviceValue) {
-    let totalValueToPayCopy = 0
-    let totalValueToPayCopyWithAdvice = 0
+    let totalTaxCopy = 0
+    let totalTaxCopyWithAdvice = 0
     const liquidIncomeMinusDeductionsCopy = (totalDeductions + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.6 : liquidIncome - totalDeductions - ((liquidIncome - totalDeductions) * 0.25)
     const liquidIncomeMinusDeductionsCopyWithAdvice = (totalDeductions + adviceValue + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.6 : liquidIncome - totalDeductions - adviceValue - ((liquidIncome - totalDeductions - adviceValue) * 0.25)
 
     // when liquidIncomeMinusDeductionsCopyWithAdvice and liquidIncomeMinusDeductionsCopy belong to the same Range, the savings for each $500.000 are 123750 in first validation, 105000 in the second and 71250 in the last group
     if (liquidIncomeMinusDeductionsCopy > (UVT * 4100)) {
-      totalValueToPayCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 4100)) * 0.33) + (UVT * 788)
+      totalTaxCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 4100)) * 0.33) + (UVT * 788)
     } else if (liquidIncomeMinusDeductionsCopy > (UVT * 1700)) {
-      totalValueToPayCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 1700)) * 0.28) + (UVT * 116)
+      totalTaxCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 1700)) * 0.28) + (UVT * 116)
     } else if (liquidIncomeMinusDeductionsCopy > (UVT * 1090)) {
-      totalValueToPayCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 1090)) * 0.19)
+      totalTaxCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 1090)) * 0.19)
     }
 
     if (liquidIncomeMinusDeductionsCopyWithAdvice > (UVT * 4100)) {
-      totalValueToPayCopyWithAdvice = ((liquidIncomeMinusDeductionsCopyWithAdvice - (UVT * 4100)) * 0.33) + (UVT * 788)
+      totalTaxCopyWithAdvice = ((liquidIncomeMinusDeductionsCopyWithAdvice - (UVT * 4100)) * 0.33) + (UVT * 788)
     } else if (liquidIncomeMinusDeductionsCopyWithAdvice > (UVT * 1700)) {
-      totalValueToPayCopyWithAdvice = ((liquidIncomeMinusDeductionsCopyWithAdvice - (UVT * 1700)) * 0.28) + (UVT * 116)
+      totalTaxCopyWithAdvice = ((liquidIncomeMinusDeductionsCopyWithAdvice - (UVT * 1700)) * 0.28) + (UVT * 116)
     } else if (liquidIncomeMinusDeductionsCopyWithAdvice > (UVT * 1090)) {
-      totalValueToPayCopyWithAdvice = ((liquidIncomeMinusDeductionsCopyWithAdvice - (UVT * 1090)) * 0.19)
+      totalTaxCopyWithAdvice = ((liquidIncomeMinusDeductionsCopyWithAdvice - (UVT * 1090)) * 0.19)
     }
-    return totalValueToPayCopy - totalValueToPayCopyWithAdvice
+    return totalTaxCopy - totalTaxCopyWithAdvice
   }
 
   return <div className={css.SummaryContainer} key={liquidIncome}>
     <div className={css.TotalsContainer}>
-      <div className={css.SubTotalContainer}>
-        <h2 className={css.Title}>Renta Líquida:</h2>
+      <h2 className={css.SubTotalContainer}>
+        <span className={css.Title}>Renta Líquida:</span>
         <span className={css.TotalBadNumber}>
           <NumberFormat
             value={liquidIncome}
@@ -70,7 +87,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
             decimalScale={0}
           />
         </span> 
-      </div>
+      </h2>
 
       <h2 className={css.SubTotalContainer}>
         <span className={css.Title}>Deducciones Totales:</span>
@@ -99,10 +116,25 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine }) => {
 
       <h2 className={css.SubTotalContainer}>
         {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
+        <span className={css.Title}>Total Impuesto:</span>
+        <span className={css.TotalBadNumber}>
+          <NumberFormat
+            value={totalTaxes}
+            thousandSeparator={true}
+            prefix='$'
+            decimalScale={0}
+          />
+        </span>
+      </h2>
+
+      {retentions}
+
+      <h2 className={css.SubTotalContainer}>
+        {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
         <span className={css.Title}>Valor de renta a pagar:</span>
         <span className={css.TotalBadNumber}>
           <NumberFormat
-            value={totalValueToPay}
+            value={totalTaxes > totalRetentions ? totalTaxes - totalRetentions : 0}
             thousandSeparator={true}
             prefix='$'
             decimalScale={0}
