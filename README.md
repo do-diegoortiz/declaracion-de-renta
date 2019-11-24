@@ -1,4 +1,5 @@
 # Declara Renta
+[Ver la app](https://declaracion-de-renta.now.sh/)
 
 ## Iniciar
 * `yarn` para agregar los node_modules (NO usar `npm install`)
@@ -12,6 +13,9 @@ Ingresar todos los ingresos del año, todas las deducciones. El sistema calcular
 Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/tree/canary/examples/with-jest
 
 ## Tareas pendientes
+* Arreglar ingresos totales
+* Arreglar maximo descuento
+* Agregar Link Views
 * Perfeccionar calculos para cada tipo de contrato
 * Hacer la retención total del outcome modificable
 * Mostrar el desglose de las deducciones

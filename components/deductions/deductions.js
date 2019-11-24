@@ -19,8 +19,9 @@ class Deductions extends React.Component {
 
     return <form className={css.formContainer}>
       <div className={css.formGroup}>
-        <label className={css.label}>Medicina Prepagada</label>
+        <label className={css.label} htmlFor='prepaidMedicine'>Medicina Prepagada</label>
         <DeductionInput
+          id='prepaidMedicine'
           name='prepaidMedicine'
           onChange={this.props.handleDeductionChange}
           value={prepaidMedicine}
@@ -28,8 +29,9 @@ class Deductions extends React.Component {
       </div>
 
       <div className={css.formGroup}>
-        <label className={css.label}>Aportes Como Ind. a SS</label>
+        <label className={css.label} htmlFor='indepSocialSecurity'>Aportes Como Ind. a SS</label>
         <DeductionInput
+          id='indepSocialSecurity'
           name='indepSocialSecurity'
           onChange={this.props.handleDeductionChange}
           value={indepSocialSecurity}
@@ -37,13 +39,19 @@ class Deductions extends React.Component {
       </div>
 
       <div className={css.formGroup}>
-        <label className={css.label}>Cantidad Dependientes</label>
-        <input type="number" name='dependants' onChange={this.props.handleDeductionChange} value={dependants / 0.1 / (totalIncome || 1)} />
+        <label className={css.label} htmlFor='dependants'>Cantidad Dependientes</label>
+        <input
+          type="number"
+          id='dependants'
+          name='dependants'
+          onChange={this.props.handleDeductionChange} value={dependants / 0.1 / (totalIncome || 1)}
+        />
       </div>
 
       <div className={css.formGroup}>
-        <label className={css.label}>Donaciones</label>
+        <label className={css.label} htmlFor='donations'>Donaciones</label>
         <DeductionInput
+          id='donations'
           name='donations'
           onChange={this.props.handleDeductionChange}
           value={donations}
@@ -51,8 +59,9 @@ class Deductions extends React.Component {
       </div>
 
       <div className={css.formGroup}>
-        <label className={css.label}>Aportes a Pens Voluntar.</label>
+        <label className={css.label} htmlFor='voluntaryContributions'>Aportes a Pens Voluntar.</label>
         <DeductionInput
+          id='voluntaryContributions'
           name='voluntaryContributions'
           onChange={this.props.handleDeductionChange}
           value={voluntaryContributions}

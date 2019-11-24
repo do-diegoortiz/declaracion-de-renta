@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format'
 
-export const DeductionInput = ({ name, onChange, value }) => {
+export const DeductionInput = ({ id, name, onChange, value }) => {
   DeductionInput.propTypes = {
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.number.isRequired
@@ -13,6 +14,7 @@ export const DeductionInput = ({ name, onChange, value }) => {
 
   return(
     <NumberFormat
+      id={id}
       allowNegative={false}
       thousandSeparator={true}
       prefix='$'

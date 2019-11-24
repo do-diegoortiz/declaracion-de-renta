@@ -1,5 +1,4 @@
 import React from 'react'
-import Head from 'next/head'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 import Outcome from '../components/outcome/outcome'
@@ -185,11 +184,6 @@ class Home extends React.Component {
 
     return (
       <div>
-        <Head>
-          <title>Inicio</title>
-          <link rel='icon' href='/favicon.ico' />
-        </Head>
-
         <h1 className={css.title}>Optimiza la declaración de renta</h1>
         <p className={css.description}>
           Hay algunas cosas que puedes hacer para reducir legalmente el valor final a pagar por ingresos de trabajo del 2019. Pero las debes hacer antes del 31 de diciembre de 2019.
