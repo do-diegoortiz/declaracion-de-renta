@@ -6,6 +6,8 @@ import Outcome from '../components/outcome/outcome'
 
 import css from './index.scss'
 
+const UVT = 34270
+
 class Home extends React.Component {
   state = {
     summaryVisible: false,
@@ -13,8 +15,9 @@ class Home extends React.Component {
     incomeSources: [
       {
         income: 0,
+        retention: 0,
         workedDays: 365,
-        contract: 'nomina'
+        contract: 'nomina' // The other two options are 'prestaciones' and 'contratista'
       }
     ],
     incomeOutOfTaxes: 0,
@@ -28,12 +31,15 @@ class Home extends React.Component {
     totalDeductions: 0
   }
 
-  increaseIncomeSources = () => {
+  increaseIncomeSources = (...args) => {
+    const [defaultWorkedDays] = args
     const sourcesCopy = [...this.state.incomeSources]
+
     sourcesCopy.push(
       {
         income: 0,
-        workedDays: 0,
+        retention: 0,
+        workedDays: defaultWorkedDays,
         contract: 'nomina'
       }
     )
@@ -54,12 +60,32 @@ class Home extends React.Component {
       if(sourcesCopy.length === 1 && newValue === 0) {
         this.setState({summaryVisible: false})
       }
+
+      this.updateRetention(index, newValue, sourcesCopy[index].contract)
     }
   }
 
   handleContractChange = (e, index) => {
     const sourcesCopy = [...this.state.incomeSources]
     sourcesCopy[index].contract = e.target.value
+
+    this.setState({incomeSources: sourcesCopy})
+    this.updateRetention(index, sourcesCopy[index].income, e.target.value)
+  }
+
+  updateRetention = (index, income, contract) => {
+    const sourcesCopy = [...this.state.incomeSources]
+    const totalSalary = (income / 30) * sourcesCopy[index].workedDays;
+
+    if (contract === 'nomina') {
+      // Table to calculate properly this value is here: https://www.gerencie.com/retencion-en-la-fuente-por-ingresos-laborales.html
+      // Here we are using 19% since is the most common
+      sourcesCopy[index].retention = income > 4770183 ? ((income - 87 * UVT) * 0.19) * (sourcesCopy[index].workedDays/30) : 0
+    } else if(contract === 'prestaciones') {
+      // I've read we had to add 1% about ICA in certain scenarios
+      // TODO: Verify is its 11% before paying health+retirement or over the base salary
+      sourcesCopy[index].retention = income > 828116 ? (totalSalary * 0.6) * 0.11 : totalSalary * 0.11
+    }
 
     this.setState({incomeSources: sourcesCopy})
   }

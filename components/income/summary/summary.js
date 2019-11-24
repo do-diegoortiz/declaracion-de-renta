@@ -4,11 +4,12 @@ import NumberFormat from 'react-number-format'
 
 import css from './summary.scss';
 
-export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
+export const Summary = ({ income, totalDays, contract, retention, incomeIndex }) => {
   Summary.propTypes = {
     income: PropTypes.number.isRequired,
     totalDays: PropTypes.number.isRequired,
     contract: PropTypes.string.isRequired,
+    retention: PropTypes.number.isRequired,
     incomeIndex: PropTypes.number.isRequired
   };
 
@@ -16,7 +17,6 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
   let health = 0
   let retirement = 0
   let solidarity = 0
-  let retention = 0
   let perks = 0
   let totalIncome = 0
 
@@ -26,7 +26,6 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
       health = totalSalary * 0.04
       retirement = health
       solidarity = income > (828116 * 4) ? totalSalary * 0.01 : 0
-      retention = income > 4770183 ? (totalSalary - (4770183 * totalDays/30)) * 0.19 : 0
       perks = income * (totalDays/365)
       totalIncome = totalSalary - health - retirement - solidarity - retention + perks * 2.5
       break;
@@ -36,7 +35,6 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
       health = totalSalary * 0.4 * 0.16
       retirement = totalSalary * 0.4 * 0.125
       solidarity = totalSalary * 0.01
-      retention = totalSalary * 0.1
       perks = 0
       totalIncome = totalSalary - health - retirement - solidarity - retention
       break;
@@ -46,7 +44,6 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
       health = totalSalary * 0.4 * 0.16
       retirement = totalSalary * 0.4 * 0.125
       solidarity = 0
-      retention = 0
       perks = 0
       totalIncome = totalSalary - health - retirement
       break;
@@ -102,7 +99,7 @@ export const Summary = ({ income, totalDays, contract, incomeIndex }) => {
       />
     </p>
     <p className={css.LessDetail}>
-      Retención: &nbsp;
+      Rte.Fte. Estimada: &nbsp;
       <NumberFormat
         value={retention}
         thousandSeparator={true}

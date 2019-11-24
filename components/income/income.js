@@ -19,17 +19,19 @@ class Income extends React.Component {
 
   createNewForm = () => {
     const datesCopy = [...this.state.datesPerIncome]
-    const previousIndex = datesCopy.length - 1
+    const index = datesCopy.length
 
     datesCopy.push(
       {
-        fromDate: datesCopy[previousIndex].toDate,
+        fromDate: datesCopy[index - 1].toDate,
         toDate: moment(new Date(2019, 11, 31))
       }
     )
+    
+    const newWorkedDays = datesCopy[index].toDate.diff(datesCopy[index].fromDate, 'days', false)
 
     this.setState({datesPerIncome: datesCopy})
-    this.props.increaseIncomeSources()
+    this.props.increaseIncomeSources(newWorkedDays)
   }
 
   handleDateChange = (e, index) => {
@@ -73,6 +75,7 @@ class Income extends React.Component {
           income={incomeSources[incomeIndex].income}
           totalDays={incomeSources[incomeIndex].workedDays}
           contract={incomeSources[incomeIndex].contract}
+          retention={incomeSources[incomeIndex].retention}
           incomeIndex={incomeIndex}
           key={incomeIndex}
         />
