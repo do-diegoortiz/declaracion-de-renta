@@ -20,13 +20,14 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
     <form className={css.formContainer} onSubmit={showSummary}  key={incomeIndex}>
       <h1 className={css.hideMobile}>{incomeIndex+1}</h1>
       <label htmlFor='contract' className={css.hideMobile}>Contrato</label>
-      <select name='contract' className={css.contract} id='contract' value={contract} onChange={ e => handleContractChange(e, incomeIndex)}>
+      <select name='contract' className={css.contract} aria-labelledby='contract' value={contract} onChange={ e => handleContractChange(e, incomeIndex)}>
         <option value='nomina'>Nómina</option>
         <option value='prestaciones'>Prestación</option>
         <option value='contratista'>Contratista</option>
       </select>
 
       <NumberFormat
+        aria-label="income"
         className={css.salaryContainer}
         thousandSeparator={true}
         prefix='$'
@@ -37,11 +38,14 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
         required
       />
 
-      <label htmlFor='de' className={css.hideMobile}>De</label>
-      <input type='date' id='de' name='fromDate' value={fromDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
+      <label>De
+        <input type='date' name='fromDate' value={fromDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
+      </label>
+      
 
-      <label htmlFor='hasta' className={css.hideMobile}>Hasta</label>
-      <input type='date' id='hasta' name='toDate' value={toDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
+      <label>Hasta
+        <input type='date' name='toDate' value={toDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
+      </label>
 
       <input type='submit' value='Calcular' />
     </form>
