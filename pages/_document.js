@@ -13,7 +13,7 @@ class MyDocument extends Document {
     return (
       <Html lang="es">
         <Head>
-          <title>Inicio</title>
+          <title>Declaracion de Renta</title>
           <link rel='icon' href='/favicon.ico' />
           <meta name="description" content="Optimiza tu declaración de renta para que no se te vaya un ojo de la cara en agosto del próximo año"></meta>
           <meta name="keywords" content="Declaración de renta, pensiones voluntarias, retención en la fuente"></meta>
