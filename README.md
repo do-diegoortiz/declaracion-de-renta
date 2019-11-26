@@ -29,7 +29,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * Leer paulgraham.com/writing44.html para mejorar la redacción y simplicidad del último parrafo
 * BUG: Cuándo se cambia el ingreso después de los dependientes se enloquece el input de dependientes
 
-* Agregar un caret al select de contrato para que se entienda que se puede cambiar
 * UI: Quitar los colores rojo y verde de los totales, cambiarlo por algo de la escala de de los grises oscuros. El único que debería tener color diferente debería ser el valor a pagar.
 * UI: Remove income source
 * UI: El placeholder del salario mensual no se lee completo
