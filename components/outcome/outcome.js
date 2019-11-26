@@ -79,7 +79,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, income
     <div className={css.TotalsContainer}>
       <h2 className={css.SubTotalContainer}>
         <span className={css.Title}>Renta Líquida:</span>
-        <span className={css.TotalBadNumber}>
+        <span className={css.TotalNumber}>
           <NumberFormat
             value={liquidIncome}
             thousandSeparator={true}
@@ -104,7 +104,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, income
       <h2 className={css.SubTotalContainer}>
         {/* Renta liquida menos total de deducciones (Que no deben exeder el 40%) */}
         <span className={css.Title}>Renta Líq. Cedular de Trabajo:</span>
-        <span className={css.TotalBadNumber}>
+        <span className={css.TotalNumber}>
           <NumberFormat
             value={liquidIncomeMinusDeductions}
             thousandSeparator={true}
@@ -117,7 +117,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, income
       <h2 className={css.SubTotalContainer}>
         {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
         <span className={css.Title}>Total Impuesto:</span>
-        <span className={css.TotalBadNumber}>
+        <span className={css.TotalNumber}>
           <NumberFormat
             value={totalTaxes}
             thousandSeparator={true}

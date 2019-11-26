@@ -15,19 +15,6 @@
   width: 100%;
 }
 
-.TotalBadNumber {
-  flex-basis: 50%;
-  display: flex;
-  justify-content: flex-start;
-
-  input {
-    font-size: 3rem;
-    color: red;
-    text-align: center;
-    width: 22rem;
-  }
-}
-
 .TotalNumber {
   flex-basis: 50%;
   display: flex;
@@ -35,7 +22,7 @@
 
   input {
     font-size: 3rem;
-    color: green;
+    color: #343A40;
     text-align: center;
     width: 22rem;
   }
