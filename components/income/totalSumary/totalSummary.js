@@ -13,7 +13,7 @@ export const TotalSummary = ({ income, incomeOutOfTaxes }) => {
   return <div className={css.SummaryContainer} key={income}>
     <h2 className={css.TotalContainer}>
       <span className={css.Title}> Ingresos Totales 2019:</span>
-      <span className={css.TotalBadNumber}>
+      <span className={css.TotalNumber}>
         <NumberFormat
           value={income}
           thousandSeparator={true}
@@ -36,7 +36,7 @@ export const TotalSummary = ({ income, incomeOutOfTaxes }) => {
 
     <h2 className={css.TotalContainer}>
       <span className={css.Title}> Renta liquida:</span>
-      <span className={css.TotalBadNumber}>
+      <span className={css.TotalNumber}>
         <NumberFormat
           value={income - incomeOutOfTaxes}
           thousandSeparator={true}
