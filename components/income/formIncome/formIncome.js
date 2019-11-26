@@ -31,7 +31,7 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
         className={css.salaryContainer}
         thousandSeparator={true}
         prefix='$'
-        placeholder='($) Salario mensual en COP'
+        placeholder='Salario mensual'
         name='income'
         decimalScale={0}
         onValueChange={(values) => {handleIncomeChange(values.value, incomeIndex)}}

@@ -30,7 +30,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * BUG: Cuándo se cambia el ingreso después de los dependientes se enloquece el input de dependientes
 
 * UI: Remove income source
-* UI: El placeholder del salario mensual no se lee completo
 * UI: Tooltips de ayuda en cada input (deducciones especialmente) (Tener en cuenta salario flexible de Globant)
 * UI: Cambiar alerts por warning amigables
 * UI: Hacerlo mobile
