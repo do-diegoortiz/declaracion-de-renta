@@ -17,7 +17,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, income
   const totalRetentions = incomeSources.reduce((x, y) => (x + y.retention), 0)
 
   const retentions = incomeSources.map((income, i) => {
-    return income.retention > 0 ? <h2 className={css.SubTotalContainer}>
+    return income.retention > 0 ? <h2 className={css.SubTotalContainer} key={i}>
       <span className={css.Title}>Rte.Fte Trabajo #{i+1}</span>
       <span className={css.TotalNumber}>
         <NumberFormat
@@ -45,17 +45,18 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, income
   const deductionsOnTheLimit = (totalDeductions + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.38
 
   const savingsForOneMonthOfPrepaidMedicine = calculateSavings(500000)
+  const incomeAlreadyPaidInRetentions = 500000 * totalRetentions / savingsForOneMonthOfPrepaidMedicine
 
   // For math, the maximum value to discount in regular deductions is 20% (the other 20% comes from the 25% of 80% [100% - 20%])
-  const maxValueToAddInDeductions = (0.2 * liquidIncome) - totalDeductions
+  const maxValueToAddInDeductions = (0.2 * liquidIncome) - totalDeductions - incomeAlreadyPaidInRetentions
   const savingsWithAdviceInVoluntaryRetirementContributions = calculateSavings(maxValueToAddInDeductions)
 
   function calculateSavings(adviceValue) {
     let totalTaxCopy = 0
     let totalTaxCopyWithAdvice = 0
     const liquidIncomeMinusDeductionsCopy = (totalDeductions + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.6 : liquidIncome - totalDeductions - ((liquidIncome - totalDeductions) * 0.25)
-    const liquidIncomeMinusDeductionsCopyWithAdvice = (totalDeductions + adviceValue + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.6 : liquidIncome - totalDeductions - adviceValue - ((liquidIncome - totalDeductions - adviceValue) * 0.25)
-
+    const liquidIncomeMinusDeductionsCopyWithAdvice = (totalDeductions + adviceValue + ((liquidIncome - totalDeductions - adviceValue) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.6 : liquidIncome - totalDeductions - adviceValue - ((liquidIncome - totalDeductions - adviceValue) * 0.25)
+    
     // when liquidIncomeMinusDeductionsCopyWithAdvice and liquidIncomeMinusDeductionsCopy belong to the same Range, the savings for each $500.000 are 123750 in first validation, 105000 in the second and 71250 in the last group
     if (liquidIncomeMinusDeductionsCopy > (UVT * 4100)) {
       totalTaxCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 4100)) * 0.33) + (UVT * 788)
