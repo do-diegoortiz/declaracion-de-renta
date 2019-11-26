@@ -17,7 +17,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * Hacer la retención total del Outcome component, un dato modificable
 * Mostrar el desglose de las deducciones
 * Agregar botón para resetear inputs y volver a empezar
-* BUG: Cuándo se cambia el ingreso después de los dependientes se enloquece el input de dependientes
 * Perfeccionar calculos para cada tipo de contrato
 * Agregar test unitarios para cada caso de uso
 * Tener en cuenta cesantias del año anterior y no del presente

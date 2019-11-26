@@ -44,7 +44,8 @@ class Deductions extends React.Component {
           type="number"
           id='dependants'
           name='dependants'
-          onChange={this.props.handleDeductionChange} value={dependants / 0.1 / (totalIncome || 1)}
+          onChange={this.props.handleDeductionChange}
+          value={dependants}
         />
       </div>
 

@@ -24,7 +24,8 @@ class Home extends React.Component {
     // DEDUCTIONS
     prepaidMedicine: 0,
     indepSocialSecurity: 0,
-    dependants: 0,
+    dependants: 0, // Number of people
+    dependantsDeduction: 0,
     donations: 0,
     voluntaryContributions: 0,
     totalDeductions: 0
@@ -131,7 +132,8 @@ class Home extends React.Component {
       } else {
         // Theory says you can substract 10% of your income for every dependant
         this.setState({
-          dependants: e.target.value * totalIncome * 0.1,
+          dependantsDeduction: e.target.value * totalIncome * 0.1,
+          dependants: e.target.value,
           totalDeductions: totalDeductions
         })  
       }
@@ -161,7 +163,7 @@ class Home extends React.Component {
 
   getTotalDeductionsStandard(deduction, value) {
     const deductions = ['prepaidMedicine', 'indepSocialSecurity', 'donations', 'voluntaryContributions']
-    let newTotal = this.state.dependants
+    let newTotal = this.state.dependantsDeduction
 
     deductions.forEach(item => {
       if (deduction === item){
