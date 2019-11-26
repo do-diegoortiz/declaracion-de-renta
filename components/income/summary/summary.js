@@ -65,7 +65,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
       </p>
     </h2>
     <h3 className={css.Subtitle}>Desglosados así:</h3>
-    <p className={css.PlusDetail}>
+    <p className={css.Detail}>
       Salario: &nbsp;
       <NumberFormat
         value={totalSalary}
@@ -74,7 +74,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
         decimalScale={0}
       />
     </p>
-    <p className={css.LessDetail}>
+    <p className={css.Detail}>
       Salud/EPS: &nbsp;
       <NumberFormat
         value={health}
@@ -83,7 +83,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
         decimalScale={0}
       />
     </p>
-    <p className={css.LessDetail}>
+    <p className={css.Detail}>
       Pensiones: &nbsp;
       <NumberFormat
         value={retirement}
@@ -92,7 +92,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
         decimalScale={0}
       />
     </p>
-    <p className={css.LessDetail}>
+    <p className={css.Detail}>
       Solidaridad: &nbsp;
       <NumberFormat
         value={solidarity}
@@ -101,7 +101,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
         decimalScale={0}
       />
     </p>
-    <p className={css.LessDetail}>
+    <p className={css.Detail}>
       Rte.Fte. Estimada: &nbsp;
       <NumberFormat
         value={retention}
@@ -111,7 +111,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
       />
     </p>
 
-    <p className={css.PlusDetail}>
+    <p className={css.Detail}>
       Vacaciones: &nbsp;
       <NumberFormat
         value={perks/2}
@@ -120,7 +120,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
         decimalScale={0}
       />
     </p>
-    <p className={css.PlusDetail}>
+    <p className={css.Detail}>
       Primas: &nbsp;
       <NumberFormat
         value={perks}
@@ -129,7 +129,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
         decimalScale={0}
       />
     </p>
-    <p className={css.PlusDetail}>
+    <p className={css.Detail}>
       Cesantias: &nbsp;
       <NumberFormat
         value={perks}
