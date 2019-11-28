@@ -6,8 +6,9 @@ import css from './outcome.scss';
 
 const UVT = 34270
 
-export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, incomeSources }) => {
+export const Outcome = ({ handleRetentionChange, liquidIncome, totalDeductions, prepaidMedicine, incomeSources }) => {
   Outcome.propTypes = {
+    handleRetentionChange: PropTypes.func.isRequired,
     liquidIncome: PropTypes.number.isRequired,
     totalDeductions: PropTypes.number.isRequired,
     prepaidMedicine: PropTypes.number,
@@ -25,6 +26,7 @@ export const Outcome = ({ liquidIncome, totalDeductions, prepaidMedicine, income
           thousandSeparator={true}
           prefix='$'
           decimalScale={0}
+          onValueChange={(values) => {handleRetentionChange(values.value, i)}}
         />
       </span>
     </h2> : null

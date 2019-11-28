@@ -14,7 +14,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 
 ## Tareas pendientes
 * Abstraer totalIncome en un solo lugar
-* Hacer la retención total del Outcome component, un dato modificable
 * Mostrar el desglose de las deducciones
 * Agregar botón para resetear inputs y volver a empezar
 * Perfeccionar calculos para cada tipo de contrato

@@ -153,6 +153,16 @@ class Home extends React.Component {
     }
   }
 
+  handleRetentionChange  = (newRetention, index) => {
+    if (newRetention) {
+      const newValue = parseInt(newRetention)
+      const sourcesCopy = [...this.state.incomeSources]
+      sourcesCopy[index].retention = newValue
+
+      this.setState({incomeSources: sourcesCopy})
+    }
+  }
+
   getTotalDeductionsDependants(value) {
     return this.state.prepaidMedicine
       + this.state.indepSocialSecurity
@@ -236,6 +246,7 @@ class Home extends React.Component {
         />
 
         {summaryVisible && <Outcome
+          handleRetentionChange={this.handleRetentionChange}
           liquidIncome={totalIncome - incomeOutOfTaxes}
           totalDeductions={totalDeductions}
           prepaidMedicine={prepaidMedicine}
