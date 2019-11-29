@@ -13,7 +13,6 @@ Ingresar todos los ingresos del año, todas las deducciones. El sistema calcular
 Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/tree/canary/examples/with-jest
 
 ## Tareas pendientes
-* Abstraer totalIncome en un solo lugar
 * Mostrar el desglose de las deducciones
 * Agregar botón para resetear inputs y volver a empezar
 * Perfeccionar calculos para cada tipo de contrato

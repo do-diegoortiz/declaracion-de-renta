@@ -226,6 +226,7 @@ class Home extends React.Component {
           summaryVisible={summaryVisible}
           incomeSources={incomeSources}
           incomeOutOfTaxes={incomeOutOfTaxes}
+          totalIncome={totalIncome}
         />
 
         <h2 className={css.formTitle}>

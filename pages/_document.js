@@ -16,6 +16,7 @@ class MyDocument extends Document {
           <link rel='icon' href='/favicon.ico' />
           <meta name="description" content="Optimiza tu declaración de renta para que no se te vaya un ojo de la cara en agosto del próximo año"></meta>
           <meta name="keywords" content="Declaración de renta, pensiones voluntarias, retención en la fuente"></meta>
+          <meta name="theme-color" content="#673ab7"></meta>
           <link rel="apple-touch-icon" href="/images/android-chrome-192x192.png"/>
           <link rel="icon" sizes="192x192" href="/images/android-chrome-192x192.png"/>
           <link rel="manifest" href="/manifest.json"/>
