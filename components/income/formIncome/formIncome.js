@@ -2,14 +2,16 @@ import React from 'react';
 import moment from 'moment'
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format'
+
+import DeleteIcon from '../../../public/icons/delete'
 import css from './formIncome.scss';
 
-const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange, showSummary, contract, incomeIndex, fromDate, toDate }) => {
+const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange, deleteIncomeSource, contract, incomeIndex, fromDate, toDate }) => {
   FormIncome.propTypes = {
     handleDateChange: PropTypes.func.isRequired,
     handleIncomeChange: PropTypes.func.isRequired,
     handleContractChange: PropTypes.func.isRequired,
-    showSummary: PropTypes.func.isRequired,
+    deleteIncomeSource: PropTypes.func.isRequired,
     contract: PropTypes.string.isRequired,
     incomeIndex: PropTypes.number.isRequired,
     fromDate: PropTypes.instanceOf(moment).isRequired,
@@ -17,7 +19,7 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
   };
 
   return (
-    <form className={css.formContainer} onSubmit={showSummary}  key={incomeIndex}>
+    <form className={css.formContainer} key={incomeIndex}>
       <h1 className={css.hideMobile}>{incomeIndex+1}</h1>
       <label id='contract' className={css.hideMobile}>Contrato</label>
       <select name='contract' className={css.contract} aria-labelledby='contract' value={contract} onChange={ e => handleContractChange(e, incomeIndex)}>
@@ -47,7 +49,9 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
         <input type='date' name='toDate' value={toDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
       </label>
 
-      <input type='submit' value='Calcular' />
+      <button className={incomeIndex ? css.deleteButton: css.disabledButton} onClick={() => deleteIncomeSource(incomeIndex)}>
+        <DeleteIcon />
+      </button>
     </form>
   );
 };

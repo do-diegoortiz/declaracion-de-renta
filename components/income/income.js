@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment'
-import { BlueButton } from '../buttons/buttons'
+import { BlueButton, RedButton } from '../buttons/buttons'
 import Summary from './summary/summary'
 import FormIncome from './formIncome/formIncome'
 import TotalSummary from './totalSumary/totalSummary'
@@ -48,7 +48,7 @@ class Income extends React.Component {
   }
 
   render (){
-    const { summaryVisible, incomeSources, showSummary, incomeOutOfTaxes, totalIncome } = this.props
+    const { deleteIncomeSource, summaryVisible, incomeSources, showSummary, incomeOutOfTaxes, totalIncome } = this.props
     const { datesPerIncome } = this.state
     
     const forms = [];
@@ -60,7 +60,7 @@ class Income extends React.Component {
           handleDateChange={this.handleDateChange}
           handleIncomeChange={this.props.handleIncomeChange}
           handleContractChange={this.props.handleContractChange}
-          showSummary={showSummary}
+          deleteIncomeSource={deleteIncomeSource}
           contract={incomeSources[incomeIndex].contract}
           incomeIndex={incomeIndex}
           fromDate={datesPerIncome[incomeIndex].fromDate}
@@ -86,7 +86,10 @@ class Income extends React.Component {
         {forms}
       </div>
 
-      <BlueButton label='Agregar Ingreso+' onClick={this.createNewForm} />
+      <div className={css.actionButtons}>
+        <BlueButton label='Agregar Ingreso+' onClick={this.createNewForm} />
+        <RedButton label='Calcular' onClick={showSummary} />
+      </div>
 
       <div className={css.summaryContainer}>
         {summaryVisible && jobsSummary}

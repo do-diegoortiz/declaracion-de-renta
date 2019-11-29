@@ -23,8 +23,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * Agregar Link Views
 * Agregar tipo de ingreso "Integral"
 
-* UI: Mover boton(es) Calcular abajo al lado de "Agregar Ingreso"
-* UI: Remove income source
 * UI: Tooltips de ayuda en cada input (deducciones especialmente) (Tener en cuenta salario flexible de Globant)
 * UI: Cambiar alerts por warning amigables
 * UI: Hacerlo mobile
@@ -34,6 +32,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * UI: Agregarle formato de currency a todos los números que sean pesos
 * UI: El titulo "Contrato" en el form posiblemente no tiene sentido dónde está.
 
-* UX: Esconder los inputs de deducciones hasta que no hayan calculado totales de ingreso. (No mostrarlos si ingresos no dan pa' declarar renta)
+* UX: No mostrar deducciones si ingresos no dan pa' declarar renta
 * UX: Actualizar para que los consejos finales no se muestren hasta después de haber ingresado todas las deducciones
 * UX: Validar que la fecha inicial no sea menos a 1 de enero de 2019 (y a 1 de enero de 2018 si lo vamos a usar para calcular cesantias)

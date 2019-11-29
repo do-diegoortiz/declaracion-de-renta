@@ -9,7 +9,20 @@ export const BlueButton = ({ label, type = 'button', onClick }) => {
     onClick: PropTypes.func,
   };
   return (
-    <button className={css.blueButton} type={type} onClick={onClick}>
+    <button className={`${css.defaultButton} ${css.blueButton}`} type={type} onClick={onClick}>
+      {label}
+    </button>
+  );
+};
+
+export const RedButton = ({ label, type = 'button', onClick }) => {
+  RedButton.propTypes = {
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    onClick: PropTypes.func,
+  };
+  return (
+    <button className={`${css.defaultButton} ${css.redButton}`} type={type} onClick={onClick}>
       {label}
     </button>
   );

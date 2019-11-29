@@ -48,6 +48,13 @@ class Home extends React.Component {
     this.showSummary
   }
 
+  deleteIncomeSource = (index) => {
+    const sourcesCopy = [...this.state.incomeSources]
+    sourcesCopy.splice(index, 1)
+    
+    this.setState({incomeSources: sourcesCopy})
+  }
+
   handleIncomeChange = (newIncome, index) => {
     if (newIncome) {
       const newValue = parseInt(newIncome, 0)
@@ -223,20 +230,22 @@ class Home extends React.Component {
           handleWorkedDays={this.handleWorkedDays}
           showSummary={this.showSummary}
           increaseIncomeSources={this.increaseIncomeSources}
+          deleteIncomeSource={this.deleteIncomeSource}
           summaryVisible={summaryVisible}
           incomeSources={incomeSources}
           incomeOutOfTaxes={incomeOutOfTaxes}
           totalIncome={totalIncome}
         />
 
-        <h2 className={css.formTitle}>
+        {summaryVisible && <h2 className={css.formTitle}>
           Deducciones
-        </h2>
-        <p className={css.description}>
-          Escriba en cada casilla el valor total que espera pagar en el año.
-        </p>
+        </h2>}
 
-        <Deductions
+        {summaryVisible &&  <p className={css.description}>
+          Escriba en cada casilla el valor total que espera pagar en el año.
+        </p>}
+
+        {summaryVisible && <Deductions
           handleDeductionChange={this.handleDeductionChange}
           prepaidMedicine={prepaidMedicine}
           indepSocialSecurity={indepSocialSecurity}
@@ -244,7 +253,7 @@ class Home extends React.Component {
           donations={donations}
           voluntaryContributions={voluntaryContributions}
           totalIncome={totalIncome}
-        />
+        />}
 
         {summaryVisible && <Outcome
           handleRetentionChange={this.handleRetentionChange}
