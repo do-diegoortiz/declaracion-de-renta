@@ -3,16 +3,23 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1 0 26rem;
+  flex: 0 1 60rem;
   height: 26rem;
   background: #fff;
-  margin: 1rem auto;
+  color: #363636;
   padding: 1rem;
+  border-radius: 2rem;
+  margin: 1rem;
+  max-height: 16rem;
 }
 
 .TotalContainer {
   display: flex;
   width: 100%;
+
+  &:last-of-type {
+    margin-bottom: 1rem;
+  }
 }
 
 .TotalNumber {
@@ -21,7 +28,7 @@
   justify-content: flex-start;
 
   input {
-    font-size: 3rem;
+    font-size: 2.4rem;
     color: #343A40;
     text-align: center;
     width: 22rem;
@@ -33,4 +40,10 @@
   flex-basis: 50%;
   display: flex;
   justify-content: flex-end;
+}
+
+@media (max-width: 560px) {
+  .SummaryContainer {
+    max-height: 18rem;
+  }
 }

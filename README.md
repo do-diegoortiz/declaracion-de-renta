@@ -32,14 +32,12 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * UI: Escribir detalle de los calculos
 * UI: Tooltips de ayuda en cada input (deducciones especialmente) (Tener en cuenta salario flexible de Globant)
 * UI: Cambiar alerts por warning amigables
-* UI: Hacerlo mobile
 * UI: Inventarse el logo, y agregarlo al favicon y a los diferentes tamaños png en images que usa el manifest.json
 * UI: Agregar al css las cosas que le quitan esas flechas feas default al número de dependientes.
 * UI: El primer resumen de todos los ingresos tiene un diseño muy simplista y sin padding.
 * UI: Agregarle formato de currency a todos los números que sean pesos
 * UI: El titulo "Contrato" en el form posiblemente no tiene sentido dónde está.
 
-* UX: No mostrar deducciones si ingresos no dan pa' declarar renta
 * UX: No dejarlo agregar ingresos si el primero (o anterior) está vacío
 * UX: Actualizar para que los consejos finales no se muestren hasta después de haber ingresado todas las deducciones
 * UX: Validar que la fecha inicial no sea menos a 1 de enero de 2019 (y a 1 de enero de 2018 si lo vamos a usar para calcular cesantias)

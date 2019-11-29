@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment'
-import { BlueButton, RedButton } from '../buttons/buttons'
+import { BlueButton, RedButton, GrayButton } from '../buttons/buttons'
 import Summary from './summary/summary'
 import FormIncome from './formIncome/formIncome'
 import TotalSummary from './totalSumary/totalSummary'
@@ -53,7 +53,7 @@ class Income extends React.Component {
   }
 
   render (){
-    const { deleteIncomeSource, summaryVisible, deductionsVisible, incomeSources, showSummary, showDeductions, hasToDeclare, incomeOutOfTaxes, totalIncome } = this.props
+    const { deleteIncomeSource, summaryVisible, incomeSources, showSummary, showDeductions, hasToDeclare, incomeOutOfTaxes, totalIncome } = this.props
     const { showIncomeDetails, datesPerIncome } = this.state
     
     const forms = [];
@@ -92,7 +92,7 @@ class Income extends React.Component {
       </div>
 
       <div className={css.actionButtons}>
-        <BlueButton label='Agregar Ingreso+' onClick={this.createNewForm} />
+        <BlueButton label='Agregar Ingreso+' onClick={this.createNewForm} minHeight='4.8rem' />
         <RedButton label='Calcular' onClick={showSummary} />
       </div>
 
@@ -100,9 +100,10 @@ class Income extends React.Component {
         {summaryVisible && <TotalSummary
           income={totalIncome}
           incomeOutOfTaxes={incomeOutOfTaxes}
+          hasToDeclare={hasToDeclare}
+          showDeductions={showDeductions}
         />}
-        {summaryVisible && !deductionsVisible && hasToDeclare && <BlueButton label='Ver valor a pagar y cómo reducirlo' onClick={showDeductions} /> }
-        {summaryVisible && !showIncomeDetails && <BlueButton label='Ver desglose de ingresos' onClick={this.updateIncomeDetails} /> }
+        {summaryVisible && !showIncomeDetails && <GrayButton label='Ver desglose de ingresos' onClick={this.updateIncomeDetails} /> }
         {showIncomeDetails && jobsSummary}
       </div>
     </>

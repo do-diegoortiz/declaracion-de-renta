@@ -1,5 +1,5 @@
 .defaultButton {
-  border-radius: 0.4rem;
+  border-radius: 5rem;
   color:white;
   display: block;
   font-size: 1.6rem;
@@ -10,18 +10,19 @@
   padding: 0.8rem 1.6rem;
   cursor: pointer;
   width: 18rem;
+  box-shadow: 4px 4px 2px -2px #a5a5a5;
 }
 
 .blueButton {
-  background:#326bec;
-  border-top: 0.1rem solid #326bec;
-  border-bottom: 0.1rem solid #326bec;
+  background-image: linear-gradient(to top, #1c3eb4, #154cbd, #1059c6, #1266ce, #1b73d5);
 }
 
 .redButton {
-  background:#DB252A;
-  border-top: 0.1rem solid #DB252A;
-  border-bottom: 0.1rem solid #DB252A;
+  background-image: linear-gradient(to right top, #ed433f, #df3a37, #d2302f, #c42627, #b71b1f);
+}
+
+.grayButton {
+  background: linear-gradient(to right, #403b4a, #72726e);
 }
 
 .disabledButton {

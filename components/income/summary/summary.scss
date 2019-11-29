@@ -1,4 +1,5 @@
 .SummaryContainer {
+  border-radius: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,8 +7,15 @@
   flex: 1 0 26rem;
   height: 26rem;
   background: #fff;
-  margin: 1rem auto;
+  color: #363636;
+  margin: 1rem;
   padding: 1rem;
+  overflow: hidden;
+  max-width: 18%;
+
+  h2 {
+    text-align: center;
+  }
 }
 
 .TotalNumber input {
@@ -30,5 +38,13 @@
   input {
     color: #343A40;
     font-size: 1.6rem;
+    max-width: 12rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .SummaryContainer {
+    flex: 1 0 26rem;
+    max-width: 100%;
   }
 }

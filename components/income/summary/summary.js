@@ -43,12 +43,9 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
 
     case 'contratista':
       totalSalary = (income / 30) * workedDays;
-      health = totalSalary * 0.4 * 0.16
-      retirement = totalSalary * 0.4 * 0.125
-      solidarity = 0
-      perks = 0
-      // Not sure if I should ignore "solidarity" in this contract
-      totalIncome = totalSalary - health - retirement
+      health = totalSalary * 0.4 * 0.16 // This information should be used to guess the deductions
+      retirement = totalSalary * 0.4 * 0.125 // This information should be used to guess the deductions
+      totalIncome = totalSalary
       break;
   }
 

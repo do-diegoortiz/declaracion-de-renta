@@ -12,7 +12,12 @@
 
 .description{
   font-size: 2rem;
-  padding: 1rem;
+  text-align: justify;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 105rem;
+  margin: 1rem auto;
 }
 
 .formTitle {
@@ -21,8 +26,29 @@
   margin-top: 2rem;
 }
 
+.hasToDeclareGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deductionsForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 25%;
+  padding: 1rem;
+}
+
 @media (max-width: 560px) {
   .description {
-      text-align: justify;
+    padding: 0 1.6rem;
+    max-width: 32rem;
+  }
+
+  .hasToDeclareGroup {
+    flex-direction: column;
+  }
+
+  .deductionsForm {
+    max-width: 100%;
   }
 }

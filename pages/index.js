@@ -98,6 +98,8 @@ class Home extends React.Component {
       // I've read we had to add 1% about ICA in certain scenarios
       // TODO: Verify is its 11% before paying health+retirement or over the base salary
       sourcesCopy[index].retention = income > 828116 ? (totalSalary * 0.6) * 0.11 : totalSalary * 0.11
+    } else {
+      sourcesCopy[index].retention = 0
     }
 
     this.setState({incomeSources: sourcesCopy})
@@ -132,6 +134,7 @@ class Home extends React.Component {
     }
 
     this.setState({ incomeOutOfTaxes: outOfTaxCopy })
+    this.updateTotalIncome()
   }
 
   showDeductions = e => {
@@ -242,7 +245,10 @@ class Home extends React.Component {
       <div>
         <h1 className={css.title}>Optimiza la declaración de renta</h1>
         <p className={css.description}>
-          Hay algunas cosas que puedes hacer para reducir legalmente el valor final a pagar por ingresos de trabajo del 2019. Pero las debes hacer antes del 31 de diciembre de 2019.
+          Hay algunas cosas que puedes hacer para reducir legalmente el impuesto a pagar por ingresos de trabajo del 2019. Pero tiene que ser antes del 31 de diciembre de 2019.
+        </p>
+        <p className={css.description}>
+          Diligencia todos los ingresos laborales que recibiras este año, podrás saber si debes declarar y algunos consejos para optimizar el pago.
         </p>
 
         <h2 className={css.formTitle}>
@@ -257,7 +263,6 @@ class Home extends React.Component {
           showDeductions={this.showDeductions}
           increaseIncomeSources={this.increaseIncomeSources}
           deleteIncomeSource={this.deleteIncomeSource}
-          deductionsVisible={deductionsVisible}
           summaryVisible={summaryVisible}
           hasToDeclare={hasToDeclare}
           incomeSources={incomeSources}
@@ -265,32 +270,38 @@ class Home extends React.Component {
           totalIncome={totalIncome}
         />
 
-        {deductionsVisible && hasToDeclare && <h2 className={css.formTitle}>
-          Deducciones
-        </h2>}
+        {
+          deductionsVisible && hasToDeclare && <div className={css.hasToDeclareGroup}>
+            <section className={css.deductionsForm}>
+              <h2 className={css.formTitle}>
+                Deducciones
+              </h2>
 
-        {deductionsVisible && hasToDeclare && <p className={css.description}>
-          Escribe la cantidad de dependientes y en las demás casillas el valor total que espera pagar en el año.
-        </p>}
+              <p className={css.description}>
+                Escribe la cantidad de dependientes y en las demás casillas el valor total que espera pagar en el año.
+              </p>
 
-        {deductionsVisible && hasToDeclare && <Deductions
-          handleDeductionChange={this.handleDeductionChange}
-          prepaidMedicine={prepaidMedicine}
-          indepSocialSecurity={indepSocialSecurity}
-          homeLoanInteres={homeLoanInteres}
-          dependants={dependants}
-          donations={donations}
-          voluntaryContributions={voluntaryContributions}
-          totalIncome={totalIncome}
-        />}
+              <Deductions
+                handleDeductionChange={this.handleDeductionChange}
+                prepaidMedicine={prepaidMedicine}
+                indepSocialSecurity={indepSocialSecurity}
+                homeLoanInteres={homeLoanInteres}
+                dependants={dependants}
+                donations={donations}
+                voluntaryContributions={voluntaryContributions}
+                totalIncome={totalIncome}
+              />
+            </section>
 
-        {deductionsVisible && hasToDeclare && <Outcome
-          handleRetentionChange={this.handleRetentionChange}
-          liquidIncome={totalIncome - incomeOutOfTaxes}
-          totalDeductions={totalDeductions}
-          prepaidMedicine={prepaidMedicine}
-          incomeSources={incomeSources}
-        />}
+            <Outcome
+              handleRetentionChange={this.handleRetentionChange}
+              liquidIncome={totalIncome - incomeOutOfTaxes}
+              totalDeductions={totalDeductions}
+              prepaidMedicine={prepaidMedicine}
+              incomeSources={incomeSources}
+            />
+          </div>
+        }
 
         {/* <ul>
           <h1>Info personal</h1>
