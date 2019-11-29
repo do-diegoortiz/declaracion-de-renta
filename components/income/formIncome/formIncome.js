@@ -49,7 +49,7 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
         <input type='date' name='toDate' value={toDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
       </label>
 
-      <button className={incomeIndex ? css.deleteButton: css.disabledButton} onClick={() => deleteIncomeSource(incomeIndex)}>
+      <button className={incomeIndex ? css.deleteButton: `${css.disabledButton} ${css.hideMobile}`} onClick={() => deleteIncomeSource(incomeIndex)}>
         <DeleteIcon />
       </button>
     </form>

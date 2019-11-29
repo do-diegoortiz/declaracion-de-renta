@@ -13,6 +13,12 @@ Ingresar todos los ingresos del año, todas las deducciones. El sistema calcular
 Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/tree/canary/examples/with-jest
 
 ## Tareas pendientes
+
+* Comprame un café con QR
+* Encuesta pa' saber qué features quiere la gente
+* Configurar una Vaki pa' recibir donaciones pa' features
+* Escribir blog post al respecto
+
 * Mostrar el desglose de las deducciones
 * Agregar botón para resetear inputs y volver a empezar
 * Perfeccionar calculos para cada tipo de contrato
@@ -23,6 +29,7 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * Agregar Link Views
 * Agregar tipo de ingreso "Integral"
 
+* UI: Escribir detalle de los calculos
 * UI: Tooltips de ayuda en cada input (deducciones especialmente) (Tener en cuenta salario flexible de Globant)
 * UI: Cambiar alerts por warning amigables
 * UI: Hacerlo mobile
@@ -33,5 +40,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * UI: El titulo "Contrato" en el form posiblemente no tiene sentido dónde está.
 
 * UX: No mostrar deducciones si ingresos no dan pa' declarar renta
+* UX: No dejarlo agregar ingresos si el primero (o anterior) está vacío
 * UX: Actualizar para que los consejos finales no se muestren hasta después de haber ingresado todas las deducciones
 * UX: Validar que la fecha inicial no sea menos a 1 de enero de 2019 (y a 1 de enero de 2018 si lo vamos a usar para calcular cesantias)

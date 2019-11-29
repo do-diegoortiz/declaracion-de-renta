@@ -9,7 +9,11 @@ const UVT = 34270
 
 class Home extends React.Component {
   state = {
+    // https://bogota.gov.co/mi-ciudad/hacienda/quienes-y-cuando-declarar-renta-en-2019
+    hasToDeclare: false, // When gross income > 1400 UVT
+    hasToPay: false, // When (liquid income - deductions) > 1090 UVT
     summaryVisible: false,
+    deductionsVisible: false,
     // INCOME
     incomeSources: [
       {
@@ -19,11 +23,13 @@ class Home extends React.Component {
         contract: 'nomina' // The other two options are 'prestaciones' and 'contratista'
       }
     ],
+    totalIncome: 0,
     incomeOutOfTaxes: 0,
 
     // DEDUCTIONS
     prepaidMedicine: 0,
     indepSocialSecurity: 0,
+    homeLoanInteres: 0,
     dependants: 0, // Number of people
     dependantsDeduction: 0,
     donations: 0,
@@ -51,7 +57,7 @@ class Home extends React.Component {
   deleteIncomeSource = (index) => {
     const sourcesCopy = [...this.state.incomeSources]
     sourcesCopy.splice(index, 1)
-    
+
     this.setState({incomeSources: sourcesCopy})
   }
 
@@ -95,6 +101,7 @@ class Home extends React.Component {
     }
 
     this.setState({incomeSources: sourcesCopy})
+    this.updateTotalIncome()
   }
 
   handleWorkedDays = (days, index) => {
@@ -106,7 +113,10 @@ class Home extends React.Component {
 
   showSummary = e => {
     e.preventDefault()
-    this.setState({ summaryVisible: true })
+
+    if (this.state.incomeSources[0].income) {
+      this.setState({ summaryVisible: true })
+    }
 
     let outOfTaxCopy = 0
     const incomeSources = [...this.state.incomeSources]
@@ -122,6 +132,34 @@ class Home extends React.Component {
     }
 
     this.setState({ incomeOutOfTaxes: outOfTaxCopy })
+  }
+
+  showDeductions = e => {
+    e.preventDefault()
+
+    this.setState({ deductionsVisible: true })
+  }
+
+  updateTotalIncome = () => {
+    const sourcesCopy = [...this.state.incomeSources]
+
+    const incomes = sourcesCopy.map(x => {
+      switch(x.contract) {
+        case 'nomina':
+          return x.income > (828116 * 4) ?
+            x.income * (x.workedDays/30) * (0.91 + (2.5 /12)) :
+            x.income * (x.workedDays/30) * (0.92 + (2.5 /12))
+        case 'prestaciones':
+          return x.income * (x.workedDays/30)
+        case 'contratista':
+          return x.income * (x.workedDays/30)
+      }
+    })
+
+    const newTotalIncome = incomes.reduce((acum, current)=> acum + current)
+    const newHasToDeclare = newTotalIncome > 1400 * UVT ? true : false
+
+    this.setState({ totalIncome: newTotalIncome, hasToDeclare: newHasToDeclare })
   }
 
   // DEDUCTIONS
@@ -179,7 +217,7 @@ class Home extends React.Component {
   }
 
   getTotalDeductionsStandard(deduction, value) {
-    const deductions = ['prepaidMedicine', 'indepSocialSecurity', 'donations', 'voluntaryContributions']
+    const deductions = ['prepaidMedicine', 'indepSocialSecurity', 'homeLoanInteres', 'donations', 'voluntaryContributions']
     let newTotal = this.state.dependantsDeduction
 
     deductions.forEach(item => {
@@ -195,23 +233,10 @@ class Home extends React.Component {
 
   render() {
     const {
-      summaryVisible, incomeSources, incomeOutOfTaxes, //INCOME
-      prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
+      summaryVisible, deductionsVisible, hasToDeclare,
+      incomeSources, totalIncome, incomeOutOfTaxes, //INCOME
+      prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
     } = this.state
-
-    const incomes = incomeSources.map(x => {
-      switch(x.contract) {
-        case 'nomina':
-          return x.income > (828116 * 4) ?
-            x.income * (x.workedDays/30) * (0.91 + (2.5 /12)) :
-            x.income * (x.workedDays/30) * (0.92 + (2.5 /12))
-        case 'prestaciones':
-          return x.income * (x.workedDays/30)
-        case 'contratista':
-          return x.income * (x.workedDays/30)
-      }
-    })
-    const totalIncome = incomes.reduce((acum, current)=> acum + current)
 
     return (
       <div>
@@ -229,33 +254,37 @@ class Home extends React.Component {
           handleContractChange={this.handleContractChange}
           handleWorkedDays={this.handleWorkedDays}
           showSummary={this.showSummary}
+          showDeductions={this.showDeductions}
           increaseIncomeSources={this.increaseIncomeSources}
           deleteIncomeSource={this.deleteIncomeSource}
+          deductionsVisible={deductionsVisible}
           summaryVisible={summaryVisible}
+          hasToDeclare={hasToDeclare}
           incomeSources={incomeSources}
           incomeOutOfTaxes={incomeOutOfTaxes}
           totalIncome={totalIncome}
         />
 
-        {summaryVisible && <h2 className={css.formTitle}>
+        {deductionsVisible && hasToDeclare && <h2 className={css.formTitle}>
           Deducciones
         </h2>}
 
-        {summaryVisible &&  <p className={css.description}>
-          Escriba en cada casilla el valor total que espera pagar en el año.
+        {deductionsVisible && hasToDeclare && <p className={css.description}>
+          Escribe la cantidad de dependientes y en las demás casillas el valor total que espera pagar en el año.
         </p>}
 
-        {summaryVisible && <Deductions
+        {deductionsVisible && hasToDeclare && <Deductions
           handleDeductionChange={this.handleDeductionChange}
           prepaidMedicine={prepaidMedicine}
           indepSocialSecurity={indepSocialSecurity}
+          homeLoanInteres={homeLoanInteres}
           dependants={dependants}
           donations={donations}
           voluntaryContributions={voluntaryContributions}
           totalIncome={totalIncome}
         />}
 
-        {summaryVisible && <Outcome
+        {deductionsVisible && hasToDeclare && <Outcome
           handleRetentionChange={this.handleRetentionChange}
           liquidIncome={totalIncome - incomeOutOfTaxes}
           totalDeductions={totalDeductions}

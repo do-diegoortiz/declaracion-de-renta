@@ -9,12 +9,17 @@ import css from './income.scss'
 
 class Income extends React.Component {
   state = {
+    showIncomeDetails: false,
     datesPerIncome: [
       {
         fromDate: moment(new Date(2019, 0, 1)),
         toDate: moment(new Date(2019, 11, 31))
       }
     ]
+  }
+
+  updateIncomeDetails = () => {
+    this.setState({ showIncomeDetails: true })
   }
 
   createNewForm = () => {
@@ -48,8 +53,8 @@ class Income extends React.Component {
   }
 
   render (){
-    const { deleteIncomeSource, summaryVisible, incomeSources, showSummary, incomeOutOfTaxes, totalIncome } = this.props
-    const { datesPerIncome } = this.state
+    const { deleteIncomeSource, summaryVisible, deductionsVisible, incomeSources, showSummary, showDeductions, hasToDeclare, incomeOutOfTaxes, totalIncome } = this.props
+    const { showIncomeDetails, datesPerIncome } = this.state
     
     const forms = [];
     const jobsSummary = [];
@@ -92,11 +97,13 @@ class Income extends React.Component {
       </div>
 
       <div className={css.summaryContainer}>
-        {summaryVisible && jobsSummary}
         {summaryVisible && <TotalSummary
           income={totalIncome}
           incomeOutOfTaxes={incomeOutOfTaxes}
         />}
+        {summaryVisible && !deductionsVisible && hasToDeclare && <BlueButton label='Ver valor a pagar y cómo reducirlo' onClick={showDeductions} /> }
+        {summaryVisible && !showIncomeDetails && <BlueButton label='Ver desglose de ingresos' onClick={this.updateIncomeDetails} /> }
+        {showIncomeDetails && jobsSummary}
       </div>
     </>
   }

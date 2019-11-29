@@ -15,29 +15,9 @@ class Deductions extends React.Component {
   // Rentas exentas:
   // Cesatias e intereses de cesantias
   render() {
-    const {prepaidMedicine, indepSocialSecurity, dependants, donations, voluntaryContributions, totalIncome} = this.props
+    const {prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalIncome} = this.props
 
     return <form className={css.formContainer}>
-      <div className={css.formGroup}>
-        <label className={css.label} htmlFor='prepaidMedicine'>Medicina Prepagada</label>
-        <DeductionInput
-          id='prepaidMedicine'
-          name='prepaidMedicine'
-          onChange={this.props.handleDeductionChange}
-          value={prepaidMedicine}
-        />
-      </div>
-
-      <div className={css.formGroup}>
-        <label className={css.label} htmlFor='indepSocialSecurity'>Aportes Como Ind. a SS</label>
-        <DeductionInput
-          id='indepSocialSecurity'
-          name='indepSocialSecurity'
-          onChange={this.props.handleDeductionChange}
-          value={indepSocialSecurity}
-        />
-      </div>
-
       <div className={css.formGroup}>
         <label className={css.label} htmlFor='dependants'>Cantidad Dependientes</label>
         <input
@@ -46,6 +26,16 @@ class Deductions extends React.Component {
           name='dependants'
           onChange={this.props.handleDeductionChange}
           value={dependants}
+        />
+      </div>
+
+      <div className={css.formGroup}>
+        <label className={css.label} htmlFor='prepaidMedicine'>Medicina Prepagada</label>
+        <DeductionInput
+          id='prepaidMedicine'
+          name='prepaidMedicine'
+          onChange={this.props.handleDeductionChange}
+          value={prepaidMedicine}
         />
       </div>
 
@@ -68,6 +58,27 @@ class Deductions extends React.Component {
           value={voluntaryContributions}
         />
       </div>
+
+      <div className={css.formGroup}>
+        <label className={css.label} htmlFor='homeLoanInteres'>Intereses préstamo de vivienda</label>
+        <DeductionInput
+          id='homeLoanInteres'
+          name='homeLoanInteres'
+          onChange={this.props.handleDeductionChange}
+          value={homeLoanInteres}
+        />
+      </div>
+
+      {/* This item was already calculated automatically, we need to load it here and make it available to update */}
+      {/* <div className={css.formGroup}>
+        <label className={css.label} htmlFor='indepSocialSecurity'>Aportes Como Ind. a SS</label>
+        <DeductionInput
+          id='indepSocialSecurity'
+          name='indepSocialSecurity'
+          onChange={this.props.handleDeductionChange}
+          value={indepSocialSecurity}
+        />
+      </div> */}
 
       {/* <h1>Aportes voluntarios a fondos de pensiones y retiro de cesantías</h1>
       <li>Certificado de aportes y Retenciones de pensiones voluntarias Individual 2018 #1</li>
