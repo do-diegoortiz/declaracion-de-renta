@@ -24,7 +24,7 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
       <label id='contract' className={css.hideMobile}>Contrato</label>
       <select name='contract' className={css.contract} aria-labelledby='contract' value={contract} onChange={ e => handleContractChange(e, incomeIndex)}>
         <option value='nomina'>Nómina</option>
-        <option value='prestaciones'>Prestación</option>
+        <option value='prestaciones'>Servicios</option>
         <option value='contratista'>Contratista</option>
       </select>
 
@@ -49,7 +49,12 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
         <input type='date' name='toDate' value={toDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
       </label>
 
-      <button className={incomeIndex ? css.deleteButton: `${css.disabledButton} ${css.hideMobile}`} onClick={() => deleteIncomeSource(incomeIndex)}>
+      <button
+        className={incomeIndex ? css.deleteButton: `${css.disabledButton} ${css.hideMobile}`}
+        onClick={() => deleteIncomeSource(incomeIndex)}
+        type='button'
+        aria-label="Delete Income"
+      >
         <DeleteIcon />
       </button>
     </form>

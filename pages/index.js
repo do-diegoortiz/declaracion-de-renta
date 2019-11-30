@@ -84,6 +84,7 @@ class Home extends React.Component {
 
     this.setState({incomeSources: sourcesCopy})
     this.updateRetention(index, sourcesCopy[index].income, e.target.value)
+    this.updateIncomeOutOfTaxes()
   }
 
   updateRetention = (index, income, contract) => {
@@ -120,6 +121,16 @@ class Home extends React.Component {
       this.setState({ summaryVisible: true })
     }
 
+    this.updateIncomeOutOfTaxes()
+  }
+
+  showDeductions = e => {
+    e.preventDefault()
+
+    this.setState({ deductionsVisible: true })
+  }
+
+  updateIncomeOutOfTaxes = () => {
     let outOfTaxCopy = 0
     const incomeSources = [...this.state.incomeSources]
 
@@ -135,12 +146,6 @@ class Home extends React.Component {
 
     this.setState({ incomeOutOfTaxes: outOfTaxCopy })
     this.updateTotalIncome()
-  }
-
-  showDeductions = e => {
-    e.preventDefault()
-
-    this.setState({ deductionsVisible: true })
   }
 
   updateTotalIncome = () => {

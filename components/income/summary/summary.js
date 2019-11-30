@@ -13,16 +13,16 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
     incomeIndex: PropTypes.number.isRequired
   };
 
-  let totalSalary = 0
-  let health = 0
-  let retirement = 0
+  // This days/months calculations must be improved to match the legal norm
+  let totalSalary = workedDays === 365 ? income * 12 : (income / 30) * workedDays;
+  let health = totalSalary * 0.4 * 0.16 // This information should be used to guess the deductions
+  let retirement = totalSalary * 0.4 * 0.125 // This information should be used to guess the deductions
   let solidarity = 0
   let perks = 0
-  let totalIncome = 0
+  let totalIncome = totalSalary // Default value for 'contratista'
 
   switch(contract) {
     case 'nomina':
-      totalSalary = (income / 30) * workedDays;
       health = totalSalary * 0.04
       retirement = health
       solidarity = income > (828116 * 4) ? totalSalary * 0.01 : 0
@@ -32,20 +32,13 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
       break;
 
     case 'prestaciones':
-      totalSalary = (income / 30) * workedDays;
-      health = totalSalary * 0.4 * 0.16
-      retirement = totalSalary * 0.4 * 0.125
       solidarity = totalSalary * 0.4 * 0.01
-      perks = 0
       // I won't substract retention here (pending)
       totalIncome = totalSalary - health - retirement - solidarity
       break;
 
     case 'contratista':
-      totalSalary = (income / 30) * workedDays;
-      health = totalSalary * 0.4 * 0.16 // This information should be used to guess the deductions
-      retirement = totalSalary * 0.4 * 0.125 // This information should be used to guess the deductions
-      totalIncome = totalSalary
+      // Check if we can delete this case
       break;
   }
 
