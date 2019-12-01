@@ -47,13 +47,15 @@ class Income extends React.Component {
 
     datesCopy[index][e.target.name] = newDateCopy
     const newWorkedDays = datesCopy[index].toDate.diff(datesCopy[index].fromDate, 'days', false)
+    const stillThere = datesCopy[index].toDate._d.getDate() === 31 && datesCopy[index].toDate._d.getMonth() === 11
 
     this.setState({datesPerIncome:datesCopy})
-    this.props.handleWorkedDays(newWorkedDays, index)
+    this.props.handleWorkedDays(newWorkedDays, index, stillThere)
   }
 
   render (){
-    const { deleteIncomeSource, summaryVisible, incomeSources, showSummary, showDeductions, hasToDeclare, incomeOutOfTaxes, totalIncome } = this.props
+    const { handleIncomeChange, handleContractChange, deleteIncomeSource, showSummary, showDeductions, // Methods
+      summaryVisible, incomeSources, hasToDeclare, incomeOutOfTaxes, totalIncome } = this.props
     const { showIncomeDetails, datesPerIncome } = this.state
     
     const forms = [];
@@ -63,8 +65,8 @@ class Income extends React.Component {
       forms.push(
         <FormIncome
           handleDateChange={this.handleDateChange}
-          handleIncomeChange={this.props.handleIncomeChange}
-          handleContractChange={this.props.handleContractChange}
+          handleIncomeChange={handleIncomeChange}
+          handleContractChange={handleContractChange}
           deleteIncomeSource={deleteIncomeSource}
           contract={incomeSources[incomeIndex].contract}
           incomeIndex={incomeIndex}
@@ -80,6 +82,7 @@ class Income extends React.Component {
           workedDays={incomeSources[incomeIndex].workedDays}
           contract={incomeSources[incomeIndex].contract}
           retention={incomeSources[incomeIndex].retention}
+          toDate={datesPerIncome[incomeIndex].toDate}
           incomeIndex={incomeIndex}
           key={incomeIndex}
         />

@@ -14,15 +14,18 @@ class Home extends React.Component {
     hasToPay: false, // When (liquid income - deductions) > 1090 UVT
     summaryVisible: false,
     deductionsVisible: false,
+
     // INCOME
     incomeSources: [
       {
         income: 0,
         retention: 0,
         workedDays: 365,
+        stillThere: true, // Needed in 'nomina' contract to know if "Cesantias" were and income or not
         contract: 'nomina' // The other two options are 'prestaciones' and 'contratista'
       }
     ],
+    layoffsLastYear: 0, // Locally known as "Cesantias"
     totalIncome: 0,
     incomeOutOfTaxes: 0,
 
@@ -75,6 +78,7 @@ class Home extends React.Component {
       }
 
       this.updateRetention(index, newValue, sourcesCopy[index].contract)
+      this.updateTotalIncome()
     }
   }
 
@@ -104,14 +108,16 @@ class Home extends React.Component {
     }
 
     this.setState({incomeSources: sourcesCopy})
-    this.updateTotalIncome()
   }
 
-  handleWorkedDays = (days, index) => {
+  handleWorkedDays = (days, index, stillThere) => {
     const sourcesCopy = [...this.state.incomeSources]
     sourcesCopy[index].workedDays = days
+    sourcesCopy[index].stillThere = stillThere
 
     this.setState({incomeSources: sourcesCopy})
+    this.updateTotalIncome()
+    this.updateIncomeOutOfTaxes()
   }
 
   showSummary = e => {
@@ -130,6 +136,11 @@ class Home extends React.Component {
     this.setState({ deductionsVisible: true })
   }
 
+  getMonthsWorked = (index) => {
+    const workedDays = this.state.incomeSources[index].workedDays
+    return workedDays === 365 || workedDays === 364 ? 12 : (workedDays/30)
+  }
+
   updateIncomeOutOfTaxes = () => {
     let outOfTaxCopy = 0
     const incomeSources = [...this.state.incomeSources]
@@ -137,30 +148,32 @@ class Home extends React.Component {
     for (let i = 0; i < incomeSources.length; i++) {
       if (incomeSources[i].contract === 'nomina') {
         // If income is below certain UVT's is not 9% but 8%. Because 1% of Solidaridad wouldn't be included
-        outOfTaxCopy += incomeSources[i].income * (incomeSources[i].workedDays/30) * 0.09
+        outOfTaxCopy += incomeSources[i].income * this.getMonthsWorked(i) * 0.09
       } else {
         // As independant you pay based on the 40% of your salary. 12.5% in health and 16% in retirement.
-        outOfTaxCopy += incomeSources[i].income * (incomeSources[i].workedDays/30) * 0.4 * 0.285
+        outOfTaxCopy += incomeSources[i].income * this.getMonthsWorked(i) * 0.4 * 0.285
       }
     }
 
     this.setState({ incomeOutOfTaxes: outOfTaxCopy })
-    this.updateTotalIncome()
   }
 
   updateTotalIncome = () => {
     const sourcesCopy = [...this.state.incomeSources]
+    const incomes = sourcesCopy.map((x, i) => {
+      // TODO: Improve variable naming here
+      const includesLayoffs = !x.stillThere
+      const monthsWorked = this.getMonthsWorked(i)
 
-    const incomes = sourcesCopy.map(x => {
       switch(x.contract) {
         case 'nomina':
           return x.income > (828116 * 4) ?
-            x.income * (x.workedDays/30) * (0.91 + (2.5 /12)) :
-            x.income * (x.workedDays/30) * (0.92 + (2.5 /12))
+            x.income * monthsWorked * (0.91 + ((includesLayoffs ? 2 : 1) /12)) :
+            x.income * monthsWorked * (0.92 + ((includesLayoffs ? 2 : 1) /12))
         case 'prestaciones':
-          return x.income * (x.workedDays/30)
+          return x.income * monthsWorked
         case 'contratista':
-          return x.income * (x.workedDays/30)
+          return x.income * monthsWorked
       }
     })
 
@@ -173,7 +186,7 @@ class Home extends React.Component {
   // DEDUCTIONS
   handleDeductionChange = (e, newValue) => {
     let totalDeductions = 0
-    const totalIncome = this.state.incomeSources.map(x => x.income * (x.workedDays/30)).reduce((acum, current)=> acum + current)
+    const totalIncome = this.state.incomeSources.map((x, i) => x.income * this.getMonthsWorked(i)).reduce((acum, current)=> acum + current)
     const liquidIncome = totalIncome - this.state.incomeOutOfTaxes
 
     if (e.target.name === 'dependants') {
@@ -264,6 +277,7 @@ class Home extends React.Component {
           handleIncomeChange={this.handleIncomeChange}
           handleContractChange={this.handleContractChange}
           handleWorkedDays={this.handleWorkedDays}
+          updateTotalIncome={this.updateTotalIncome}
           showSummary={this.showSummary}
           showDeductions={this.showDeductions}
           increaseIncomeSources={this.increaseIncomeSources}

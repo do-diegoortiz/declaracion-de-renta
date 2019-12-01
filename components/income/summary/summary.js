@@ -1,24 +1,28 @@
 import React from 'react';
+import moment from 'moment'
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format'
 
 import css from './summary.scss';
 
-export const Summary = ({ income, workedDays, contract, retention, incomeIndex }) => {
+export const Summary = ({ income, workedDays, contract, retention, toDate, incomeIndex }) => {
   Summary.propTypes = {
     income: PropTypes.number.isRequired,
     workedDays: PropTypes.number.isRequired,
     contract: PropTypes.string.isRequired,
     retention: PropTypes.number.isRequired,
+    toDate: PropTypes.instanceOf(moment).isRequired,
     incomeIndex: PropTypes.number.isRequired
   };
 
   // This days/months calculations must be improved to match the legal norm
-  let totalSalary = workedDays === 365 ? income * 12 : (income / 30) * workedDays;
+  // TODO: Check properly bug 364 days. After assigning a different endDate and then Dec 31th again
+  let totalSalary = workedDays === 365 || workedDays === 364 ? income * 12 : (income / 30) * workedDays;
   let health = totalSalary * 0.4 * 0.16 // This information should be used to guess the deductions
   let retirement = totalSalary * 0.4 * 0.125 // This information should be used to guess the deductions
   let solidarity = 0
   let perks = 0
+  let layoffs = 0
   let totalIncome = totalSalary // Default value for 'contratista'
 
   switch(contract) {
@@ -27,8 +31,9 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
       retirement = health
       solidarity = income > (828116 * 4) ? totalSalary * 0.01 : 0
       perks = totalSalary / 12
+      layoffs = (toDate._d.getDate() === 31 && toDate._d.getMonth() === 11) ? 0 : perks
       // I won't substract retention here (pending)
-      totalIncome = totalSalary - health - retirement - solidarity + perks * 2.5
+      totalIncome = totalSalary - health - retirement - solidarity + perks + layoffs
       break;
 
     case 'prestaciones':
@@ -101,7 +106,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
       />
     </p>
 
-    <p className={css.Detail}>
+    {/* <p className={css.Detail}>
       Vacaciones: &nbsp;
       <NumberFormat
         value={perks/2}
@@ -109,7 +114,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
         prefix='$'
         decimalScale={0}
       />
-    </p>
+    </p> */}
     <p className={css.Detail}>
       Primas: &nbsp;
       <NumberFormat
@@ -122,7 +127,7 @@ export const Summary = ({ income, workedDays, contract, retention, incomeIndex }
     <p className={css.Detail}>
       Cesantias: &nbsp;
       <NumberFormat
-        value={perks}
+        value={layoffs}
         thousandSeparator={true}
         prefix='$'
         decimalScale={0}

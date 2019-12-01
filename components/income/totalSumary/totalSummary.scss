@@ -1,9 +1,14 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 60rem;
+}
+
 .SummaryContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 0 1 60rem;
   height: 26rem;
   background: #fff;
   color: #363636;
@@ -14,6 +19,7 @@
 }
 
 .TotalContainer {
+  font-size: 1.4rem;
   display: flex;
   width: 100%;
 
