@@ -15,7 +15,7 @@ class Deductions extends React.Component {
   // Rentas exentas:
   // Cesatias e intereses de cesantias
   render() {
-    const {prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalIncome} = this.props
+    const {prepaidMedicine, homeLoanInteres, dependants, donations, voluntaryContributions} = this.props
 
     return <form className={css.formContainer}>
       <div className={css.formGroup}>

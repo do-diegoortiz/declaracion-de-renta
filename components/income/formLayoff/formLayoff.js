@@ -11,15 +11,17 @@ export const FormLayoff = ({ handleLayoffChange, layoffsLastYear }) => {
   };
 
   return <div className={css.inputContainer}>
-    <span className={css.inputTitle}>Cesantias 2018:</span>
-    <span className={css.inputContent}>
-      <DeductionInput
-        id='layoff'
-        name='layoff'
-        onChange={handleLayoffChange}
-        value={layoffsLastYear}
-      />
-    </span> 
+    <label className={css.inputTitle} htmlFor='layoff'>
+      Cesantias 2018: &nbsp;
+      <span className={css.inputContent}>
+        <DeductionInput
+          id='layoff'
+          name='layoff'
+          onChange={handleLayoffChange}
+          value={layoffsLastYear}
+        />
+      </span> 
+    </label>
   </ div>
 }
 

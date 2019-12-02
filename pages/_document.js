@@ -21,6 +21,7 @@ class MyDocument extends Document {
           <link rel="icon" sizes="192x192" href="/images/android-chrome-192x192.png"/>
           <link rel="manifest" href="/manifest.json"/>
           <link rel="shortcut icon" href="/images/favicon.ico"/>
+          <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
 
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46283734-12"></script>
         </Head>

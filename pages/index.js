@@ -355,16 +355,20 @@ class Home extends React.Component {
           </div>
         }
 
-        <ul className={css.messages}>
-          Avisos Parroquiales:
-          <li>
-            <strong>¿Qué le mejorarías, agregarías...?</strong> <a target='_blank' href='https://forms.gle/qY56BbJXzuK23kPR7'>Encuesta corta</a> de 4 preguntas para seguir mejorando y tener algo mucho más útil en 2020 😉
-          </li>
-          <li>
-            Para <b>donar</b>, conozco algunas fundaciones chéveres: <a target='_blank' href='http://biblioseo.org/'>Biblioseo</a>, <a target='_blank' href='https://www.techo.org/colombia/'>Techo</a> y <a target='_blank' href='http://angelesdemedellin.blogspot.com/'>AngelesDeMedellin</a>. Desde enero estará constituida <a target='_blank' href='https://medium.com/codeyourfutureco/introducing-code-your-future-colombia-5f7d3d442eda'> CodeYourFuture Colombia</a> 💪
-            
-          </li>
-        </ul>
+        <footer className={css.finalMessages}>
+          <span>
+            Avisos Parroquiales:
+          </span>
+          <ul>
+            <li>
+              <strong>¿Qué le mejorarías, agregarías...?</strong> <a target='_blank' rel='noreferrer' href='https://forms.gle/qY56BbJXzuK23kPR7'>Encuesta corta</a> de 4 preguntas para seguir mejorando y tener algo mucho más útil en 2020 😉
+            </li>
+            <li>
+              Para <b>donar</b>, conozco algunas fundaciones chéveres: <a target='_blank' rel='noreferrer' href='http://biblioseo.org/'>Biblioseo</a>, <a target='_blank' rel='noreferrer' href='https://www.techo.org/colombia/'>Techo</a> y <a target='_blank' rel='noreferrer' href='http://angelesdemedellin.blogspot.com/'>AngelesDeMedellin</a>. Desde enero estará constituida <a target='_blank' rel='noreferrer' href='https://medium.com/codeyourfutureco/introducing-code-your-future-colombia-5f7d3d442eda'> CodeYourFuture Colombia</a> 💪
+              
+            </li>
+          </ul>
+        </footer>
 
         {/* <ul>
           <h1>Info personal</h1>
