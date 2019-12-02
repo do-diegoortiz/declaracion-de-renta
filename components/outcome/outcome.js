@@ -152,14 +152,14 @@ export const Outcome = ({ handleRetentionChange, liquidIncome, totalDeductions, 
         deductionsOnTheLimit ? <h3> Hiciste un gran trabajo este año. Pagarás lo mínimo posible </h3> :
           <ol>
             <p>Estos son algunos consejos que puedes seguir:</p>
-            {prepaidMedicine ? null : <li>Si alcanzas a afiliarte por un mes a medicina prepagada, hazlo. Además de tener mejor servicio de salud, con un plan de $500.000 te ahorrarás <b>${savingsForOneMonthOfPrepaidMedicine}</b> en el pago de renta</li>}
+            {prepaidMedicine ? null : <li>Este año ya no alcanzas, pero te conviene afiliarte a medicina prepagada. Además de tener mejor servicio de salud, con un plan de $500.000 mensual te ahorrarías <b>$ {savingsForOneMonthOfPrepaidMedicine}</b> por mes en el pago de renta</li>}
 
             <li>Puedes afiliarte a un fondo de pensiones voluntarias y aportar hasta 
               <span className={css.AdviceValues}>
                 <NumberFormat
                   value={maxValueToAddInDeductions}
                   thousandSeparator={true}
-                  prefix='$'
+                  prefix=' $'
                   decimalScale={0}
                 />
               </span>
@@ -168,12 +168,12 @@ export const Outcome = ({ handleRetentionChange, liquidIncome, totalDeductions, 
                 <NumberFormat
                   value={savingsWithAdviceInVoluntaryRetirementContributions}
                   thousandSeparator={true}
-                  prefix='$'
+                  prefix=' $'
                   decimalScale={0}
                 />
               </span>
             </li>
-            <li>Diciembre es un buen mes para donar. El valor de renta baja poco (<b>${savingsForOneMonthOfPrepaidMedicine}</b> por cada $500.000 COP), pero al menos te sentirás muy feliz de haber apoyado alguna causa que te parezca importante. Eres parte del 1% mejor remunerado en Colombia y a pesar de que parte de tus impuestos se los lleven los corruptos... es un país en dónde se paga un % bastante bajo de impuestos.</li>
+            <li>Diciembre es un buen mes para donar. El valor de renta baja poco (<b>$ {savingsForOneMonthOfPrepaidMedicine}</b> por cada $500.000 COP), pero la ciencia dice que ayudar te hará sentir feliz. Eres parte del {incomeSources[0].income > 9000000 ? 1 : 2}% mejor remunerado en Colombia y a pesar de que la corrupción es alta... es un país en dónde se paga un % de impuestos bajo.</li>
           </ol>
       }
     </aside>

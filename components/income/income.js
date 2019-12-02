@@ -3,6 +3,7 @@ import moment from 'moment'
 import { BlueButton, RedButton, GrayButton } from '../buttons/buttons'
 import Summary from './summary/summary'
 import FormIncome from './formIncome/formIncome'
+import FormLayoff from './formLayoff/formLayoff'
 import TotalSummary from './totalSumary/totalSummary'
 
 import css from './income.scss'
@@ -54,11 +55,11 @@ class Income extends React.Component {
   }
 
   render (){
-    const { handleIncomeChange, handleContractChange, deleteIncomeSource, showSummary, showDeductions, // Methods
-      summaryVisible, incomeSources, hasToDeclare, incomeOutOfTaxes, totalIncome } = this.props
+    const { handleIncomeChange, handleContractChange, handleLayoffChange, deleteIncomeSource, showSummary, showDeductions, // Methods
+      summaryVisible, incomeSources, hasToDeclare, incomeOutOfTaxes, layoffsLastYear, totalIncome } = this.props
     const { showIncomeDetails, datesPerIncome } = this.state
     
-    const forms = [];
+    const forms = [<FormLayoff handleLayoffChange={handleLayoffChange} layoffsLastYear={layoffsLastYear} />];
     const jobsSummary = [];
 
     for (let incomeIndex = 0; incomeIndex < incomeSources.length; incomeIndex++) {

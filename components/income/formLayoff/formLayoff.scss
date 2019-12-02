@@ -1,0 +1,29 @@
+.inputContainer {
+  display: flex;
+  flex-wrap: wrap;
+  border: 0.2rem solid rgba(0,0,0,.3);
+  border-radius: 0.5rem;
+  margin: 1rem auto 0rem;
+  line-height: 3rem;
+
+}
+
+.inputContainer > * {
+  border: 0;
+  padding: 1rem;
+  background:white;
+  line-height: 5rem;
+  font-size: 2rem;
+  border-radius: 0;
+  outline: 0;
+  border-right: 0.1rem solid rgba(0,0,0,0.2);
+  -webkit-appearance: none;
+}
+
+.inputTitle {
+  font-size: 2rem;
+}
+
+.inputContent input{
+  font-size: 2rem;
+}

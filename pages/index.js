@@ -30,6 +30,7 @@ class Home extends React.Component {
     incomeOutOfTaxes: 0,
 
     // DEDUCTIONS
+    totalLayoffs: 0,
     prepaidMedicine: 0,
     indepSocialSecurity: 0,
     homeLoanInteres: 0,
@@ -117,6 +118,7 @@ class Home extends React.Component {
 
     this.setState({incomeSources: sourcesCopy})
     this.updateTotalIncome()
+    this.updateTotalLayoffs()
     this.updateIncomeOutOfTaxes()
   }
 
@@ -141,6 +143,16 @@ class Home extends React.Component {
     return workedDays === 365 || workedDays === 364 ? 12 : (workedDays/30)
   }
 
+  updateTotalLayoffs = () => {
+    const incomeSources = [...this.state.incomeSources]
+    let newTotalLayoffs = this.state.layoffsLastYear
+
+    newTotalLayoffs = incomeSources.reduce((acum, currentIncome, i) => {return currentIncome.stillThere ? acum + 0 : acum + (currentIncome.income * this.getMonthsWorked(i) / 12)}, newTotalLayoffs)
+    const newTotalDeductions = newTotalLayoffs + this.getNotLayoffDeductions()
+
+    this.setState({ totalLayoffs: newTotalLayoffs, totalDeductions: newTotalDeductions })
+  }
+
   updateIncomeOutOfTaxes = () => {
     let outOfTaxCopy = 0
     const incomeSources = [...this.state.incomeSources]
@@ -158,7 +170,7 @@ class Home extends React.Component {
     this.setState({ incomeOutOfTaxes: outOfTaxCopy })
   }
 
-  updateTotalIncome = () => {
+  updateTotalIncome = (layoffLastYear = 0) => {
     const sourcesCopy = [...this.state.incomeSources]
     const incomes = sourcesCopy.map((x, i) => {
       // TODO: Improve variable naming here
@@ -177,7 +189,7 @@ class Home extends React.Component {
       }
     })
 
-    const newTotalIncome = incomes.reduce((acum, current)=> acum + current)
+    const newTotalIncome = incomes.reduce((acum, current)=> acum + current) + (layoffLastYear ? layoffLastYear : this.state.layoffsLastYear)
     const newHasToDeclare = newTotalIncome > 1400 * UVT ? true : false
 
     this.setState({ totalIncome: newTotalIncome, hasToDeclare: newHasToDeclare })
@@ -219,7 +231,7 @@ class Home extends React.Component {
     }
   }
 
-  handleRetentionChange  = (newRetention, index) => {
+  handleRetentionChange = (newRetention, index) => {
     if (newRetention) {
       const newValue = parseInt(newRetention)
       const sourcesCopy = [...this.state.incomeSources]
@@ -229,8 +241,23 @@ class Home extends React.Component {
     }
   }
 
-  getTotalDeductionsDependants(value) {
+  handleLayoffChange = (e, newValue) => {
+    e.preventDefault()
+    this.setState({layoffsLastYear: parseInt(newValue)})
+    this.updateTotalIncome(parseInt(newValue))
+  }
+
+  getNotLayoffDeductions() {
     return this.state.prepaidMedicine
+    + this.state.indepSocialSecurity
+    + this.state.dependantsDeduction
+    + this.state.donations
+    + this.state.voluntaryContributions
+  }
+
+  getTotalDeductionsDependants(value) {
+    return this.state.totalLayoffs
+      + this.state.prepaidMedicine
       + this.state.indepSocialSecurity
       + value
       + this.state.donations
@@ -238,7 +265,7 @@ class Home extends React.Component {
   }
 
   getTotalDeductionsStandard(deduction, value) {
-    const deductions = ['prepaidMedicine', 'indepSocialSecurity', 'homeLoanInteres', 'donations', 'voluntaryContributions']
+    const deductions = ['totalLayoffs', 'prepaidMedicine', 'indepSocialSecurity', 'homeLoanInteres', 'donations', 'voluntaryContributions']
     let newTotal = this.state.dependantsDeduction
 
     deductions.forEach(item => {
@@ -255,7 +282,7 @@ class Home extends React.Component {
   render() {
     const {
       summaryVisible, deductionsVisible, hasToDeclare,
-      incomeSources, totalIncome, incomeOutOfTaxes, //INCOME
+      incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear,//INCOME
       prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
     } = this.state
 
@@ -266,17 +293,22 @@ class Home extends React.Component {
           Hay algunas cosas que puedes hacer para reducir legalmente el impuesto a pagar por ingresos de trabajo del 2019. Pero tiene que ser antes del 31 de diciembre de 2019.
         </p>
         <p className={css.description}>
-          Diligencia todos los ingresos laborales que recibiras este año, podrás saber si debes declarar y algunos consejos para optimizar el pago.
+          De momento, aquí podrás saber si debes declarar renta el próximo año y algunos consejos para optimizar el pago de este impuesto.
         </p>
 
         <h2 className={css.formTitle}>
           Ingresos
         </h2>
 
+        <p className={css.description}>
+          Si sabes el valor exacto o aproximado de las cesantías que te pudieron haber consignado en febrero, ingresalo en el primer campo. Si no es tu caso, llena solo la sección de ingresos laborales de 2019
+        </p>
+
         <Income
           handleIncomeChange={this.handleIncomeChange}
           handleContractChange={this.handleContractChange}
           handleWorkedDays={this.handleWorkedDays}
+          handleLayoffChange={this.handleLayoffChange}
           updateTotalIncome={this.updateTotalIncome}
           showSummary={this.showSummary}
           showDeductions={this.showDeductions}
@@ -286,6 +318,7 @@ class Home extends React.Component {
           hasToDeclare={hasToDeclare}
           incomeSources={incomeSources}
           incomeOutOfTaxes={incomeOutOfTaxes}
+          layoffsLastYear={layoffsLastYear}
           totalIncome={totalIncome}
         />
 

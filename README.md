@@ -22,8 +22,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * Agregar botón para resetear inputs y volver a empezar
 * Perfeccionar calculos para cada tipo de contrato
 * Agregar test unitarios para cada caso de uso
-* Tener en cuenta cesantias del año anterior y no del presente
-* Sacar las cesantias del ingreso por nómina del año actual a menos que no haya trabajado hasta diciembre 31 (En ese caso si fueron ingresos en la liquidación)
 * Leer paulgraham.com/writing44.html para mejorar la redacción y simplicidad del último parrafo
 * Agregar Link Views
 * Agregar tipo de ingreso "Integral"
@@ -31,9 +29,8 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * UI: Escribir detalle de los calculos
 * UI: Tooltips de ayuda en cada input (deducciones especialmente) (Tener en cuenta salario flexible de Globant)
 * UI: Cambiar alerts por warning amigables
-* UI: Inventarse el logo, y agregarlo al favicon y a los diferentes tamaños png en images que usa el manifest.json
+* UI: Crear logo, agregarlo al favicon y a los diferentes tamaños png en images que usa el manifest.json
 * UI: Agregar al css las cosas que le quitan esas flechas feas default al número de dependientes.
-* UI: El primer resumen de todos los ingresos tiene un diseño muy simplista y sin padding.
 * UI: Agregarle formato de currency a todos los números que sean pesos
 * UI: El titulo "Contrato" en el form posiblemente no tiene sentido dónde está.
 
