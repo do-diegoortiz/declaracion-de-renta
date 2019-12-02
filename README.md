@@ -14,7 +14,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 
 ## Tareas pendientes
 * Comprame un café con QR
-* Encuesta pa' saber qué features quiere la gente
 * Configurar una Vaki pa' recibir donaciones pa' features
 * Escribir blog post al respecto
 

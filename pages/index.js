@@ -290,7 +290,7 @@ class Home extends React.Component {
       <div>
         <h1 className={css.title}>Optimiza la declaración de renta</h1>
         <p className={css.description}>
-          Hay algunas cosas que puedes hacer para reducir legalmente el impuesto a pagar por ingresos de trabajo del 2019. Pero tiene que ser antes del 31 de diciembre de 2019.
+          Hay algunas cosas que puedes hacer, antes del 31 de diciembre de 2019, para reducir legalmente el impuesto a pagar por ingresos de trabajo del 2019.
         </p>
         <p className={css.description}>
           De momento, aquí podrás saber si debes declarar renta el próximo año y algunos consejos para optimizar el pago de este impuesto.
@@ -301,7 +301,7 @@ class Home extends React.Component {
         </h2>
 
         <p className={css.description}>
-          Si sabes el valor exacto o aproximado de las cesantías que te pudieron haber consignado en febrero, ingresalo en el primer campo. Si no es tu caso, llena solo la sección de ingresos laborales de 2019
+          Si sabes el valor exacto o aproximado de las cesantías que te pudieron haber consignado en febrero de este año, ingresalo en el primer campo. Si no es tu caso, llena solo la sección de ingresos laborales de 2019
         </p>
 
         <Income
@@ -354,6 +354,17 @@ class Home extends React.Component {
             />
           </div>
         }
+
+        <ul className={css.messages}>
+          Avisos Parroquiales:
+          <li>
+            <strong>¿Qué le mejorarías, agregarías...?</strong> <a target='_blank' href='https://forms.gle/qY56BbJXzuK23kPR7'>Encuesta corta</a> de 4 preguntas para seguir mejorando y tener algo mucho más útil en 2020 😉
+          </li>
+          <li>
+            Para <b>donar</b>, conozco algunas fundaciones chéveres: <a target='_blank' href='http://biblioseo.org/'>Biblioseo</a>, <a target='_blank' href='https://www.techo.org/colombia/'>Techo</a> y <a target='_blank' href='http://angelesdemedellin.blogspot.com/'>AngelesDeMedellin</a>. Desde enero estará constituida <a target='_blank' href='https://medium.com/codeyourfutureco/introducing-code-your-future-colombia-5f7d3d442eda'> CodeYourFuture Colombia</a> 💪
+            
+          </li>
+        </ul>
 
         {/* <ul>
           <h1>Info personal</h1>
