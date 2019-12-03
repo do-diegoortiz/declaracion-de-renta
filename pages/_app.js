@@ -1,24 +1,17 @@
 import App from 'next/app'
+import Router from 'next/router'
 import Head from 'next/head'
 import React from 'react'
-import ReactGA from 'react-ga'
+import * as gtag from '../lib/gtag'
+
+Router.events.on('routeChangeComplete', url => gtag.pageview(url))
 
 export default class MyApp extends App {
-  componentDidMount() {
-    // client-side only, run once on mount
-    ReactGA.initialize('UA-46283734-12')
-    ReactGA.pageview(window.location.pathname + window.location.search)
-  }
-
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
-    }
-
-    if (typeof(window) === "object") {
-      ReactGA.pageview(ctx.asPath)
     }
 
     return { pageProps }

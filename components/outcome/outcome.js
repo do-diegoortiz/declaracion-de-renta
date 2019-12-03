@@ -134,19 +134,22 @@ export const Outcome = ({ handleRetentionChange, liquidIncome, totalDeductions, 
 
       <h2 className={css.SubTotalContainer}>
         {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
-        <span className={css.Title}>Valor de renta a pagar:</span>
-        <span className={css.TotalBadNumber}>
+        <span className={css.Title}>{(totalTaxes - totalRetentions) >= 0 ? 'Valor de renta a pagar:' : 'La DIAN te debe'}</span>
+        <span className={(totalTaxes - totalRetentions) >= 0 ? css.TotalBadNumber : css.TotalGoodNumber}>
           <NumberFormat
-            value={totalTaxes > totalRetentions ? totalTaxes - totalRetentions : 0}
+            value={totalTaxes > totalRetentions ? totalTaxes - totalRetentions : totalRetentions - totalTaxes}
             thousandSeparator={true}
             prefix='$'
             decimalScale={0}
           />
         </span>
       </h2>
+
+      <br/>
+      {totalRetentions ? 'Si el valor en "Rte.Fte Trabajo" no corresponde a la realidad y tú conoces el real, puedes editar ese número' : null}
     </div>
 
-    <aside className={css.Advice}>
+    {totalTaxes ? <aside className={css.Advice}>
       <h3>Te quedan pocos días del año para optimizar tu pago de renta</h3>
       {
         deductionsOnTheLimit ? <h3> Hiciste un gran trabajo este año. Pagarás lo mínimo posible </h3> :
@@ -176,7 +179,7 @@ export const Outcome = ({ handleRetentionChange, liquidIncome, totalDeductions, 
             <li>Diciembre es un buen mes para donar. El valor de renta baja poco (<b>$ {savingsForOneMonthOfPrepaidMedicine}</b> por cada $500.000 COP), pero la ciencia dice que ayudar te hará sentir feliz. Eres parte del {incomeSources[0].income > 9000000 ? 1 : 2}% mejor remunerado en Colombia y a pesar de que la corrupción es alta... es un país en dónde se paga un % de impuestos bajo.</li>
           </ol>
       }
-    </aside>
+    </aside> : null}
   </ div>
 }
 

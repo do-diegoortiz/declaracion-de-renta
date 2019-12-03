@@ -2,6 +2,7 @@
 // Event handlers like onClick can't be added to this file
 
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { GA_TRACKING_ID } from '../lib/gtag'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -23,7 +24,17 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/images/favicon.ico"/>
           <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
 
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46283734-12"></script>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}');
+          `,
+            }}
+          />
         </Head>
         <body>
           <Main />

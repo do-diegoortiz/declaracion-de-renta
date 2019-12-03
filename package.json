@@ -20,7 +20,6 @@
     "prop-types": "15.7.2",
     "react": "16.10.2",
     "react-dom": "16.10.2",
-    "react-ga": "^2.7.0",
     "react-number-format": "4.3.0",
     "sass-resources-loader": "2.0.1"
   },
