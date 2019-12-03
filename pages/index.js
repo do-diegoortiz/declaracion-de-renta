@@ -179,9 +179,10 @@ class Home extends React.Component {
 
       switch(x.contract) {
         case 'nomina':
-          return x.income > (828116 * 4) ?
-            x.income * monthsWorked * (0.91 + ((includesLayoffs ? 2 : 1) /12)) :
-            x.income * monthsWorked * (0.92 + ((includesLayoffs ? 2 : 1) /12))
+          return x.income * monthsWorked * ((x.stillThere ? 13 : 14)/12) + includesLayoffs // 1/12 is about perks (Prima)
+          // return x.income > (828116 * 4) ?
+          //   x.income * monthsWorked * (0.91 + ((includesLayoffs ? 2 : 1) /12)) :
+          //   x.income * monthsWorked * (0.92 + ((includesLayoffs ? 2 : 1) /12))
         case 'prestaciones':
           return x.income * monthsWorked
         case 'contratista':

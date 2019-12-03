@@ -33,7 +33,7 @@ export const Summary = ({ income, workedDays, contract, retention, toDate, incom
       perks = totalSalary / 12
       layoffs = (toDate._d.getDate() === 31 && toDate._d.getMonth() === 11) ? 0 : perks
       // I won't substract retention here (pending)
-      totalIncome = totalSalary - health - retirement - solidarity + perks + layoffs
+      totalIncome = totalSalary + perks + layoffs
       break;
 
     case 'prestaciones':
@@ -74,7 +74,7 @@ export const Summary = ({ income, workedDays, contract, retention, toDate, incom
       <NumberFormat
         value={health}
         thousandSeparator={true}
-        prefix='$'
+        prefix='- $'
         decimalScale={0}
       />
     </p>
@@ -83,7 +83,7 @@ export const Summary = ({ income, workedDays, contract, retention, toDate, incom
       <NumberFormat
         value={retirement}
         thousandSeparator={true}
-        prefix='$'
+        prefix='- $'
         decimalScale={0}
       />
     </p>
@@ -92,7 +92,7 @@ export const Summary = ({ income, workedDays, contract, retention, toDate, incom
       <NumberFormat
         value={solidarity}
         thousandSeparator={true}
-        prefix='$'
+        prefix='- $'
         decimalScale={0}
       />
     </p>
@@ -101,7 +101,7 @@ export const Summary = ({ income, workedDays, contract, retention, toDate, incom
       <NumberFormat
         value={retention}
         thousandSeparator={true}
-        prefix='$'
+        prefix='- $'
         decimalScale={0}
       />
     </p>
