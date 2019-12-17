@@ -26,13 +26,18 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 * Agregar tipo de ingreso "Integral"
 
 * UI: Escribir detalle de los calculos
-* UI: Tooltips de ayuda en cada input (deducciones especialmente) (Tener en cuenta salario flexible de Globant)
 * UI: Cambiar alerts por warning amigables
 * UI: Crear logo, agregarlo al favicon y a los diferentes tamaños png en images que usa el manifest.json
-* UI: Agregar al css las cosas que le quitan esas flechas feas default al número de dependientes.
 * UI: Agregarle formato de currency a todos los números que sean pesos
-* UI: El titulo "Contrato" en el form posiblemente no tiene sentido dónde está.
+
+### Próximo Sprint:
+
+* Componetizar elementos del index.js: Header  lineas 292-306 y footer.
+* Meter Redux
+
+* UI: Tooltips de ayuda en cada input (deducciones especialmente), tener en cuenta cómo se comportan en mobile. (Después: Tener en cuenta salario flexible de Globant)
+* UI: El titulo "Contrato" en el form posiblemente no tiene sentido dónde está. https://material-ui.com/components/text-fields/
 
 * UX: No dejarlo agregar ingresos si el primero (o anterior) está vacío
 * UX: Actualizar para que los consejos finales no se muestren hasta después de haber ingresado todas las deducciones
-* UX: Validar que la fecha inicial no sea menos a 1 de enero de 2019 (y a 1 de enero de 2018 si lo vamos a usar para calcular cesantias)
+* UX: Validar que la fecha inicial no sea menor a 1 de enero de 2019 (y a 1 de enero de 2018 si lo vamos a usar para calcular cesantias)
