@@ -2,11 +2,13 @@ import App from 'next/app'
 import Router from 'next/router'
 import Head from 'next/head'
 import React from 'react'
+import withReduxStore from '../lib/redux'
+import { Provider } from 'react-redux'
 import * as gtag from '../lib/gtag'
 
 Router.events.on('routeChangeComplete', url => gtag.pageview(url))
 
-export default class MyApp extends App {
+class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
@@ -18,15 +20,19 @@ export default class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, reduxStore } = this.props
 
     return (
       <>
         <Head>
           <title>Declaracion de Renta</title>
         </Head>
-        <Component {...pageProps} />
+        <Provider store={reduxStore}>
+          <Component {...pageProps} />
+        </Provider>
       </>
     )
   }
 }
+
+export default withReduxStore(MyApp)
