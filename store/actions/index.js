@@ -1,3 +1,5 @@
 export {
-  updateIncomeDetails
+  updateIncomeDetails,
+  insertNewDate,
+  handleDateChange
 } from './income'

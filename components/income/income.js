@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 import { connect } from 'react-redux'
 import * as actions from '../../store/actions/index'
 import { BlueButton, RedButton, GrayButton } from '../buttons/buttons'
@@ -11,51 +10,21 @@ import TotalSummary from './totalSumary/totalSummary'
 import css from './income.scss'
 
 class Income extends React.Component {
-  state = {
-    datesPerIncome: [
-      {
-        fromDate: moment(new Date(2019, 0, 1)),
-        toDate: moment(new Date(2019, 11, 31))
-      }
-    ]
+
+  createNewForm = async () => {
+    await this.props.insertNewDate()
+    this.props.increaseIncomeSources(this.props.income.newWorkedDays)
   }
 
-  createNewForm = () => {
-    const datesCopy = [...this.state.datesPerIncome]
-    const index = datesCopy.length
-
-    datesCopy.push(
-      {
-        fromDate: datesCopy[index - 1].toDate,
-        toDate: moment(new Date(2019, 11, 31))
-      }
-    )
-    
-    const newWorkedDays = datesCopy[index].toDate.diff(datesCopy[index].fromDate, 'days', false)
-
-    this.setState({datesPerIncome: datesCopy})
-    this.props.increaseIncomeSources(newWorkedDays)
-  }
-
-  handleDateChange = (e, index) => {
-    const datesCopy = [...this.state.datesPerIncome]
-    let newDateCopy = new Date();
-
-    if (e.target) { newDateCopy = moment(e.target.value, 'YYYY-MM-DD') }
-
-    datesCopy[index][e.target.name] = newDateCopy
-    const newWorkedDays = datesCopy[index].toDate.diff(datesCopy[index].fromDate, 'days', false)
-    const stillThere = datesCopy[index].toDate._d.getDate() === 31 && datesCopy[index].toDate._d.getMonth() === 11
-
-    this.setState({datesPerIncome:datesCopy})
-    this.props.handleWorkedDays(newWorkedDays, index, stillThere)
+  handleDateChange = async (e, index) => {
+    await this.props.handleDateChange(e, index)
+    this.props.handleWorkedDays(this.props.income.jobWorkedDays, index, this.props.income.stillThere)
   }
 
   render (){
     const { handleIncomeChange, handleContractChange, handleLayoffChange, deleteIncomeSource, showSummary, showDeductions, // Methods
       summaryVisible, incomeSources, hasToDeclare, incomeOutOfTaxes, layoffsLastYear, totalIncome } = this.props
-    const { showIncomeDetails } = this.props.income
-    const { datesPerIncome } = this.state
+    const { showIncomeDetails, datesPerIncome } = this.props.income
     
     const forms = [<FormLayoff handleLayoffChange={handleLayoffChange} layoffsLastYear={layoffsLastYear} />];
     const jobsSummary = [];
@@ -120,7 +89,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateIncomeDetails: () => dispatch(actions.updateIncomeDetails())
+    updateIncomeDetails: () => dispatch(actions.updateIncomeDetails()),
+    insertNewDate: () => dispatch(actions.insertNewDate()),
+    handleDateChange: (e, index) => dispatch(actions.handleDateChange(e, index))
   };
 };
 
