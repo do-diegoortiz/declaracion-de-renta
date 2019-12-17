@@ -1,0 +1,3 @@
+export {
+  updateIncomeDetails
+} from './income'

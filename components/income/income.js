@@ -1,5 +1,7 @@
-import React from 'react';
+import React from 'react'
 import moment from 'moment'
+import { connect } from 'react-redux'
+import * as actions from '../../store/actions/index'
 import { BlueButton, RedButton, GrayButton } from '../buttons/buttons'
 import Summary from './summary/summary'
 import FormIncome from './formIncome/formIncome'
@@ -10,17 +12,12 @@ import css from './income.scss'
 
 class Income extends React.Component {
   state = {
-    showIncomeDetails: false,
     datesPerIncome: [
       {
         fromDate: moment(new Date(2019, 0, 1)),
         toDate: moment(new Date(2019, 11, 31))
       }
     ]
-  }
-
-  updateIncomeDetails = () => {
-    this.setState({ showIncomeDetails: true })
   }
 
   createNewForm = () => {
@@ -57,7 +54,8 @@ class Income extends React.Component {
   render (){
     const { handleIncomeChange, handleContractChange, handleLayoffChange, deleteIncomeSource, showSummary, showDeductions, // Methods
       summaryVisible, incomeSources, hasToDeclare, incomeOutOfTaxes, layoffsLastYear, totalIncome } = this.props
-    const { showIncomeDetails, datesPerIncome } = this.state
+    const { showIncomeDetails } = this.props.income
+    const { datesPerIncome } = this.state
     
     const forms = [<FormLayoff handleLayoffChange={handleLayoffChange} layoffsLastYear={layoffsLastYear} />];
     const jobsSummary = [];
@@ -107,11 +105,23 @@ class Income extends React.Component {
           hasToDeclare={hasToDeclare}
           showDeductions={showDeductions}
         />}
-        {summaryVisible && !showIncomeDetails && <GrayButton label='Ver desglose de ingresos' onClick={this.updateIncomeDetails} /> }
+        {summaryVisible && !showIncomeDetails && <GrayButton label='Ver desglose de ingresos' onClick={this.props.updateIncomeDetails} /> }
         {showIncomeDetails && jobsSummary}
       </div>
     </>
   }
 }
 
-export default Income
+const mapStateToProps = state => {
+  return {
+    income: state.income
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateIncomeDetails: () => dispatch(actions.updateIncomeDetails())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Income);

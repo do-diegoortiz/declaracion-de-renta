@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import request from './request';
+import income from './income';
 
 export default combineReducers({
-  request
+  income
 });
