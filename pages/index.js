@@ -2,6 +2,7 @@ import React from 'react'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 import Outcome from '../components/outcome/outcome'
+import Header from '../components/header/header'
 
 import css from './index.scss'
 
@@ -289,13 +290,7 @@ class Home extends React.Component {
 
     return (
       <div>
-        <h1 className={css.title}>Optimiza la declaración de renta</h1>
-        <p className={css.description}>
-          Hay algunas cosas que puedes hacer, antes del 31 de diciembre de 2019, para reducir legalmente el impuesto a pagar por ingresos de trabajo del 2019.
-        </p>
-        <p className={css.description}>
-          De momento, aquí podrás saber si debes declarar renta el próximo año y algunos consejos para optimizar el pago de este impuesto.
-        </p>
+        <Header />
 
         <h2 className={css.formTitle}>
           Ingresos
