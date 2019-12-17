@@ -32,7 +32,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 
 ### Próximo Sprint:
 
-* Componetizar elementos del index.js: Header  lineas 292-306 y footer.
 * Meter Redux
 
 * UI: Tooltips de ayuda en cada input (deducciones especialmente), tener en cuenta cómo se comportan en mobile. (Después: Tener en cuenta salario flexible de Globant)
