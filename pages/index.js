@@ -1,20 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../store/actions/index'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 import Outcome from '../components/outcome/outcome'
 import Header from '../components/header/header'
 import Footer from '../components/footer/footer'
 
-import css from './index.scss';
+import css from './index.scss'
 
 const UVT = 34270
 
 class Home extends React.Component {
   state = {
-    // https://bogota.gov.co/mi-ciudad/hacienda/quienes-y-cuando-declarar-renta-en-2019
-    hasToDeclare: false, // When gross income > 1400 UVT
-    hasToPay: false, // When (liquid income - deductions) > 1090 UVT
-    summaryVisible: false,
+    hasToDeclare: false, // YA ESTA EN REDUX
     deductionsVisible: false,
 
     // INCOME
@@ -77,7 +76,7 @@ class Home extends React.Component {
       this.setState({incomeSources: sourcesCopy})
 
       if(sourcesCopy.length === 1 && newValue === 0) {
-        this.setState({summaryVisible: false})
+        this.props.hideSummary()
       }
 
       this.updateRetention(index, newValue, sourcesCopy[index].contract)
@@ -128,7 +127,7 @@ class Home extends React.Component {
     e.preventDefault()
 
     if (this.state.incomeSources[0].income) {
-      this.setState({ summaryVisible: true })
+      this.props.showSummary()
     }
 
     this.updateIncomeOutOfTaxes()
@@ -283,8 +282,9 @@ class Home extends React.Component {
   }
 
   render() {
+    const { hasToDeclare, summaryVisible } = this.props.home
     const {
-      summaryVisible, deductionsVisible, hasToDeclare,
+      deductionsVisible,
       incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear,//INCOME
       prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
     } = this.state
@@ -462,4 +462,17 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+const mapStateToProps = state => {
+  return {
+    home: state.home
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    showSummary: () => dispatch(actions.showSummary()),
+    hideSummary: () => dispatch(actions.hideSummary())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
