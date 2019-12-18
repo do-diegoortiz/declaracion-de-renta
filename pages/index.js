@@ -5,7 +5,7 @@ import Outcome from '../components/outcome/outcome'
 import Header from '../components/header/header'
 import Footer from '../components/footer/footer'
 
-import css from './index.scss'
+import css from './index.scss';
 
 const UVT = 34270
 
