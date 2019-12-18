@@ -2,6 +2,8 @@ import React from 'react'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 import Outcome from '../components/outcome/outcome'
+import Header from '../components/header/header'
+import Footer from '../components/footer/footer'
 
 import css from './index.scss'
 
@@ -289,13 +291,7 @@ class Home extends React.Component {
 
     return (
       <div>
-        <h1 className={css.title}>Optimiza la declaración de renta</h1>
-        <p className={css.description}>
-          Hay algunas cosas que puedes hacer, antes del 31 de diciembre de 2019, para reducir legalmente el impuesto a pagar por ingresos de trabajo del 2019.
-        </p>
-        <p className={css.description}>
-          De momento, aquí podrás saber si debes declarar renta el próximo año y algunos consejos para optimizar el pago de este impuesto.
-        </p>
+        <Header />
 
         <h2 className={css.formTitle}>
           Ingresos
@@ -356,33 +352,7 @@ class Home extends React.Component {
           </div>
         }
 
-        <footer className={css.finalMessages}>
-          <span>
-            Avisos Parroquiales:
-          </span>
-          <ul>
-            <li>
-              <strong>¿Qué le mejorarías, agregarías...?</strong> <a target='_blank' rel='noreferrer' href='https://forms.gle/qY56BbJXzuK23kPR7'>Encuesta corta</a> de 4 preguntas para seguir mejorando y tener algo mucho más útil en 2020 😉
-            </li>
-            <li>
-              Si no conocen fundaciones a dónde <b>donar</b>, conozco algunas chéveres: <a target='_blank' rel='noreferrer' href='http://biblioseo.org/'>Biblioseo</a>, <a target='_blank' rel='noreferrer' href='https://www.techo.org/colombia/'>Techo</a> y <a target='_blank' rel='noreferrer' href='http://angelesdemedellin.blogspot.com/'>AngelesDeMedellin</a>. Desde enero estará constituida <a target='_blank' rel='noreferrer' href='https://medium.com/codeyourfutureco/introducing-code-your-future-colombia-5f7d3d442eda'> CodeYourFuture Colombia</a> 💪
-              
-            </li>
-            <li> En caso de lanzar nuevas funcionalidades ¿Quieres ser notificado?
-              <form action="https://mailthis.to/diegoortizpaez@gmail.com" 
-                method="POST"> 
-                <label>Nombre:
-                  <input type="text" name="name" placeholder="ej. Pedro Perez" className={css.nameInput} />
-                </label>
-                <label>Correo: 
-                  <input type="email" name="_replyto" placeholder="ej. pedro@gmail.com" className={css.emailInput} />
-                </label>
-                <input type="submit" value="Enviar" className={css.emailButton}/> 
-              </form>
-            </li>
-          </ul>
-
-        </footer>
+        <Footer />
 
         {/* <ul>
           <h1>Info personal</h1>

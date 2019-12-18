@@ -1,0 +1,28 @@
+.title {
+  margin: 0;
+  width: 100%;
+  padding-top: 4rem;
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+.title, .description {
+  text-align: center;
+}
+
+.description{
+  font-size: 2rem;
+  text-align: justify;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 105rem;
+  margin: 1rem auto;
+}
+
+@media (max-width: 560px) {
+  .description {
+    padding: 0 1.6rem;
+    max-width: 32rem;
+  }
+}

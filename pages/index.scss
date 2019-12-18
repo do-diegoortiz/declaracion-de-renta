@@ -1,15 +1,3 @@
-.title {
-  margin: 0;
-  width: 100%;
-  padding-top: 4rem;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title, .description {
-  text-align: center;
-}
-
 .description{
   font-size: 2rem;
   text-align: justify;
@@ -36,35 +24,6 @@
   flex-direction: column;
   max-width: 25%;
   padding: 1rem;
-}
-
-.finalMessages {
-  font-size: 1.6rem;
-  text-align: justify;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  max-width: 105rem;
-  margin: 4rem auto;
-}
-
-.nameInput {
-  max-width: 20rem;
-  margin: 0 1rem;
-}
-
-.emailInput {
-  max-width: 20rem;
-  margin-left: 1rem;
-}
-
-.emailButton {
-  background-image: linear-gradient(to top, #5540cd, #493fc7, #3c3ec0, #2e3dba, #1e3bb3);
-  border-radius: 0.4rem;
-  color: white;
-  padding: 0.4rem;
-  margin-left: 1rem;
 }
 
 @media (max-width: 560px) {
