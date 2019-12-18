@@ -1,22 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import * as actions from '../store/actions/index'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 import Outcome from '../components/outcome/outcome'
 import Header from '../components/header/header'
 import Footer from '../components/footer/footer'
 
-import css from './index.scss';
+import css from './index.scss'
 
 const UVT = 34270
 
 class Home extends React.Component {
   state = {
-    // https://bogota.gov.co/mi-ciudad/hacienda/quienes-y-cuando-declarar-renta-en-2019
-    hasToDeclare: false, // When gross income > 1400 UVT
-    hasToPay: false, // When (liquid income - deductions) > 1090 UVT
-    summaryVisible: false,
-    deductionsVisible: false,
-
     // INCOME
     incomeSources: [
       {
@@ -77,7 +74,7 @@ class Home extends React.Component {
       this.setState({incomeSources: sourcesCopy})
 
       if(sourcesCopy.length === 1 && newValue === 0) {
-        this.setState({summaryVisible: false})
+        this.props.hideSummary()
       }
 
       this.updateRetention(index, newValue, sourcesCopy[index].contract)
@@ -128,16 +125,10 @@ class Home extends React.Component {
     e.preventDefault()
 
     if (this.state.incomeSources[0].income) {
-      this.setState({ summaryVisible: true })
+      this.props.showSummary()
     }
 
     this.updateIncomeOutOfTaxes()
-  }
-
-  showDeductions = e => {
-    e.preventDefault()
-
-    this.setState({ deductionsVisible: true })
   }
 
   getMonthsWorked = (index) => {
@@ -193,9 +184,9 @@ class Home extends React.Component {
     })
 
     const newTotalIncome = incomes.reduce((acum, current)=> acum + current) + (layoffLastYear ? layoffLastYear : this.state.layoffsLastYear)
-    const newHasToDeclare = newTotalIncome > 1400 * UVT ? true : false
+    this.props.newHasToDeclare(newTotalIncome)
 
-    this.setState({ totalIncome: newTotalIncome, hasToDeclare: newHasToDeclare })
+    this.setState({ totalIncome: newTotalIncome })
   }
 
   // DEDUCTIONS
@@ -283,8 +274,9 @@ class Home extends React.Component {
   }
 
   render() {
+    const { hasToDeclare, summaryVisible, deductionsVisible } = this.props.home
+    const { showDeductions } = this.props
     const {
-      summaryVisible, deductionsVisible, hasToDeclare,
       incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear,//INCOME
       prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
     } = this.state
@@ -308,7 +300,7 @@ class Home extends React.Component {
           handleLayoffChange={this.handleLayoffChange}
           updateTotalIncome={this.updateTotalIncome}
           showSummary={this.showSummary}
-          showDeductions={this.showDeductions}
+          showDeductions={showDeductions}
           increaseIncomeSources={this.increaseIncomeSources}
           deleteIncomeSource={this.deleteIncomeSource}
           summaryVisible={summaryVisible}
@@ -462,4 +454,19 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+const mapStateToProps = state => {
+  return {
+    home: state.home
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    newHasToDeclare: newTotalIncome => dispatch(actions.newHasToDeclare(newTotalIncome)),
+    showSummary: () => dispatch(actions.showSummary()),
+    hideSummary: () => dispatch(actions.hideSummary()),
+    showDeductions: e => dispatch(actions.showDeductions(e))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

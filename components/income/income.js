@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import * as actions from '../../store/actions/index'
 import { BlueButton, RedButton, GrayButton } from '../buttons/buttons'
 import Summary from './summary/summary'
@@ -23,7 +24,7 @@ class Income extends React.Component {
 
   render (){
     const { handleIncomeChange, handleContractChange, handleLayoffChange, deleteIncomeSource, showSummary, showDeductions, // Methods
-      summaryVisible, incomeSources, hasToDeclare, incomeOutOfTaxes, layoffsLastYear, totalIncome } = this.props
+      summaryVisible, incomeSources, hasToDeclare, incomeOutOfTaxes, layoffsLastYear, totalIncome, updateIncomeDetails } = this.props
     const { showIncomeDetails, datesPerIncome } = this.props.income
     
     const forms = [<FormLayoff handleLayoffChange={handleLayoffChange} layoffsLastYear={layoffsLastYear} />];
@@ -74,7 +75,7 @@ class Income extends React.Component {
           hasToDeclare={hasToDeclare}
           showDeductions={showDeductions}
         />}
-        {summaryVisible && !showIncomeDetails && <GrayButton label='Ver desglose de ingresos' onClick={this.props.updateIncomeDetails} /> }
+        {summaryVisible && !showIncomeDetails && <GrayButton label='Ver desglose de ingresos' onClick={updateIncomeDetails} /> }
         {showIncomeDetails && jobsSummary}
       </div>
     </>
