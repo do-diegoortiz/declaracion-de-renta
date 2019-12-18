@@ -9,10 +9,18 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case actions.SHOW_SUMMARY: return showSummary(state);
-    case actions.HIDE_SUMMARY: return hideSummary(state);
-    case actions.SHOW_DEDUCTIONS: return showDeductions(state);
-    default: return state;
+    case actions.HAS_TO_DECLARE: return hasToDeclare(state, action)
+    case actions.SHOW_SUMMARY: return showSummary(state)
+    case actions.HIDE_SUMMARY: return hideSummary(state)
+    case actions.SHOW_DEDUCTIONS: return showDeductions(state)
+    default: return state
+  }
+}
+
+const hasToDeclare = (state, action) => {
+  return {
+    ...state,
+    hasToDeclare: action.data
   }
 }
 

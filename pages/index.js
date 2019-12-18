@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import * as actions from '../store/actions/index'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
@@ -13,8 +14,6 @@ const UVT = 34270
 
 class Home extends React.Component {
   state = {
-    hasToDeclare: false, // YA ESTA EN REDUX
-
     // INCOME
     incomeSources: [
       {
@@ -185,9 +184,9 @@ class Home extends React.Component {
     })
 
     const newTotalIncome = incomes.reduce((acum, current)=> acum + current) + (layoffLastYear ? layoffLastYear : this.state.layoffsLastYear)
-    const newHasToDeclare = newTotalIncome > 1400 * UVT ? true : false
+    this.props.newHasToDeclare(newTotalIncome)
 
-    this.setState({ totalIncome: newTotalIncome, hasToDeclare: newHasToDeclare })
+    this.setState({ totalIncome: newTotalIncome })
   }
 
   // DEDUCTIONS
@@ -463,9 +462,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    newHasToDeclare: newTotalIncome => dispatch(actions.newHasToDeclare(newTotalIncome)),
     showSummary: () => dispatch(actions.showSummary()),
     hideSummary: () => dispatch(actions.hideSummary()),
-    showDeductions: (e) => dispatch(actions.showDeductions(e))
+    showDeductions: e => dispatch(actions.showDeductions(e))
   };
 };
 

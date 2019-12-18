@@ -5,6 +5,7 @@ export {
 } from './income'
 
 export {
+  newHasToDeclare,
   showSummary,
   hideSummary,
   showDeductions
