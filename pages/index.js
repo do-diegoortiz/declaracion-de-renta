@@ -14,7 +14,6 @@ const UVT = 34270
 class Home extends React.Component {
   state = {
     hasToDeclare: false, // YA ESTA EN REDUX
-    deductionsVisible: false,
 
     // INCOME
     incomeSources: [
@@ -131,12 +130,6 @@ class Home extends React.Component {
     }
 
     this.updateIncomeOutOfTaxes()
-  }
-
-  showDeductions = e => {
-    e.preventDefault()
-
-    this.setState({ deductionsVisible: true })
   }
 
   getMonthsWorked = (index) => {
@@ -282,9 +275,9 @@ class Home extends React.Component {
   }
 
   render() {
-    const { hasToDeclare, summaryVisible } = this.props.home
+    const { hasToDeclare, summaryVisible, deductionsVisible } = this.props.home
+    const { showDeductions } = this.props
     const {
-      deductionsVisible,
       incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear,//INCOME
       prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
     } = this.state
@@ -308,7 +301,7 @@ class Home extends React.Component {
           handleLayoffChange={this.handleLayoffChange}
           updateTotalIncome={this.updateTotalIncome}
           showSummary={this.showSummary}
-          showDeductions={this.showDeductions}
+          showDeductions={showDeductions}
           increaseIncomeSources={this.increaseIncomeSources}
           deleteIncomeSource={this.deleteIncomeSource}
           summaryVisible={summaryVisible}
@@ -471,7 +464,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     showSummary: () => dispatch(actions.showSummary()),
-    hideSummary: () => dispatch(actions.hideSummary())
+    hideSummary: () => dispatch(actions.hideSummary()),
+    showDeductions: (e) => dispatch(actions.showDeductions(e))
   };
 };
 

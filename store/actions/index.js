@@ -6,5 +6,6 @@ export {
 
 export {
   showSummary,
-  hideSummary
+  hideSummary,
+  showDeductions
 } from './home'

@@ -11,3 +11,17 @@ export const hideSummary = () => {
     type: actions.HIDE_SUMMARY
   }
 }
+
+export const showDeductions = e => {
+  e.preventDefault()
+
+  return (dispatch) => {
+    dispatch(deductionsVisible())
+  }
+}
+
+const deductionsVisible = () => {
+  return {
+    type: actions.SHOW_DEDUCTIONS
+  }
+}
