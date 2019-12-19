@@ -47,18 +47,15 @@ export const handleDeductionChange = (e, newValue) => {
       }
     } else {
       totalDeductions = getTotalDeductionsStandard(e.target.name, parseInt(newValue), deductions)
-      console.log(totalDeductions)
       const deductionsOverTheLimit = totalDeductions + ((liquidIncome - totalDeductions) * 0.25) > (liquidIncome * 0.4)
 
-      // if (deductionsOverTheLimit) {
-      //   alert("Lo sentimos, las deducciones no pueden exceder el 40% del ingreso liquido")
-      //   this.setState({[e.target.name]: this.state[e.target.name]})
-      // } else {
-      //   this.setState({
-      //     [e.target.name]: parseInt(newValue),
-      //     totalDeductions: totalDeductions
-      //   })
-      // }
+      if (deductionsOverTheLimit) {
+        alert("Lo sentimos, las deducciones no pueden exceder el 40% del ingreso liquido")
+        dispatch(updateDeductionValue(e.target.name, deductions[e.target.name]))
+      } else {
+        dispatch(updateDeductionValue(e.target.name, parseInt(newValue)))
+        dispatch(updateTotalDeductions(totalDeductions))
+      }
     }
   }
 }
@@ -101,6 +98,13 @@ const getTotalDeductionsStandard = (deduction, value, deductionsValue) => {
   return newTotal
 }
 
+const updateDeductionValue = (name, value) => {
+  return {
+    type: actions.UPDATE_DEDUCTION_VALUE,
+    data: {name, value}
+  }
+}
+
 export const handleRetentionChange = (newRetention, index) => {
   return (dispatch, getState) => {
     if (newRetention) {
@@ -115,6 +119,8 @@ export const handleRetentionChange = (newRetention, index) => {
 
 export const handleLayoffChange = (e, newValue) => {
   e.preventDefault()
-  dispatch(actionCreators.updateLayoffsLastYear(parseInt(newValue)))
-  dispatch(actionCreators.updateTotalIncome(parseInt(newValue)))
+  return (dispatch) => {
+    dispatch(actionCreators.updateLayoffsLastYear(parseInt(newValue)))
+    dispatch(actionCreators.updateTotalIncome(parseInt(newValue)))
+  }
 }

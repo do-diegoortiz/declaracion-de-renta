@@ -84,7 +84,7 @@ export const increaseIncomeSources = (...args) => {
   }
 }
 
-const updateIncomeSources = data => {
+export const updateIncomeSources = data => {
   return {
     type: actions.UPDATE_INCOME_SOURCES,
     data: data

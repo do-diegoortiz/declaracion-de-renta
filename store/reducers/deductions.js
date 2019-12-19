@@ -18,6 +18,7 @@ const reducer = (state = initialState, action) => {
     case actions.UPDATE_TOTAL_DEDUCTIONS: return updateTotalDeductions(state, action)
     case actions.UPDATE_DEPENDANTS_DEDUCTION: return updateDependantsDeduction(state, action)
     case actions.UPDATE_DEPENDANTS_VALUE: return updateDependantsValue(state, action)
+    case actions.UPDATE_DEDUCTION_VALUE: return updateDeductionValue(state, action)
     default: return state
   }
 }
@@ -47,6 +48,13 @@ const updateDependantsValue = (state, action) => {
   return {
     ...state,
     dependants: action.data
+  }
+}
+
+const updateDeductionValue = (state, action) => {
+  return {
+    ...state,
+    [action.data.name]: action.data.value
   }
 }
 

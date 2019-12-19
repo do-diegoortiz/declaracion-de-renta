@@ -10,7 +10,8 @@ export {
   handleContractChange,
   handleWorkedDays,
   getMonthsWorked,
-  updateLayoffsLastYear
+  updateLayoffsLastYear,
+  updateIncomeSources
 } from './income'
 
 export {
