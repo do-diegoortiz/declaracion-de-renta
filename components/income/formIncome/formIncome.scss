@@ -1,4 +1,4 @@
-.formContainer > * {
+.formContainer > *, .selectContract {
   border: 0;
   padding: 1rem;
   background:white;
@@ -32,6 +32,7 @@
   background-repeat: no-repeat;
   background-position-x: 100%;
   background-position-y: 2rem;
+  border-right: none
 }
 
 .deleteButton {
@@ -50,6 +51,16 @@
 
 .salaryContainer {
   flex: 1 0 10rem;
+}
+
+.dropdownTitle {
+  font-size: 1.2rem;
+  position: absolute;
+  top: 11.5rem
+}
+
+.dropdownContainer {
+  padding: 0 2rem;
 }
 
 @media (max-width: 560px) {

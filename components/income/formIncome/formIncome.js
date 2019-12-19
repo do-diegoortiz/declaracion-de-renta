@@ -21,12 +21,14 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
   return (
     <form className={css.formContainer} key={incomeIndex}>
       <h1 className={css.hideMobile}>{incomeIndex+1}</h1>
-      <label id='contract' className={css.hideMobile}>Contrato</label>
-      <select name='contract' className={css.contract} aria-labelledby='contract' value={contract} onChange={ e => handleContractChange(e, incomeIndex)}>
-        <option value='nomina'>Nómina</option>
-        <option value='prestaciones'>Servicios</option>
-        <option value='contratista'>Contratista</option>
-      </select>
+      <div className={css.dropdownContainer}>
+        <label id='contract' className={css.dropdownTitle}>Contrato</label>
+        <select name='contract' className={`${css.selectContract} ${css.contract}`} aria-labelledby='contract' value={contract} onChange={ e => handleContractChange(e, incomeIndex)}>
+          <option value='nomina'>Nómina</option>
+          <option value='prestaciones'>Servicios</option>
+          <option value='contratista'>Contratista</option>
+        </select>
+      </div>
 
       <NumberFormat
         aria-label="income"
