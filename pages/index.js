@@ -10,276 +10,18 @@ import Footer from '../components/footer/footer'
 
 import css from './index.scss'
 
-const UVT = 34270
-
 class Home extends React.Component {
-  state = {
-    // INCOME
-    incomeSources: [
-      {
-        income: 0,
-        retention: 0,
-        workedDays: 365,
-        stillThere: true, // Needed in 'nomina' contract to know if "Cesantias" were and income or not
-        contract: 'nomina' // The other two options are 'prestaciones' and 'contratista'
-      }
-    ],
-    layoffsLastYear: 0, // Locally known as "Cesantias"
-    totalIncome: 0,
-    incomeOutOfTaxes: 0,
-
-    // DEDUCTIONS
-    totalLayoffs: 0,
-    prepaidMedicine: 0,
-    indepSocialSecurity: 0,
-    homeLoanInteres: 0,
-    dependants: 0, // Number of people
-    dependantsDeduction: 0,
-    donations: 0,
-    voluntaryContributions: 0,
-    totalDeductions: 0
-  }
-
-  increaseIncomeSources = (...args) => {
-    const [defaultWorkedDays] = args
-    const sourcesCopy = [...this.state.incomeSources]
-
-    sourcesCopy.push(
-      {
-        income: 0,
-        retention: 0,
-        workedDays: defaultWorkedDays,
-        contract: 'nomina'
-      }
-    )
-
-    this.setState({incomeSources: sourcesCopy})
-    this.showSummary
-  }
-
-  deleteIncomeSource = (index) => {
-    const sourcesCopy = [...this.state.incomeSources]
-    sourcesCopy.splice(index, 1)
-
-    this.setState({incomeSources: sourcesCopy})
-  }
-
-  handleIncomeChange = (newIncome, index) => {
-    if (newIncome) {
-      const newValue = parseInt(newIncome, 0)
-
-      const sourcesCopy = [...this.state.incomeSources]
-      sourcesCopy[index].income = newValue
-
-      this.setState({incomeSources: sourcesCopy})
-
-      if(sourcesCopy.length === 1 && newValue === 0) {
-        this.props.hideSummary()
-      }
-
-      this.updateRetention(index, newValue, sourcesCopy[index].contract)
-      this.updateTotalIncome()
-    }
-  }
-
-  handleContractChange = (e, index) => {
-    const sourcesCopy = [...this.state.incomeSources]
-    sourcesCopy[index].contract = e.target.value
-
-    this.setState({incomeSources: sourcesCopy})
-    this.updateRetention(index, sourcesCopy[index].income, e.target.value)
-    this.updateIncomeOutOfTaxes()
-  }
-
-  updateRetention = (index, income, contract) => {
-    const sourcesCopy = [...this.state.incomeSources]
-    const totalSalary = (income / 30) * sourcesCopy[index].workedDays;
-
-    if (contract === 'nomina') {
-      // Table to calculate properly this value is here: https://www.gerencie.com/retencion-en-la-fuente-por-ingresos-laborales.html
-      // Here we are using 19% since is the most common
-      sourcesCopy[index].retention = income > 4770183 ? ((income - 87 * UVT) * 0.19) : 0
-    } else if(contract === 'prestaciones') {
-      // I've read we had to add 1% about ICA in certain scenarios
-      // TODO: Verify is its 11% before paying health+retirement or over the base salary
-      sourcesCopy[index].retention = income > 828116 ? (totalSalary * 0.6) * 0.11 : totalSalary * 0.11
-    } else {
-      sourcesCopy[index].retention = 0
-    }
-
-    this.setState({incomeSources: sourcesCopy})
-  }
-
-  handleWorkedDays = (days, index, stillThere) => {
-    const sourcesCopy = [...this.state.incomeSources]
-    sourcesCopy[index].workedDays = days
-    sourcesCopy[index].stillThere = stillThere
-
-    this.setState({incomeSources: sourcesCopy})
-    this.updateTotalIncome()
-    this.updateTotalLayoffs()
-    this.updateIncomeOutOfTaxes()
-  }
-
-  showSummary = e => {
-    e.preventDefault()
-
-    if (this.state.incomeSources[0].income) {
-      this.props.showSummary()
-    }
-
-    this.updateIncomeOutOfTaxes()
-  }
-
-  getMonthsWorked = (index) => {
-    const workedDays = this.state.incomeSources[index].workedDays
-    return workedDays === 365 || workedDays === 364 ? 12 : (workedDays/30)
-  }
-
-  updateTotalLayoffs = () => {
-    const incomeSources = [...this.state.incomeSources]
-    let newTotalLayoffs = this.state.layoffsLastYear
-
-    newTotalLayoffs = incomeSources.reduce((acum, currentIncome, i) => {return currentIncome.stillThere ? acum + 0 : acum + (currentIncome.income * this.getMonthsWorked(i) / 12)}, newTotalLayoffs)
-    const newTotalDeductions = newTotalLayoffs + this.getNotLayoffDeductions()
-
-    this.setState({ totalLayoffs: newTotalLayoffs, totalDeductions: newTotalDeductions })
-  }
-
-  updateIncomeOutOfTaxes = () => {
-    let outOfTaxCopy = 0
-    const incomeSources = [...this.state.incomeSources]
-
-    for (let i = 0; i < incomeSources.length; i++) {
-      if (incomeSources[i].contract === 'nomina') {
-        // If income is below certain UVT's is not 9% but 8%. Because 1% of Solidaridad wouldn't be included
-        outOfTaxCopy += incomeSources[i].income * this.getMonthsWorked(i) * 0.09
-      } else {
-        // As independant you pay based on the 40% of your salary. 12.5% in health and 16% in retirement.
-        outOfTaxCopy += incomeSources[i].income * this.getMonthsWorked(i) * 0.4 * 0.285
-      }
-    }
-
-    this.setState({ incomeOutOfTaxes: outOfTaxCopy })
-  }
-
-  updateTotalIncome = (layoffLastYear = 0) => {
-    const sourcesCopy = [...this.state.incomeSources]
-    const incomes = sourcesCopy.map((x, i) => {
-      // TODO: Improve variable naming here
-      const includesLayoffs = !x.stillThere
-      const monthsWorked = this.getMonthsWorked(i)
-
-      switch(x.contract) {
-        case 'nomina':
-          return x.income * monthsWorked * ((x.stillThere ? 13 : 14)/12) + includesLayoffs // 1/12 is about perks (Prima)
-          // return x.income > (828116 * 4) ?
-          //   x.income * monthsWorked * (0.91 + ((includesLayoffs ? 2 : 1) /12)) :
-          //   x.income * monthsWorked * (0.92 + ((includesLayoffs ? 2 : 1) /12))
-        case 'prestaciones':
-          return x.income * monthsWorked
-        case 'contratista':
-          return x.income * monthsWorked
-      }
-    })
-
-    const newTotalIncome = incomes.reduce((acum, current)=> acum + current) + (layoffLastYear ? layoffLastYear : this.state.layoffsLastYear)
-    this.props.newHasToDeclare(newTotalIncome)
-
-    this.setState({ totalIncome: newTotalIncome })
-  }
-
-  // DEDUCTIONS
-  handleDeductionChange = (e, newValue) => {
-    let totalDeductions = 0
-    const totalIncome = this.state.incomeSources.map((x, i) => x.income * this.getMonthsWorked(i)).reduce((acum, current)=> acum + current)
-    const liquidIncome = totalIncome - this.state.incomeOutOfTaxes
-
-    if (e.target.name === 'dependants') {
-      totalDeductions = this.getTotalDeductionsDependants(e.target.value * totalIncome * 0.1)
-      const deductionsOverTheLimit = totalDeductions + ((liquidIncome - totalDeductions) * 0.25) > (liquidIncome * 0.4)
-
-      if (deductionsOverTheLimit) {
-        alert("Lo sentimos, las deducciones no pueden exceder el 40% del ingreso liquido")
-      } else {
-        // Theory says you can substract 10% of your income for every dependant
-        this.setState({
-          dependantsDeduction: e.target.value * totalIncome * 0.1,
-          dependants: e.target.value,
-          totalDeductions: totalDeductions
-        })  
-      }
-    } else {
-      totalDeductions = this.getTotalDeductionsStandard(e.target.name, parseInt(newValue))
-      const deductionsOverTheLimit = totalDeductions + ((liquidIncome - totalDeductions) * 0.25) > (liquidIncome * 0.4)
-
-      if (deductionsOverTheLimit) {
-        alert("Lo sentimos, las deducciones no pueden exceder el 40% del ingreso liquido")
-        this.setState({[e.target.name]: this.state[e.target.name]})
-      } else {
-        this.setState({
-          [e.target.name]: parseInt(newValue),
-          totalDeductions: totalDeductions
-        })
-      }
-    }
-  }
-
-  handleRetentionChange = (newRetention, index) => {
-    if (newRetention) {
-      const newValue = parseInt(newRetention)
-      const sourcesCopy = [...this.state.incomeSources]
-      sourcesCopy[index].retention = newValue
-
-      this.setState({incomeSources: sourcesCopy})
-    }
-  }
-
-  handleLayoffChange = (e, newValue) => {
-    e.preventDefault()
-    this.setState({layoffsLastYear: parseInt(newValue)})
-    this.updateTotalIncome(parseInt(newValue))
-  }
-
-  getNotLayoffDeductions() {
-    return this.state.prepaidMedicine
-    + this.state.indepSocialSecurity
-    + this.state.dependantsDeduction
-    + this.state.donations
-    + this.state.voluntaryContributions
-  }
-
-  getTotalDeductionsDependants(value) {
-    return this.state.totalLayoffs
-      + this.state.prepaidMedicine
-      + this.state.indepSocialSecurity
-      + value
-      + this.state.donations
-      + this.state.voluntaryContributions
-  }
-
-  getTotalDeductionsStandard(deduction, value) {
-    const deductions = ['totalLayoffs', 'prepaidMedicine', 'indepSocialSecurity', 'homeLoanInteres', 'donations', 'voluntaryContributions']
-    let newTotal = this.state.dependantsDeduction
-
-    deductions.forEach(item => {
-      if (deduction === item){
-        newTotal += (value || 0)
-      } else {
-        newTotal += this.state[item]
-      }
-    })
-
-    return newTotal
-  }
-
   render() {
     const { hasToDeclare, summaryVisible, deductionsVisible } = this.props.home
-    const { showDeductions } = this.props
+    const { incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear } = this.props.income
     const {
-      incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear,//INCOME
-      prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
-    } = this.state
+      prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions
+    } = this.props.deduction
+    const { 
+      showDeductions, increaseIncomeSources, showSummary, deleteIncomeSource, handleIncomeChange, 
+      updateTotalIncome, handleContractChange, handleWorkedDays, handleDeductionChange, handleRetentionChange,
+      handleLayoffChange
+    } = this.props
 
     return (
       <div>
@@ -294,15 +36,15 @@ class Home extends React.Component {
         </p>
 
         <Income
-          handleIncomeChange={this.handleIncomeChange}
-          handleContractChange={this.handleContractChange}
-          handleWorkedDays={this.handleWorkedDays}
-          handleLayoffChange={this.handleLayoffChange}
-          updateTotalIncome={this.updateTotalIncome}
-          showSummary={this.showSummary}
+          handleIncomeChange={handleIncomeChange}
+          handleContractChange={handleContractChange}
+          handleWorkedDays={handleWorkedDays}
+          handleLayoffChange={handleLayoffChange}
+          updateTotalIncome={updateTotalIncome}
+          showSummary={showSummary}
           showDeductions={showDeductions}
-          increaseIncomeSources={this.increaseIncomeSources}
-          deleteIncomeSource={this.deleteIncomeSource}
+          increaseIncomeSources={increaseIncomeSources}
+          deleteIncomeSource={deleteIncomeSource}
           summaryVisible={summaryVisible}
           hasToDeclare={hasToDeclare}
           incomeSources={incomeSources}
@@ -323,7 +65,7 @@ class Home extends React.Component {
               </p>
 
               <Deductions
-                handleDeductionChange={this.handleDeductionChange}
+                handleDeductionChange={handleDeductionChange}
                 prepaidMedicine={prepaidMedicine}
                 indepSocialSecurity={indepSocialSecurity}
                 homeLoanInteres={homeLoanInteres}
@@ -335,7 +77,7 @@ class Home extends React.Component {
             </section>
 
             <Outcome
-              handleRetentionChange={this.handleRetentionChange}
+              handleRetentionChange={handleRetentionChange}
               liquidIncome={totalIncome - incomeOutOfTaxes}
               totalDeductions={totalDeductions}
               prepaidMedicine={prepaidMedicine}
@@ -456,16 +198,25 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    home: state.home
+    home: state.home,
+    income: state.income,
+    deduction: state.deduction
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    newHasToDeclare: newTotalIncome => dispatch(actions.newHasToDeclare(newTotalIncome)),
-    showSummary: () => dispatch(actions.showSummary()),
-    hideSummary: () => dispatch(actions.hideSummary()),
-    showDeductions: e => dispatch(actions.showDeductions(e))
+    showSummary: e => dispatch(actions.showSummary(e)),
+    showDeductions: e => dispatch(actions.showDeductions(e)),
+    increaseIncomeSources: (...args) => dispatch(actions.increaseIncomeSources(...args)),
+    deleteIncomeSource: (index) => dispatch(actions.deleteIncomeSource(index)),
+    handleIncomeChange: (newIncome, index) => dispatch(actions.handleIncomeChange(newIncome, index)),
+    updateTotalIncome: (layoffLastYear) => dispatch(actions.updateTotalIncome(layoffLastYear)),
+    handleContractChange: (e, index) => dispatch(actions.handleContractChange(e, index)),
+    handleWorkedDays: (days, index, stillThere) => dispatch(actions.handleWorkedDays(days, index, stillThere)),
+    handleDeductionChange: (e, newValue) => dispatch(actions.handleDeductionChange(e, newValue)),
+    handleRetentionChange: (newRetention, index) => dispatch(actions.handleRetentionChange(newRetention, index)),
+    handleLayoffChange: (e, newValue) => dispatch(actions.handleLayoffChange(e, newValue))
   };
 };
 

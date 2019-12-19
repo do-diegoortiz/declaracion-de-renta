@@ -1,12 +1,31 @@
 export {
   updateIncomeDetails,
   insertNewDate,
-  handleDateChange
+  handleDateChange,
+  increaseIncomeSources,
+  showSummary,
+  deleteIncomeSource,
+  handleIncomeChange,
+  updateTotalIncome,
+  handleContractChange,
+  handleWorkedDays,
+  getMonthsWorked,
+  updateLayoffsLastYear,
+  updateIncomeSources
 } from './income'
 
 export {
   newHasToDeclare,
-  showSummary,
+  updateShowSummaryValue,
   hideSummary,
   showDeductions
 } from './home'
+
+export {
+  getNotLayoffDeductions,
+  updateTotalLayoffsValue,
+  updateTotalDeductions,
+  handleDeductionChange,
+  handleRetentionChange,
+  handleLayoffChange
+} from './deductions'

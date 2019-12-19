@@ -1,5 +1,6 @@
 import moment from 'moment'
-import * as actions from '../actions/actionTypes';
+
+import * as actions from '../actions/actionTypes'
 
 const initialState = {
   showIncomeDetails: false,
@@ -11,16 +12,32 @@ const initialState = {
   ],
   newWorkedDays: 0,
   jobWorkedDays: 0,
-  stillThere: false
+  stillThere: false,
+  incomeSources: [
+    {
+      income: 0,
+      retention: 0,
+      workedDays: 365,
+      stillThere: true, // Needed in 'nomina' contract to know if "Cesantias" were and income or not
+      contract: 'nomina' // The other two options are 'prestaciones' and 'contratista'
+    }
+  ],
+  layoffsLastYear: 0, // Locally known as "Cesantias"
+  totalIncome: 0,
+  incomeOutOfTaxes: 0
 }
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case actions.SHOW_INCOME_DETAIL: return showIncomeDetails(state);
-    case actions.INSERT_NEW_DATES: return insertNewDate(state, action);
-    case actions.CALCULATE_WORKED_DAYS: return newWorkedDays(state, action);
-    case actions.UPDATE_NEW_JOB_DATA: return updateNewJobData(state, action);
-    default: return state;
+    case actions.SHOW_INCOME_DETAIL: return showIncomeDetails(state)
+    case actions.INSERT_NEW_DATES: return insertNewDate(state, action)
+    case actions.CALCULATE_WORKED_DAYS: return newWorkedDays(state, action)
+    case actions.UPDATE_NEW_JOB_DATA: return updateNewJobData(state, action)
+    case actions.UPDATE_INCOME_SOURCES: return updateIncomeSources(state, action)
+    case actions.UPDATE_INCOME_OUT_OF_TAXES: return updateIncomeOutOfTaxes(state, action)
+    case actions.UPDATE_TOTAL_INCOME: return updateTotalIncome(state, action)
+    case actions.UPDATE_LAYOFFS_LAST_YEAR: return updateLayoffsLastYear(state, action)
+    default: return state
   }
 }
 
@@ -53,4 +70,32 @@ const updateNewJobData = (state, action) => {
   }
 }
 
-export default reducer;
+const updateIncomeSources = (state, action) => {
+  return {
+    ...state,
+    incomeSources: action.data
+  }
+}
+
+const updateIncomeOutOfTaxes = (state, action) => {
+  return {
+    ...state,
+    incomeOutOfTaxes: action.data
+  }
+}
+
+const updateTotalIncome = (state, action) => {
+  return {
+    ...state,
+    totalIncome: action.data
+  }
+}
+
+const updateLayoffsLastYear = (state, action) => {
+  return {
+    ...state,
+    layoffsLastYear: action.data
+  }
+}
+
+export default reducer

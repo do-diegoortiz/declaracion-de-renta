@@ -32,8 +32,6 @@ Test agregados usando la guia de Next with-jest https://github.com/zeit/next.js/
 
 ### Próximo Sprint:
 
-* Meter Redux
-
 * UI: Tooltips de ayuda en cada input (deducciones especialmente), tener en cuenta cómo se comportan en mobile. (Después: Tener en cuenta salario flexible de Globant)
 * UI: El titulo "Contrato" en el form posiblemente no tiene sentido dónde está. https://material-ui.com/components/text-fields/
 

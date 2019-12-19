@@ -16,7 +16,7 @@ const updateHasToDeclareValue = (data) => {
   }
 }
 
-export const showSummary = () => {
+export const updateShowSummaryValue = () => {
   return {
     type: actions.SHOW_SUMMARY
   }
