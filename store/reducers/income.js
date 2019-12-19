@@ -1,4 +1,5 @@
 import moment from 'moment'
+
 import * as actions from '../actions/actionTypes'
 
 const initialState = {
@@ -35,6 +36,7 @@ const reducer = (state = initialState, action) => {
     case actions.UPDATE_INCOME_SOURCES: return updateIncomeSources(state, action)
     case actions.UPDATE_INCOME_OUT_OF_TAXES: return updateIncomeOutOfTaxes(state, action)
     case actions.UPDATE_TOTAL_INCOME: return updateTotalIncome(state, action)
+    case actions.UPDATE_LAYOFFS_LAST_YEAR: return updateLayoffsLastYear(state, action)
     default: return state
   }
 }
@@ -86,6 +88,13 @@ const updateTotalIncome = (state, action) => {
   return {
     ...state,
     totalIncome: action.data
+  }
+}
+
+const updateLayoffsLastYear = (state, action) => {
+  return {
+    ...state,
+    layoffsLastYear: action.data
   }
 }
 

@@ -113,10 +113,10 @@ const updateIncomeOutOfTaxes = () => {
     for (let i = 0; i < incomeSources.length; i++) {
       if (incomeSources[i].contract === 'nomina') {
         // If income is below certain UVT's is not 9% but 8%. Because 1% of Solidaridad wouldn't be included
-        outOfTaxCopy += incomeSources[i].income * prueba(incomeSources[i]) * 0.09
+        outOfTaxCopy += incomeSources[i].income * getMonthsWorked(incomeSources[i]) * 0.09
       } else {
         // As independant you pay based on the 40% of your salary. 12.5% in health and 16% in retirement.
-        outOfTaxCopy += incomeSources[i].income * prueba(incomeSources[i]) * 0.4 * 0.285
+        outOfTaxCopy += incomeSources[i].income * getMonthsWorked(incomeSources[i]) * 0.4 * 0.285
       }
     }
 
@@ -131,17 +131,7 @@ const incomeOutOfTaxes = data => {
   }
 }
 
-// TODO remove export when unused:
-export const getMonthsWorked = (index) => {
-  return (dispatch, getState) => {
-    const incomeSources = getState().income.incomeSources
-    // const workedDays = incomeSources[index].workedDays
-    // return workedDays === 365 || workedDays === 364 ? 12 : (workedDays/30)
-  }
-}
-
-// TODO change the name of this function
-const prueba = (incomeSource) => {
+export const getMonthsWorked = (incomeSource) => {
   const workedDays = incomeSource.workedDays
   return workedDays === 365 || workedDays === 364 ? 12 : (workedDays/30)
 }
@@ -203,7 +193,7 @@ export const updateTotalIncome = (layoffLastYear = 0) => {
     const incomes = sourcesCopy.map((x, i) => {
       // TODO: Improve variable naming here
       const includesLayoffs = !x.stillThere
-      const monthsWorked = prueba(sourcesCopy[i])
+      const monthsWorked = getMonthsWorked(sourcesCopy[i])
 
       switch(x.contract) {
         case 'nomina':
@@ -260,13 +250,22 @@ export const handleWorkedDays = (days, index, stillThere) => {
 const updateTotalLayoffs = () => {
   return (dispatch, getState) => {
     const incomeSources = getState().income.incomeSources
+    const deductions = getState().deduction
+
     let newTotalLayoffs = getState().income.layoffsLastYear
 
-    newTotalLayoffs = incomeSources.reduce((acum, currentIncome, i) => {return currentIncome.stillThere ? acum + 0 : acum + (currentIncome.income * prueba(incomeSources[i]) / 12)}, newTotalLayoffs)
-    const newTotalDeductions = newTotalLayoffs + this.getNotLayoffDeductions()
+    newTotalLayoffs = incomeSources.reduce((acum, currentIncome, i) => {return currentIncome.stillThere ? acum + 0 : acum + (currentIncome.income * getMonthsWorked(incomeSources[i]) / 12)}, newTotalLayoffs)
+    const newTotalDeductions = newTotalLayoffs + actionCreators.getNotLayoffDeductions(deductions)
 
-    dispatch(updateTotalLayoffs())
-    // AGREGAR ESTA ACCION CUANDO TENGAMOS ESTE ESTADO EN REDUX
-    // this.setState({ totalDeductions: newTotalDeductions })
+    dispatch(actionCreators.updateTotalLayoffsValue(newTotalLayoffs))
+    dispatch(actionCreators.updateTotalDeductions(newTotalDeductions))
+  }
+}
+
+
+export const updateLayoffsLastYear = (data) => {
+  return {
+    type: actions.UPDATE_LAYOFFS_LAST_YEAR,
+    data: data
   }
 }

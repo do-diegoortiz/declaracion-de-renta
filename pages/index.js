@@ -11,123 +11,17 @@ import Footer from '../components/footer/footer'
 import css from './index.scss'
 
 class Home extends React.Component {
-  state = {
-    // INCOME
-    incomeSources: [
-      {
-        income: 0,
-        retention: 0,
-        workedDays: 365,
-        stillThere: true, // Needed in 'nomina' contract to know if "Cesantias" were and income or not
-        contract: 'nomina' // The other two options are 'prestaciones' and 'contratista'
-      }
-    ],
-    layoffsLastYear: 0, // Locally known as "Cesantias"
-    incomeOutOfTaxes: 0,
-
-    // DEDUCTIONS
-    totalLayoffs: 0,
-    prepaidMedicine: 0,
-    indepSocialSecurity: 0,
-    homeLoanInteres: 0,
-    dependants: 0, // Number of people
-    dependantsDeduction: 0,
-    donations: 0,
-    voluntaryContributions: 0,
-    totalDeductions: 0
-  }
-
-  // DEDUCTIONS
-  handleDeductionChange = (e, newValue) => {
-    let totalDeductions = 0
-    const totalIncome = this.state.incomeSources.map((x, i) => x.income * this.props.getMonthsWorked(i)).reduce((acum, current)=> acum + current)
-    const liquidIncome = totalIncome - this.state.incomeOutOfTaxes
-
-    if (e.target.name === 'dependants') {
-      totalDeductions = this.getTotalDeductionsDependants(e.target.value * totalIncome * 0.1)
-      const deductionsOverTheLimit = totalDeductions + ((liquidIncome - totalDeductions) * 0.25) > (liquidIncome * 0.4)
-
-      if (deductionsOverTheLimit) {
-        alert("Lo sentimos, las deducciones no pueden exceder el 40% del ingreso liquido")
-      } else {
-        // Theory says you can substract 10% of your income for every dependant
-        this.setState({
-          dependantsDeduction: e.target.value * totalIncome * 0.1,
-          dependants: e.target.value,
-          totalDeductions: totalDeductions
-        })  
-      }
-    } else {
-      totalDeductions = this.getTotalDeductionsStandard(e.target.name, parseInt(newValue))
-      const deductionsOverTheLimit = totalDeductions + ((liquidIncome - totalDeductions) * 0.25) > (liquidIncome * 0.4)
-
-      if (deductionsOverTheLimit) {
-        alert("Lo sentimos, las deducciones no pueden exceder el 40% del ingreso liquido")
-        this.setState({[e.target.name]: this.state[e.target.name]})
-      } else {
-        this.setState({
-          [e.target.name]: parseInt(newValue),
-          totalDeductions: totalDeductions
-        })
-      }
-    }
-  }
-
-  handleRetentionChange = (newRetention, index) => {
-    if (newRetention) {
-      const newValue = parseInt(newRetention)
-      const sourcesCopy = [...this.state.incomeSources]
-      sourcesCopy[index].retention = newValue
-
-      this.setState({incomeSources: sourcesCopy})
-    }
-  }
-
-  handleLayoffChange = (e, newValue) => {
-    e.preventDefault()
-    this.setState({layoffsLastYear: parseInt(newValue)})
-    this.props.updateTotalIncome(parseInt(newValue))
-  }
-
-  getNotLayoffDeductions() {
-    return this.state.prepaidMedicine
-    + this.state.indepSocialSecurity
-    + this.state.dependantsDeduction
-    + this.state.donations
-    + this.state.voluntaryContributions
-  }
-
-  getTotalDeductionsDependants(value) {
-    return this.state.totalLayoffs
-      + this.state.prepaidMedicine
-      + this.state.indepSocialSecurity
-      + value
-      + this.state.donations
-      + this.state.voluntaryContributions
-  }
-
-  getTotalDeductionsStandard(deduction, value) {
-    const deductions = ['totalLayoffs', 'prepaidMedicine', 'indepSocialSecurity', 'homeLoanInteres', 'donations', 'voluntaryContributions']
-    let newTotal = this.state.dependantsDeduction
-
-    deductions.forEach(item => {
-      if (deduction === item){
-        newTotal += (value || 0)
-      } else {
-        newTotal += this.state[item]
-      }
-    })
-
-    return newTotal
-  }
-
   render() {
     const { hasToDeclare, summaryVisible, deductionsVisible } = this.props.home
     const { incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear } = this.props.income
-    const { showDeductions, increaseIncomeSources, showSummary, deleteIncomeSource, handleIncomeChange, updateTotalIncome, handleContractChange, handleWorkedDays } = this.props
     const {
-      prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions //DEDUCTIONS
-    } = this.state
+      prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions
+    } = this.props.deduction
+    const { 
+      showDeductions, increaseIncomeSources, showSummary, deleteIncomeSource, handleIncomeChange, 
+      updateTotalIncome, handleContractChange, handleWorkedDays, handleDeductionChange, handleRetentionChange,
+      handleLayoffChange
+    } = this.props
 
     return (
       <div>
@@ -145,7 +39,7 @@ class Home extends React.Component {
           handleIncomeChange={handleIncomeChange}
           handleContractChange={handleContractChange}
           handleWorkedDays={handleWorkedDays}
-          handleLayoffChange={this.handleLayoffChange}
+          handleLayoffChange={handleLayoffChange}
           updateTotalIncome={updateTotalIncome}
           showSummary={showSummary}
           showDeductions={showDeductions}
@@ -171,7 +65,7 @@ class Home extends React.Component {
               </p>
 
               <Deductions
-                handleDeductionChange={this.handleDeductionChange}
+                handleDeductionChange={handleDeductionChange}
                 prepaidMedicine={prepaidMedicine}
                 indepSocialSecurity={indepSocialSecurity}
                 homeLoanInteres={homeLoanInteres}
@@ -183,7 +77,7 @@ class Home extends React.Component {
             </section>
 
             <Outcome
-              handleRetentionChange={this.handleRetentionChange}
+              handleRetentionChange={handleRetentionChange}
               liquidIncome={totalIncome - incomeOutOfTaxes}
               totalDeductions={totalDeductions}
               prepaidMedicine={prepaidMedicine}
@@ -305,7 +199,8 @@ class Home extends React.Component {
 const mapStateToProps = state => {
   return {
     home: state.home,
-    income: state.income
+    income: state.income,
+    deduction: state.deduction
   };
 };
 
@@ -319,8 +214,9 @@ const mapDispatchToProps = dispatch => {
     updateTotalIncome: (layoffLastYear) => dispatch(actions.updateTotalIncome(layoffLastYear)),
     handleContractChange: (e, index) => dispatch(actions.handleContractChange(e, index)),
     handleWorkedDays: (days, index, stillThere) => dispatch(actions.handleWorkedDays(days, index, stillThere)),
-    // Delete when unused:
-    getMonthsWorked: index => dispatch(actions.getMonthsWorked(index))
+    handleDeductionChange: (e, newValue) => dispatch(actions.handleDeductionChange(e, newValue)),
+    handleRetentionChange: (newRetention, index) => dispatch(actions.handleRetentionChange(newRetention, index)),
+    handleLayoffChange: (e, newValue) => dispatch(actions.handleLayoffChange(e, newValue))
   };
 };
 

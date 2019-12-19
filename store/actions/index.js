@@ -9,8 +9,8 @@ export {
   updateTotalIncome,
   handleContractChange,
   handleWorkedDays,
-  // Delete when unused:
-  getMonthsWorked
+  getMonthsWorked,
+  updateLayoffsLastYear
 } from './income'
 
 export {
@@ -19,3 +19,12 @@ export {
   hideSummary,
   showDeductions
 } from './home'
+
+export {
+  getNotLayoffDeductions,
+  updateTotalLayoffsValue,
+  updateTotalDeductions,
+  handleDeductionChange,
+  handleRetentionChange,
+  handleLayoffChange
+} from './deductions'
