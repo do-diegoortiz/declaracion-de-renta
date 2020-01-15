@@ -1,0 +1,23 @@
+.bgFirstLayer {
+  color: #FFF;
+  text-align: center;
+  overflow: hidden;
+  background-image: linear-gradient(to left, #43a7d2, #4485de);
+  z-index: 10;
+
+  .logo {
+    margin-top: 2rem;
+  }
+  
+}
+
+.bgFirstLayer > svg {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .logo {
+    min-width: 30rem;
+    margin-bottom: -5rem; 
+  }
+}
