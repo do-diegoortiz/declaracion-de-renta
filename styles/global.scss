@@ -6,7 +6,12 @@
 
 body {
     background: $white;
+    color: $light-gray;
     font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    margin: 0 2.5rem;
 }
 
 @media (max-width: 560px) {

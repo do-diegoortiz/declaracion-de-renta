@@ -5,6 +5,7 @@
 }
 
 $white: #FFFFFF;
+$light-gray: #767676;
 
 @mixin mobileHeaderLinearGradient {
     background-image: linear-gradient(to left, #43a7d2, #4485de);

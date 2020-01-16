@@ -6,7 +6,7 @@ import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 import Outcome from '../components/outcome/outcome'
 import MobileHeader from '../components/header/mobileHeader/mobileHeader'
-import Header from '../components/header/header'
+import Introduction from '../components/header/introduction/introduction'
 import Footer from '../components/footer/footer'
 
 import css from './index.scss'
@@ -27,7 +27,7 @@ class Home extends React.Component {
     return (
       <div>
         <MobileHeader />
-        <Header />
+        <Introduction />
 
         <h2 className={css.formTitle}>
           Ingresos
