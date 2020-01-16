@@ -5,6 +5,7 @@ import * as actions from '../store/actions/index'
 import Income from '../components/income/income'
 import Deductions from '../components/deductions/deductions'
 import Outcome from '../components/outcome/outcome'
+import MobileHeader from '../components/header/mobileHeader/mobileHeader'
 import Header from '../components/header/header'
 import Footer from '../components/footer/footer'
 
@@ -25,6 +26,7 @@ class Home extends React.Component {
 
     return (
       <div>
+        <MobileHeader />
         <Header />
 
         <h2 className={css.formTitle}>

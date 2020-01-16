@@ -3,6 +3,6 @@ module.exports = {
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   verbose: true,
   moduleNameMapper: {
-    "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    "\\.(css|scss|svg)$": "<rootDir>/__mocks__/styleMock.js"
   }
 }

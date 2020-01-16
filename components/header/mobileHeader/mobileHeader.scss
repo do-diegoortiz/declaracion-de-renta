@@ -1,0 +1,22 @@
+@import '../../../styles/reset.scss';
+
+.bgFirstLayer {
+  @include mobileHeaderLinearGradient;
+  text-align: center;
+  overflow: hidden;
+
+  .logo {
+    margin-top: 2rem;
+  }
+}
+
+.bgFirstLayer > svg {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .logo {
+    min-width: 30rem;
+    margin-bottom: -5rem; 
+  }
+}
