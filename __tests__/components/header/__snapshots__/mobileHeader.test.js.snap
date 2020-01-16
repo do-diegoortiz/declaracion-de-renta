@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Navbar /> Check the component UI 1`] = `
+exports[`<MobileHeader /> Check the component UI 1`] = `
 <div>
   <img
     alt="Logo"
     src={Object {}}
   />
   <svg
-    viewBox="0 0 500 70"
+    viewBox="0 30 500 80"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M0.00,49.98 C162.52,104.90 266.37,-13.53 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+      d="M0.00,49.98 C148.42,98.97 346.49,9.17 521.44,40.75 L500.00,150.00 L0.00,150.00 Z"
       fill="#FFF"
       fillOpacity="1"
     />

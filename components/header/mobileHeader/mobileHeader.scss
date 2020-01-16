@@ -1,14 +1,13 @@
+@import '../../../styles/reset.scss';
+
 .bgFirstLayer {
-  color: #FFF;
+  @include mobileHeaderLinearGradient;
   text-align: center;
   overflow: hidden;
-  background-image: linear-gradient(to left, #43a7d2, #4485de);
-  z-index: 10;
 
   .logo {
     margin-top: 2rem;
   }
-  
 }
 
 .bgFirstLayer > svg {

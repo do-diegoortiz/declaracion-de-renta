@@ -3,3 +3,9 @@
     padding: 0;
     border: 0;
 }
+
+$white: #FFFFFF;
+
+@mixin mobileHeaderLinearGradient {
+    background-image: linear-gradient(to left, #43a7d2, #4485de);
+}
