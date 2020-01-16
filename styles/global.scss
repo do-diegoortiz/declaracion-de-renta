@@ -10,6 +10,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.container {
+    margin: 0 2.5rem;
+}
+
 @media (max-width: 560px) {
     .hideMobile {
         display: none;
