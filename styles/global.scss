@@ -19,3 +19,10 @@ body {
         display: none;
     }
 }
+
+@media (min-width: 768px) {
+    .container {
+        margin: auto;
+        max-width: 90rem;
+    }
+}
