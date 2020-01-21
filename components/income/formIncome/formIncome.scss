@@ -1,95 +1,60 @@
-.formContainer > *, .selectContract {
-  border: 0;
-  padding: 1rem;
-  background:white;
-  line-height: 5rem;
-  font-size: 2rem;
-  border-radius: 0;
-  outline: 0;
-  border-right: 0.1rem solid rgba(0,0,0,0.2);
-  -webkit-appearance: none;
-}
-
-.formContainer > *:last-child {
-  border-right: 0;
-}
+@import '../../../styles/reset.scss';
 
 .formContainer {
   display: flex;
-  flex-wrap: wrap;
-  border: 2rem solid rgba(0,0,0,.3);
-  border-radius: 0.5rem;
-  margin: -1rem auto 0rem;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1.5rem;
 }
 
-.formContainer:nth-of-type(1) {
-  margin-top: 2rem;
+.styledInput {
+  padding: 2rem 0.5rem 0.5rem;
+  background:$white;
+  font-size: 1.4rem;
+  border-bottom: 1px solid $black;
+  border-radius: 0rem;
+  width: 13rem;
+  outline: 0;
+  -webkit-appearance: none;
 }
 
-.contract {
-  min-width: 14rem;
+.caret {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path opacity='.87' fill='none' d='M24 24H0V0h24v24z'/><path d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z'/></svg>");
   background-repeat: no-repeat;
   background-position-x: 100%;
-  background-position-y: 2rem;
-  border-right: none
+  background-position-y: 1.5rem;
 }
 
-.deleteButton {
-  background:#DB252A;
-  color:white;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.calendar {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='none' d='M0 0h24v24H0V0z'/><path d='M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 1.5rem;
 }
 
-.disabledButton {
-  background:white;
-  pointer-events: none;
+.contract {
+  width: 14rem;
 }
 
-.salaryContainer {
-  flex: 1 0 10rem;
+.contract:required:invalid {
+  color: $light-gray;
+}
+
+.contractOption[value=''][disabled] {
+  display: none;
+}
+
+.contractOption {
+  color: $black;
+}
+
+.styledInput > input {
+  font-size: 1.4rem;
+  outline: 0;
 }
 
 .dropdownTitle {
   font-size: 1.2rem;
   position: absolute;
-  top: -1rem;
-  left: 1rem
-}
-
-.dropdownContainer {
-  padding: 0 2rem;
-  position: relative;
-}
-
-@media (max-width: 560px) {
-  .formContainer {
-    flex-direction: column;
-    border: 1.4rem solid rgba(0,0,0,.3);
-  }
-
-  .formContainer > * {
-    height: 4rem;
-    line-height: 2rem;
-  }
-
-  .deleteButton {
-    flex-direction: row;
-  }
-
-  .salaryContainer {
-    flex-basis: 4rem;
-  }
-
-  .dropdownTitle {
-    top: 0;
-  }
-
-
-  .dropdownContainer {
-    padding: 0.4rem 1rem 1rem 3rem;
-  }
+  color: $light-blue;
 }

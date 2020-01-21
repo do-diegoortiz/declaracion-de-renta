@@ -5,7 +5,6 @@ import * as actions from '../../store/actions/index'
 import { BlueButton, RedButton, GrayButton } from '../buttons/buttons'
 import Summary from './summary/summary'
 import FormIncome from './formIncome/formIncome'
-import FormLayoff from './formLayoff/formLayoff'
 import TotalSummary from './totalSumary/totalSummary'
 
 import css from './income.scss'
@@ -27,7 +26,7 @@ class Income extends React.Component {
       summaryVisible, incomeSources, hasToDeclare, incomeOutOfTaxes, layoffsLastYear, totalIncome, updateIncomeDetails } = this.props
     const { showIncomeDetails, datesPerIncome } = this.props.income
     
-    const forms = [<FormLayoff handleLayoffChange={handleLayoffChange} layoffsLastYear={layoffsLastYear} />];
+    const forms = [];
     const jobsSummary = [];
 
     for (let incomeIndex = 0; incomeIndex < incomeSources.length; incomeIndex++) {
@@ -39,6 +38,7 @@ class Income extends React.Component {
           deleteIncomeSource={deleteIncomeSource}
           contract={incomeSources[incomeIndex].contract}
           incomeIndex={incomeIndex}
+          income={incomeSources[incomeIndex].income}
           fromDate={datesPerIncome[incomeIndex].fromDate}
           toDate={datesPerIncome[incomeIndex].toDate}
           key={incomeIndex}
@@ -59,9 +59,9 @@ class Income extends React.Component {
     }
 
     return <>
-      <div className={css.cover}>
+      <section className={css.cover}>
         {forms}
-      </div>
+      </section>
 
       <div className={css.actionButtons}>
         <BlueButton label='Agregar Ingreso+' onClick={this.createNewForm} minHeight='4.8rem' />
