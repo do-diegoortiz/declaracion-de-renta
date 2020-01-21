@@ -19,7 +19,7 @@ const initialState = {
       retention: 0,
       workedDays: 365,
       stillThere: true, // Needed in 'nomina' contract to know if "Cesantias" were and income or not
-      contract: 'nomina' // The other two options are 'prestaciones' and 'contratista'
+      contract: '' // The options are 'nomina, 'prestaciones' and 'contratista'
     }
   ],
   layoffsLastYear: 0, // Locally known as "Cesantias"
