@@ -34,4 +34,7 @@ describe('<FormIncome />', () => {
 
     expect(handleContractChangeMock).toBeCalledWith({'target': {'value': 'nomina'}}, 0)
   })
+  
+  test.skip('It should handle income change event', () => {});
+
 })
