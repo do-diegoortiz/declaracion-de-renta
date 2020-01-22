@@ -6,10 +6,10 @@ import FormIncome from '../../../components/income/formIncome/formIncome'
 describe('<FormIncome />', () => {
   test('It renders without crashing', () => {
     const formIncome = mount(<FormIncome />)
+    const numberFormat = formIncome.find('NumberFormat')
+    
     expect(formIncome.length).toEqual(1)
-
-    const formatNumber = formIncome.find('NumberFormat')
-    expect(formatNumber.length).toEqual(1)
+    expect(numberFormat.length).toEqual(1)
   })
 
   test('It should handle contract change event', () => {

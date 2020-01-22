@@ -4,7 +4,7 @@ import { mockStore, getAction } from '../../../__mocks__/storeMock'
 import { incomeSources } from '../../../__mocks__/incomeMock'
 
 describe('Income actions', () => {
-  test('handleIncomeChange action', async () => {
+  test('handleIncomeChange()', async () => {
     const store = mockStore(initialState)
     store.dispatch(actions.handleIncomeChange(1000000, 0))
 
