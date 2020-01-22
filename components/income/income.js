@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import * as actions from '../../store/actions/index'
-import { BlueButton, RedButton, GrayButton } from '../buttons/buttons'
+import { BlueLink, GrayButton } from '../buttons/buttons'
 import Summary from './summary/summary'
 import FormIncome from './formIncome/formIncome'
 import TotalSummary from './totalSumary/totalSummary'
@@ -64,8 +64,7 @@ class Income extends React.Component {
       </section>
 
       <div className={css.actionButtons}>
-        <BlueButton label='Agregar Ingreso+' onClick={this.createNewForm} minHeight='4.8rem' />
-        <RedButton label='Calcular' onClick={showSummary} />
+        <BlueLink label='Crear otro ingreso +' onClick={this.createNewForm} fontSize='1.8rem' />
       </div>
 
       <div className={css.summaryContainer}>

@@ -75,7 +75,7 @@ export const increaseIncomeSources = (...args) => {
         income: 0,
         retention: 0,
         workedDays: defaultWorkedDays,
-        contract: 'nomina'
+        contract: ''
       }
     )
 
