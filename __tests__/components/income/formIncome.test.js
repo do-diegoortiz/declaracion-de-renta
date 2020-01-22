@@ -6,8 +6,10 @@ import FormIncome from '../../../components/income/formIncome/formIncome'
 describe('<FormIncome />', () => {
   test('It renders without crashing', () => {
     const formIncome = mount(<FormIncome />)
-
     expect(formIncome.length).toEqual(1)
+
+    const formatNumber = formIncome.find('NumberFormat')
+    expect(formatNumber.length).toEqual(1)
   })
 
   test('It should handle contract change event', () => {
@@ -26,6 +28,7 @@ describe('<FormIncome />', () => {
         deleteIncomeSource= {deleteIncomeSource}
         contract= ''
         incomeIndex= {0}
+        income={0}
         fromDate= "2019-01-01T05:00:00.000Z"
         toDate= "2019-12-31T05:00:00.000Z"
       />
@@ -34,7 +37,4 @@ describe('<FormIncome />', () => {
 
     expect(handleContractChangeMock).toBeCalledWith({'target': {'value': 'nomina'}}, 0)
   })
-  
-  test.skip('It should handle income change event', () => {});
-
 })
