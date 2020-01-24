@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import * as actions from '../../store/actions/index'
@@ -9,7 +9,7 @@ import TotalSummary from './totalSumary/totalSummary'
 
 import css from './income.scss'
 
-class Income extends React.Component {
+class Income extends Component {
 
   createNewForm = async () => {
     await this.props.insertNewDate()
@@ -84,15 +84,15 @@ class Income extends React.Component {
 const mapStateToProps = state => {
   return {
     income: state.income
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     updateIncomeDetails: () => dispatch(actions.updateIncomeDetails()),
     insertNewDate: () => dispatch(actions.insertNewDate()),
     handleDateChange: (e, index) => dispatch(actions.handleDateChange(e, index))
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Income);
+export default connect(mapStateToProps, mapDispatchToProps)(Income)

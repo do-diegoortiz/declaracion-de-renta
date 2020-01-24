@@ -24,5 +24,10 @@ export const initialState = {
     layoffsLastYear: 0, // Locally known as "Cesantias"
     totalIncome: 0,
     incomeOutOfTaxes: 0
+  },
+  home: {
+    hasToDeclare: false, // When gross income > 1400 UVT
+    summaryVisible: false,
+    deductionsVisible: false
   }
 }
