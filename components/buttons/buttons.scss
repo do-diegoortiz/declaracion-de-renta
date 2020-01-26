@@ -1,22 +1,24 @@
 @import '../../styles/reset.scss';
 
 .defaultButton {
-  border-radius: 5rem;
+  border-radius: 0.6rem;
   color:white;
   display: block;
   font-size: 1.6rem;
   font-weight: 600;
-  margin: 0 1rem;
   min-width: 10rem;
   max-height: 6rem;
-  padding: 0.8rem 1.6rem;
+  padding: 0.8rem 1.5rem;
   cursor: pointer;
   width: 18rem;
-  box-shadow: 4px 4px 2px -2px #a5a5a5;
 }
 
 .blueButton {
-  background-image: linear-gradient(to top, #1c3eb4, #154cbd, #1059c6, #1266ce, #1b73d5);
+  background-color: $light-blue;
+}
+
+.greenButton {
+  background-color: $green;
 }
 
 .redButton {

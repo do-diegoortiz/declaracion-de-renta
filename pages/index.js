@@ -13,7 +13,7 @@ import css from './index.scss'
 
 class Home extends React.Component {
   render() {
-    const { hasToDeclare, summaryVisible, deductionsVisible } = this.props.home
+    const { hasToDeclare, summaryVisible, deductionsVisible, view } = this.props.home
     const { incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear } = this.props.income
     const {
       prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions
@@ -27,66 +27,42 @@ class Home extends React.Component {
     return (
       <>
         <MobileHeader />
-        <div className={css.container}>
-          <Introduction />
+        {view === 'addIncomes' && (
+          <div className={css.container}>
+            <Introduction />
 
-          <h2 className={css.formTitle}>
-            Ingresos 2019
-          </h2>
+            <h2 className={css.formTitle}>
+              Ingresos 2019
+            </h2>
 
-          <Income
-            handleIncomeChange={handleIncomeChange}
-            handleContractChange={handleContractChange}
-            handleWorkedDays={handleWorkedDays}
-            handleLayoffChange={handleLayoffChange}
-            updateTotalIncome={updateTotalIncome}
-            showSummary={showSummary}
-            showDeductions={showDeductions}
-            increaseIncomeSources={increaseIncomeSources}
-            deleteIncomeSource={deleteIncomeSource}
-            summaryVisible={summaryVisible}
-            hasToDeclare={hasToDeclare}
-            incomeSources={incomeSources}
-            incomeOutOfTaxes={incomeOutOfTaxes}
-            layoffsLastYear={layoffsLastYear}
-            totalIncome={totalIncome}
-          />
-
-          {
-            deductionsVisible && hasToDeclare && <div className={css.hasToDeclareGroup}>
-              <section className={css.deductionsForm}>
-                <h2 className={css.formTitle}>
-                  Deducciones
-                </h2>
-
-                <p className={css.description}>
-                  Escribe la cantidad de dependientes y en las demás casillas el valor total que espera pagar en el año.
-                </p>
-
-                <Deductions
-                  handleDeductionChange={handleDeductionChange}
-                  prepaidMedicine={prepaidMedicine}
-                  indepSocialSecurity={indepSocialSecurity}
-                  homeLoanInteres={homeLoanInteres}
-                  dependants={dependants}
-                  donations={donations}
-                  voluntaryContributions={voluntaryContributions}
-                  totalIncome={totalIncome}
-                />
-              </section>
-
-              <Outcome
-                handleRetentionChange={handleRetentionChange}
-                liquidIncome={totalIncome - incomeOutOfTaxes}
-                totalDeductions={totalDeductions}
-                prepaidMedicine={prepaidMedicine}
-                incomeSources={incomeSources}
-              />
-            </div>
-          }
-
-          <Footer />
-        </div>
+            <Income
+              handleIncomeChange={handleIncomeChange}
+              handleContractChange={handleContractChange}
+              handleWorkedDays={handleWorkedDays}
+              handleLayoffChange={handleLayoffChange}
+              updateTotalIncome={updateTotalIncome}
+              showSummary={showSummary}
+              showDeductions={showDeductions}
+              increaseIncomeSources={increaseIncomeSources}
+              deleteIncomeSource={deleteIncomeSource}
+              summaryVisible={summaryVisible}
+              hasToDeclare={hasToDeclare}
+              incomeSources={incomeSources}
+              incomeOutOfTaxes={incomeOutOfTaxes}
+              layoffsLastYear={layoffsLastYear}
+              totalIncome={totalIncome}
+            />
+          </div>
+        )}
+        {view === 'addLayoff' && (
+          <h1>Hello addLayoff</h1>
+        )}
+        {view === 'addDeductions' && (
+          <h1>Hello addDeductions</h1>
+        )}
+        {view === 'summary' && (
+          <h1>Hello summary</h1>
+        )}
       </>
     )
   }

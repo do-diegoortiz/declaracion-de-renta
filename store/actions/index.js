@@ -18,7 +18,8 @@ export {
   newHasToDeclare,
   updateShowSummaryValue,
   hideSummary,
-  showDeductions
+  showDeductions,
+  handleView
 } from './home'
 
 export {

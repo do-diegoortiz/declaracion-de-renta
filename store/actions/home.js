@@ -41,3 +41,10 @@ const deductionsVisible = () => {
     type: actions.SHOW_DEDUCTIONS
   }
 }
+
+export const handleView = nextView => {
+  return  {
+    type: actions.CHANGE_VIEW,
+    data: nextView
+  }
+}
