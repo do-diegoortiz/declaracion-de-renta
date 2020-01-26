@@ -15,6 +15,7 @@
   border-radius: 0rem;
   width: 13rem;
   outline: 0;
+  font-family: 'Roboto', sans-serif;
   -webkit-appearance: none;
 }
 
@@ -72,7 +73,7 @@
   outline: 0;
 }
 
-.dropdownTitle {
+.title {
   font-size: 1.2rem;
   position: absolute;
   color: $light-blue;

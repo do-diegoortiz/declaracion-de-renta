@@ -38,4 +38,13 @@ describe('<FormIncome />', () => {
 
     expect(handleContractChangeMock).toBeCalledWith({'target': {'value': 'nomina'}}, 0)
   })
+  
+  test('It should handle date change event', () => {
+    const event = {
+      target: { value: '25-07-2019' }
+    }
+    formIncome.find('input').first().simulate('change', event)
+
+    expect(handleDateChangeMock).toBeCalledWith({'target': {'value': '25-07-2019'}}, 0)
+  })
 })
