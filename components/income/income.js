@@ -21,7 +21,7 @@ class Income extends Component {
   }
 
   render (){
-    const { handleIncomeChange, handleContractChange, handleLayoffChange, deleteIncomeSource, showSummary, showDeductions, // Methods
+    const { handleIncomeChange, handleContractChange, handleLayoffChange, deleteIncomeSource, showSummary, showDeductions, handleView,// Methods
       summaryVisible, incomeSources, hasToDeclare, incomeOutOfTaxes, layoffsLastYear, totalIncome, updateIncomeDetails } = this.props
     const { showIncomeDetails, datesPerIncome } = this.props.income
     
@@ -69,8 +69,8 @@ class Income extends Component {
       <div className={css.layoffContainer}>
         <p className={css.question}>¿Trabajaste en 2018? ℹ️</p>
         <section className={css.buttonContainer}>
-          <GreenButton label='👍 SÍ' width='15rem' minHeight='5.2rem' fontSize='1.3rem' />
-          <BlueButton label='👎 NO, HACER LOS CALCULOS YA' width='15rem' minHeight='5.2rem' fontSize='1.3rem' />
+          <GreenButton label='👍 SÍ' width='15rem' minHeight='5.2rem' fontSize='1.3rem' onClick={() => handleView('addLayoff')}/>
+          <BlueButton label='👎 NO, HACER LOS CALCULOS YA' width='15rem' minHeight='5.2rem' fontSize='1.2rem' />
         </section>
       </div>
 
@@ -88,7 +88,8 @@ const mapDispatchToProps = dispatch => {
   return {
     updateIncomeDetails: () => dispatch(actions.updateIncomeDetails()),
     insertNewDate: () => dispatch(actions.insertNewDate()),
-    handleDateChange: (e, index) => dispatch(actions.handleDateChange(e, index))
+    handleDateChange: (e, index) => dispatch(actions.handleDateChange(e, index)),
+    handleView: (newView) => dispatch(actions.handleView(newView))
   }
 }
 

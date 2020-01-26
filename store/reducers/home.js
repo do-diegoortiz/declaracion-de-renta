@@ -4,7 +4,8 @@ const initialState = {
   // https://bogota.gov.co/mi-ciudad/hacienda/quienes-y-cuando-declarar-renta-en-2019
   hasToDeclare: false, // When gross income > 1400 UVT
   summaryVisible: false,
-  deductionsVisible: false
+  deductionsVisible: false,
+  view: 'addIncomes'
 }
 
 const reducer = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const reducer = (state = initialState, action) => {
     case actions.SHOW_SUMMARY: return showSummary(state)
     case actions.HIDE_SUMMARY: return hideSummary(state)
     case actions.SHOW_DEDUCTIONS: return showDeductions(state)
+    case actions.CHANGE_VIEW: return changeView(state, action)
     default: return state
   }
 }
@@ -42,6 +44,13 @@ const showDeductions = (state) => {
   return {
     ...state,
     deductionsVisible: true
+  }
+}
+
+const changeView = (state, action) => {
+  return {
+    ...state,
+    view: action.data
   }
 }
 
