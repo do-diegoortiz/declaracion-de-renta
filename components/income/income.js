@@ -89,8 +89,8 @@ class Income extends Component {
         <div className={css.layoffContainer}>
           <p className={css.question}>¿Trabajaste en 2018? <span onClick={this.openModal}>ℹ️</span></p>
           <section className={css.buttonContainer}>
-            <GreenButton label='👍 SÍ' width='15rem' minHeight='5.2rem' fontSize='1.3rem' onClick={() => handleView('addLayoff')}/>
-            <BlueButton label='👎 NO, HACER LOS CALCULOS YA' width='15rem' minHeight='5.2rem' fontSize='1.2rem' />
+            <GreenButton label='👍 SÍ' width='15rem' minHeight='5.2rem' fontSize='1.3rem' onClick={() => handleView('addLayoff')} />
+            <BlueButton label='👎 NO, HACER LOS CALCULOS YA' width='15rem' minHeight='5.2rem' fontSize='1.2rem' onClick={() => handleView('addDeductions')}/>
           </section>
         </div>
       </>

@@ -22,7 +22,7 @@ class Home extends React.Component {
     const { 
       showDeductions, increaseIncomeSources, showSummary, deleteIncomeSource, handleIncomeChange, 
       updateTotalIncome, handleContractChange, handleWorkedDays, handleDeductionChange, handleRetentionChange,
-      handleLayoffChange
+      handleLayoffChange, handleView
     } = this.props
 
     return (
@@ -59,6 +59,7 @@ class Home extends React.Component {
           <FormLayoff
             handleLayoffChange={handleLayoffChange}
             layoffsLastYear={layoffsLastYear}
+            handleView={handleView}
           />
         )}
         {view === 'addDeductions' && (
@@ -92,7 +93,8 @@ const mapDispatchToProps = dispatch => {
     handleWorkedDays: (days, index, stillThere) => dispatch(actions.handleWorkedDays(days, index, stillThere)),
     handleDeductionChange: (e, newValue) => dispatch(actions.handleDeductionChange(e, newValue)),
     handleRetentionChange: (newRetention, index) => dispatch(actions.handleRetentionChange(newRetention, index)),
-    handleLayoffChange: (e, newValue) => dispatch(actions.handleLayoffChange(e, newValue))
+    handleLayoffChange: (e, newValue) => dispatch(actions.handleLayoffChange(e, newValue)),
+    handleView: (newView) => dispatch(actions.handleView(newView))
   };
 };
 

@@ -5,10 +5,11 @@ import { BlueButton, GreenButton } from '../../buttons/buttons'
 
 import css from './formLayoff.scss'
 
-const FormLayoff = ({ handleLayoffChange, layoffsLastYear }) => {
+const FormLayoff = ({ handleLayoffChange, layoffsLastYear, handleView }) => {
   FormLayoff.propTypes = {
     handleLayoffChange: PropTypes.func.isRequired,
-    layoffsLastYear: PropTypes.number.isRequired
+    layoffsLastYear: PropTypes.number.isRequired,
+    handleView: PropTypes.func.isRequired
   };
 
   return (
@@ -37,8 +38,8 @@ const FormLayoff = ({ handleLayoffChange, layoffsLastYear }) => {
         />
       </div>
       <section className={css.buttons}>
-        <GreenButton label='👍 LISTO, HACER CALCULOS YA' width='15rem' minHeight='5.2rem' fontSize='1.2rem' onClick={() => handleView('addLayoff')}/>
-        <BlueButton label='CALCULAR SIN USAR ESTE VALOR' width='15rem' minHeight='5.2rem' fontSize='1.2rem' />
+        <GreenButton label='👍 LISTO, HACER CALCULOS YA' width='15rem' minHeight='5.2rem' fontSize='1.2rem' />
+        <BlueButton label='CALCULAR SIN USAR ESTE VALOR' width='15rem' minHeight='5.2rem' fontSize='1.2rem' onClick={() => handleView('addDeductions')} />
       </section>
     </div>
   )

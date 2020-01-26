@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import NumberFormat from 'react-number-format'
 
 export const DeductionInput = ({ id, name, onChange, value }) => {
