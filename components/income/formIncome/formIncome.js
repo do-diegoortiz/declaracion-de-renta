@@ -32,7 +32,7 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
       </button>
       <div className={css.formContainer}>
         {contract && (
-          <label id='contract' className={css.dropdownTitle}>Tipo de empleo</label>
+          <label id='contract' className={css.title}>Tipo de empleo</label>
         )}
         <select 
           name='contract' 
@@ -50,7 +50,7 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
 
         <div>
           {income > 0 && (
-            <label id='contract' className={css.dropdownTitle}>Ingreso mensual</label>
+            <label id='contract' className={css.title}>Ingreso mensual</label>
           )}
           <section className={css.styledInput}>
             <NumberFormat
@@ -70,11 +70,10 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
 
       <div className={css.formContainer}>
         <section>
-          <label id='contract' htmlFor='fromDate' className={css.dropdownTitle}>De</label>
+          <label id='contract' htmlFor='fromDate' className={css.title}>De</label>
           <input 
             type='date'
             name='fromDate'
-            placeholder='De'
             className={`${css.styledInput} ${css.calendar}`}
             value={fromDate.format('YYYY-MM-DD')}
             onChange={e => handleDateChange(e, incomeIndex)}
@@ -83,11 +82,10 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
         </section>
           
         <section>
-          <label id='contract' htmlFor='toDate' className={css.dropdownTitle}>Hasta</label>
+          <label id='contract' htmlFor='toDate' className={css.title}>Hasta</label>
           <input
             type='date'
             name='toDate'
-            placeholder='Hasta'
             className={`${css.styledInput} ${css.calendar}`}
             value={toDate.format('YYYY-MM-DD')}
             onChange={e => handleDateChange(e, incomeIndex)}
