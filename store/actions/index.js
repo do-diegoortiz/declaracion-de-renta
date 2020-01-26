@@ -11,7 +11,8 @@ export {
   handleWorkedDays,
   getMonthsWorked,
   updateLayoffsLastYear,
-  updateIncomeSources
+  updateIncomeSources,
+  handleLayoff
 } from './income'
 
 export {

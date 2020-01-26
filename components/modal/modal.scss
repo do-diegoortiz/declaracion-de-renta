@@ -1,0 +1,14 @@
+@import '../../styles/reset.scss';
+
+.modal {
+  position: fixed;
+  z-index: 500;
+  max-height: 80%;
+  width: 80%;
+  left: 10%;
+  top: 30%;
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+  overflow-y: auto;
+  background-color: $white;
+}

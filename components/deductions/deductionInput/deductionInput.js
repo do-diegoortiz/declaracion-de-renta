@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import NumberFormat from 'react-number-format'
 
-export const DeductionInput = ({ id, name, onChange, value }) => {
+const DeductionInput = ({ id, name, onChange, value }) => {
   DeductionInput.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -18,7 +18,7 @@ export const DeductionInput = ({ id, name, onChange, value }) => {
       allowNegative={false}
       thousandSeparator={true}
       prefix='$'
-      placeholder='$0'
+      placeholder='Total Cesantías'
       name={name}
       decimalScale={0}
       onValueChange={values => temporaryValue = values.value}

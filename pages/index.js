@@ -8,20 +8,21 @@ import Outcome from '../components/outcome/outcome'
 import MobileHeader from '../components/header/mobileHeader/mobileHeader'
 import Introduction from '../components/header/introduction/introduction'
 import Footer from '../components/footer/footer'
+import FormLayoff from '../components/income/formLayoff/formLayoff'
 
 import css from './index.scss'
 
 class Home extends React.Component {
   render() {
     const { hasToDeclare, summaryVisible, deductionsVisible, view } = this.props.home
-    const { incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear } = this.props.income
+    const { incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear, emptyLayoff } = this.props.income
     const {
       prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions
     } = this.props.deduction
     const { 
       showDeductions, increaseIncomeSources, showSummary, deleteIncomeSource, handleIncomeChange, 
       updateTotalIncome, handleContractChange, handleWorkedDays, handleDeductionChange, handleRetentionChange,
-      handleLayoffChange
+      handleLayoffChange, handleView, handleLayoff
     } = this.props
 
     return (
@@ -55,7 +56,13 @@ class Home extends React.Component {
           </div>
         )}
         {view === 'addLayoff' && (
-          <h1>Hello addLayoff</h1>
+          <FormLayoff
+            handleLayoffChange={handleLayoffChange}
+            layoffsLastYear={layoffsLastYear}
+            handleView={handleView}
+            emptyLayoff={emptyLayoff}
+            handleLayoff={handleLayoff}
+          />
         )}
         {view === 'addDeductions' && (
           <h1>Hello addDeductions</h1>
@@ -88,7 +95,9 @@ const mapDispatchToProps = dispatch => {
     handleWorkedDays: (days, index, stillThere) => dispatch(actions.handleWorkedDays(days, index, stillThere)),
     handleDeductionChange: (e, newValue) => dispatch(actions.handleDeductionChange(e, newValue)),
     handleRetentionChange: (newRetention, index) => dispatch(actions.handleRetentionChange(newRetention, index)),
-    handleLayoffChange: (e, newValue) => dispatch(actions.handleLayoffChange(e, newValue))
+    handleLayoffChange: (e, newValue) => dispatch(actions.handleLayoffChange(e, newValue)),
+    handleView: (newView) => dispatch(actions.handleView(newView)),
+    handleLayoff: () => dispatch(actions.handleLayoff())
   };
 };
 

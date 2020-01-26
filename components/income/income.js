@@ -5,10 +5,15 @@ import * as actions from '../../store/actions/index'
 import { BlueLink, BlueButton, GreenButton } from '../buttons/buttons'
 import Summary from './summary/summary'
 import FormIncome from './formIncome/formIncome'
+import Modal from '../modal/modal'
 
 import css from './income.scss'
 
 class Income extends Component {
+
+  state = {
+    openModal: false
+  }
 
   createNewForm = async () => {
     await this.props.insertNewDate()
@@ -18,6 +23,14 @@ class Income extends Component {
   handleDateChange = async (e, index) => {
     await this.props.handleDateChange(e, index)
     this.props.handleWorkedDays(this.props.income.jobWorkedDays, index, this.props.income.stillThere)
+  }
+
+  openModal = () => {
+    this.setState({openModal : true})
+  }
+
+  closeModal = () => {
+    this.setState({openModal : false})
   }
 
   render (){
@@ -57,24 +70,31 @@ class Income extends Component {
       )
     }
 
-    return <>
-      <section className={css.cover}>
-        {forms}
-      </section>
-
-      <div className={css.actionButtons}>
-        <BlueLink label='Crear otro ingreso +' onClick={this.createNewForm} fontSize='1.8rem' />
-      </div>
-
-      <div className={css.layoffContainer}>
-        <p className={css.question}>¿Trabajaste en 2018? ℹ️</p>
-        <section className={css.buttonContainer}>
-          <GreenButton label='👍 SÍ' width='15rem' minHeight='5.2rem' fontSize='1.3rem' onClick={() => handleView('addLayoff')}/>
-          <BlueButton label='👎 NO, HACER LOS CALCULOS YA' width='15rem' minHeight='5.2rem' fontSize='1.2rem' />
+    return (
+      <>
+        <Modal
+          show={this.state.openModal}
+          modalClosed={this.closeModal}
+        >
+          <p className={css.modalText}>Si para el 31/12/2018 estabas contratado por nómina y seguiste en ese mismo trabajo en enero de 2019. Las cesantias te las consignaron en febrero, o en tu liquidación si renunciaste antes. <br />Son ingresos laborales de 2019, si es tu caso haz click en el botón SÍ.</p>
+        </Modal>
+        <section className={css.cover}>
+          {forms}
         </section>
-      </div>
 
-    </>
+        <div className={css.actionButtons}>
+          <BlueLink label='Crear otro ingreso +' onClick={this.createNewForm} fontSize='1.8rem' />
+        </div>
+
+        <div className={css.layoffContainer}>
+          <p className={css.question}>¿Trabajaste en 2018? <span onClick={this.openModal}>ℹ️</span></p>
+          <section className={css.buttonContainer}>
+            <GreenButton label='👍 SÍ' width='15rem' minHeight='5.2rem' fontSize='1.3rem' onClick={() => handleView('addLayoff')} />
+            <BlueButton label='👎 NO, HACER LOS CALCULOS YA' width='15rem' minHeight='5.2rem' fontSize='1.2rem' onClick={() => handleView('addDeductions')}/>
+          </section>
+        </div>
+      </>
+    )
   }
 }
 
