@@ -15,14 +15,14 @@ import css from './index.scss'
 class Home extends React.Component {
   render() {
     const { hasToDeclare, summaryVisible, deductionsVisible, view } = this.props.home
-    const { incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear } = this.props.income
+    const { incomeSources, totalIncome, incomeOutOfTaxes, layoffsLastYear, emptyLayoff } = this.props.income
     const {
       prepaidMedicine, indepSocialSecurity, homeLoanInteres, dependants, donations, voluntaryContributions, totalDeductions
     } = this.props.deduction
     const { 
       showDeductions, increaseIncomeSources, showSummary, deleteIncomeSource, handleIncomeChange, 
       updateTotalIncome, handleContractChange, handleWorkedDays, handleDeductionChange, handleRetentionChange,
-      handleLayoffChange, handleView
+      handleLayoffChange, handleView, handleLayoff
     } = this.props
 
     return (
@@ -60,6 +60,8 @@ class Home extends React.Component {
             handleLayoffChange={handleLayoffChange}
             layoffsLastYear={layoffsLastYear}
             handleView={handleView}
+            emptyLayoff={emptyLayoff}
+            handleLayoff={handleLayoff}
           />
         )}
         {view === 'addDeductions' && (
@@ -94,7 +96,8 @@ const mapDispatchToProps = dispatch => {
     handleDeductionChange: (e, newValue) => dispatch(actions.handleDeductionChange(e, newValue)),
     handleRetentionChange: (newRetention, index) => dispatch(actions.handleRetentionChange(newRetention, index)),
     handleLayoffChange: (e, newValue) => dispatch(actions.handleLayoffChange(e, newValue)),
-    handleView: (newView) => dispatch(actions.handleView(newView))
+    handleView: (newView) => dispatch(actions.handleView(newView)),
+    handleLayoff: () => dispatch(actions.handleLayoff())
   };
 };
 

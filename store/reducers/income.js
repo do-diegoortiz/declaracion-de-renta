@@ -23,6 +23,7 @@ const initialState = {
     }
   ],
   layoffsLastYear: 0, // Locally known as "Cesantias"
+  emptyLayoff: false,
   totalIncome: 0,
   incomeOutOfTaxes: 0
 }
@@ -37,6 +38,7 @@ const reducer = (state = initialState, action) => {
     case actions.UPDATE_INCOME_OUT_OF_TAXES: return updateIncomeOutOfTaxes(state, action)
     case actions.UPDATE_TOTAL_INCOME: return updateTotalIncome(state, action)
     case actions.UPDATE_LAYOFFS_LAST_YEAR: return updateLayoffsLastYear(state, action)
+    case actions.EMPTY_LAYOFF_INPUT: return updateEmptyLayoff(state)
     default: return state
   }
 }
@@ -95,6 +97,13 @@ const updateLayoffsLastYear = (state, action) => {
   return {
     ...state,
     layoffsLastYear: action.data
+  }
+}
+
+const updateEmptyLayoff = (state) => {
+  return {
+    ...state,
+    emptyLayoff: true
   }
 }
 

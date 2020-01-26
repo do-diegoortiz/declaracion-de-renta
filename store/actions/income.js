@@ -267,3 +267,17 @@ export const updateLayoffsLastYear = (data) => {
     data: data
   }
 }
+
+
+export const handleLayoff = () => {
+  return (dispatch, getState) => {
+    const layoffLastYear = getState().income.layoffsLastYear
+    layoffLastYear ? dispatch(actionCreators.handleView('addDeductions')) : dispatch(emptyLayoff())
+  }
+}
+
+const emptyLayoff = () => {
+  return {
+    type: actions.EMPTY_LAYOFF_INPUT
+  }
+}

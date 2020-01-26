@@ -29,8 +29,14 @@
   color: $light-blue;
 }
 
+.emptyLayoff {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  color: $red;
+}
+
 .buttons {
-  margin-top: 3rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
