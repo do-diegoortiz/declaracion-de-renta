@@ -8,6 +8,7 @@ import Outcome from '../components/outcome/outcome'
 import MobileHeader from '../components/header/mobileHeader/mobileHeader'
 import Introduction from '../components/header/introduction/introduction'
 import Footer from '../components/footer/footer'
+import FormLayoff from '../components/income/formLayoff/formLayoff'
 
 import css from './index.scss'
 
@@ -55,7 +56,10 @@ class Home extends React.Component {
           </div>
         )}
         {view === 'addLayoff' && (
-          <h1>Hello addLayoff</h1>
+          <FormLayoff
+            handleLayoffChange={handleLayoffChange}
+            layoffsLastYear={layoffsLastYear}
+          />
         )}
         {view === 'addDeductions' && (
           <h1>Hello addDeductions</h1>

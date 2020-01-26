@@ -18,7 +18,7 @@ export const DeductionInput = ({ id, name, onChange, value }) => {
       allowNegative={false}
       thousandSeparator={true}
       prefix='$'
-      placeholder='$0'
+      placeholder='Total Cesantías'
       name={name}
       decimalScale={0}
       onValueChange={values => temporaryValue = values.value}
