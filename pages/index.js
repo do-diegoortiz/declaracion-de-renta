@@ -51,41 +51,6 @@ class Home extends React.Component {
             layoffsLastYear={layoffsLastYear}
             totalIncome={totalIncome}
           />
-
-          {
-            deductionsVisible && hasToDeclare && <div className={css.hasToDeclareGroup}>
-              <section className={css.deductionsForm}>
-                <h2 className={css.formTitle}>
-                  Deducciones
-                </h2>
-
-                <p className={css.description}>
-                  Escribe la cantidad de dependientes y en las demás casillas el valor total que espera pagar en el año.
-                </p>
-
-                <Deductions
-                  handleDeductionChange={handleDeductionChange}
-                  prepaidMedicine={prepaidMedicine}
-                  indepSocialSecurity={indepSocialSecurity}
-                  homeLoanInteres={homeLoanInteres}
-                  dependants={dependants}
-                  donations={donations}
-                  voluntaryContributions={voluntaryContributions}
-                  totalIncome={totalIncome}
-                />
-              </section>
-
-              <Outcome
-                handleRetentionChange={handleRetentionChange}
-                liquidIncome={totalIncome - incomeOutOfTaxes}
-                totalDeductions={totalDeductions}
-                prepaidMedicine={prepaidMedicine}
-                incomeSources={incomeSources}
-              />
-            </div>
-          }
-
-          <Footer />
         </div>
       </>
     )
