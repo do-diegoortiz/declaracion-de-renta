@@ -21,6 +21,15 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
 
   return (
     <form key={incomeIndex}>
+      { !!incomeIndex && <hr className={css.separationLine} /> }
+      <button
+        className={incomeIndex ? css.deleteButton: `${css.disabledButton} ${css.hideMobile}`}
+        onClick={() => deleteIncomeSource(incomeIndex)}
+        type='button'
+        aria-label="Delete Income"
+      >
+        <DeleteIcon />
+      </button>
       <div className={css.formContainer}>
         {contract && (
           <label id='contract' className={css.dropdownTitle}>Tipo de empleo</label>
@@ -61,38 +70,31 @@ const FormIncome = ({ handleDateChange, handleIncomeChange, handleContractChange
 
       <div className={css.formContainer}>
         <section>
-          <label id='contract' className={css.dropdownTitle}>De</label>
+          <label id='contract' htmlFor='fromDate' className={css.dropdownTitle}>De</label>
           <input 
-            type='text'
+            type='date'
+            name='fromDate'
             placeholder='De'
             className={`${css.styledInput} ${css.calendar}`}
+            value={fromDate.format('YYYY-MM-DD')}
+            onChange={e => handleDateChange(e, incomeIndex)}
+            required
           />
-          {/* <label>
-            <input type='date' name='fromDate' value={fromDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} />
-          </label> */}
         </section>
           
         <section>
-          <label id='contract' className={css.dropdownTitle}>Hasta</label>
+          <label id='contract' htmlFor='toDate' className={css.dropdownTitle}>Hasta</label>
           <input
-            type='text'
+            type='date'
+            name='toDate'
             placeholder='Hasta'
             className={`${css.styledInput} ${css.calendar}`}
+            value={toDate.format('YYYY-MM-DD')}
+            onChange={e => handleDateChange(e, incomeIndex)}
+            required
           />
-          {/* <label>
-            <input type='date' name='toDate' value={toDate.format('YYYY-MM-DD')} onChange={e => handleDateChange(e, incomeIndex)} placeholder='Hola' />
-          </label> */}
         </section>
       </div>
-
-      {/* <button
-        className={incomeIndex ? css.deleteButton: `${css.disabledButton} ${css.hideMobile}`}
-        onClick={() => deleteIncomeSource(incomeIndex)}
-        type='button'
-        aria-label="Delete Income"
-      >
-        <DeleteIcon />
-      </button> */}
     </form>
   );
 };

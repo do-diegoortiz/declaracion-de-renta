@@ -18,6 +18,20 @@ export const BlueButton = ({ label, type = 'button', onClick, width, minHeight, 
   );
 };
 
+export const BlueLink = ({ label, type = 'button', onClick, fontSize }) => {
+  BlueButton.propTypes = {
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    onClick: PropTypes.func,
+    fontSize: PropTypes.string
+  };
+  return (
+    <button className={css.blueLink} type={type} onClick={onClick} style={{fontSize: `${fontSize}`}}>
+      {label}
+    </button>
+  );
+};
+
 export const RedButton = ({ label, type = 'button', onClick }) => {
   RedButton.propTypes = {
     label: PropTypes.string.isRequired,

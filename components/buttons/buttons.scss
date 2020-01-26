@@ -1,3 +1,5 @@
+@import '../../styles/reset.scss';
+
 .defaultButton {
   border-radius: 5rem;
   color:white;
@@ -33,4 +35,11 @@
   font-size: 1.6rem;
   min-width: 12rem;
   padding: 1rem;
+}
+
+.blueLink {
+  background: transparent;
+  color: $light-blue;
+  border-bottom: 0.1rem solid $light-blue;
+  cursor: pointer;
 }

@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import * as actions from '../../store/actions/index'
-import { BlueButton, RedButton, GrayButton } from '../buttons/buttons'
+import { BlueLink, GrayButton } from '../buttons/buttons'
 import Summary from './summary/summary'
 import FormIncome from './formIncome/formIncome'
 import TotalSummary from './totalSumary/totalSummary'
 
 import css from './income.scss'
 
-class Income extends React.Component {
+class Income extends Component {
 
   createNewForm = async () => {
     await this.props.insertNewDate()
@@ -64,8 +64,7 @@ class Income extends React.Component {
       </section>
 
       <div className={css.actionButtons}>
-        <BlueButton label='Agregar Ingreso+' onClick={this.createNewForm} minHeight='4.8rem' />
-        <RedButton label='Calcular' onClick={showSummary} />
+        <BlueLink label='Crear otro ingreso +' onClick={this.createNewForm} fontSize='1.8rem' />
       </div>
 
       <div className={css.summaryContainer}>
@@ -85,15 +84,15 @@ class Income extends React.Component {
 const mapStateToProps = state => {
   return {
     income: state.income
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     updateIncomeDetails: () => dispatch(actions.updateIncomeDetails()),
     insertNewDate: () => dispatch(actions.insertNewDate()),
     handleDateChange: (e, index) => dispatch(actions.handleDateChange(e, index))
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Income);
+export default connect(mapStateToProps, mapDispatchToProps)(Income)

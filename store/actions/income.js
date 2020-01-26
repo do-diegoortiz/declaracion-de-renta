@@ -75,7 +75,7 @@ export const increaseIncomeSources = (...args) => {
         income: 0,
         retention: 0,
         workedDays: defaultWorkedDays,
-        contract: 'nomina'
+        contract: ''
       }
     )
 
@@ -92,9 +92,7 @@ export const updateIncomeSources = data => {
 }
 
 
-export const showSummary = e => {
-  e.preventDefault()
-
+export const showSummary = () => {
   return (dispatch, getState) => {
     const incomeSources = getState().income.incomeSources
     if (incomeSources[0].income) {
