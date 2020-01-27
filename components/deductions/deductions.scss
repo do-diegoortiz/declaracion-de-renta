@@ -11,6 +11,12 @@
   font-family: Comfortaa;
 }
 
+.subTitle {
+  margin-top: 2rem;
+  font-size: 2.3rem;
+  font-family: Comfortaa;
+}
+
 .text {
   text-align: justify;
   margin-top: 2rem;
@@ -75,4 +81,9 @@
   margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
+}
+
+.modalText {
+  font-size: 1.5rem;
+  padding: 1.1rem
 }

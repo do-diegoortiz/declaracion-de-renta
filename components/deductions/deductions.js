@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import DeductionInput from './deductionInput/deductionInput'
 import { BlueButton, GreenButton } from '../buttons/buttons'
+import Modal from '../modal/modal'
 
 import css from './deductions.scss'
 
-class Deductions extends React.Component {
+class Deductions extends Component {
   // https://www.youtube.com/watch?v=sHHbAlznq08
   // Deducciones:
   // Dependientes (Hasta el 10% del ingreso bruto o hasta 384 UVT)
@@ -15,14 +16,48 @@ class Deductions extends React.Component {
 
   // Rentas exentas:
   // Cesatias e intereses de cesantias
+
+  state = {
+    openModal: false
+  }
+
+  openModal = () => {
+    this.setState({openModal : true})
+  }
+
+  closeModal = () => {
+    this.setState({openModal : false})
+  }
+
   render() {
     const {prepaidMedicine, homeLoanInteres, dependants, donations, voluntaryContributions} = this.props
 
     return (
       <form className={css.formContainer}>
+        <Modal
+          show={this.state.openModal}
+          modalClosed={this.closeModal}
+        >
+          <p className={css.modalText}>
+            - Los dependientes sólo deben ser en primer grado (hijos, padres, hermanos, conyugüe), y no debieron haber tenido ingresos durante 2019 superiores a $x'000.000
+          </p>
+          <p className={css.modalText}>
+            - Se puede agregar medicina prepagada o complementaria
+          </p>
+          <p className={css.modalText}>
+            - Aportes a pensiones voluntarias, las pensiones obligadas no cuentan.
+          </p>
+          <p className={css.modalText}>
+            - Intereses que hayas pagado por concepto de préstamo en crédito hipotecario.
+          </p>
+          <p className={css.modalText}>
+            - Donaciones que te hayan certificado.
+          </p>
+        </Modal>
         <p className={css.mainTitle}>¡Oh! ¡Oh! Debes declarar</p>
         <p className={css.text}>Tus ingresos laborales de 2019 supera el umbral de $47'978.000. Antes de que agreguemos las posibles deducciones, tu valor a pagar sería de: $1'012.166.</p>
-        <p className={css.text}>A continuación encuentras un listado de conceptos que pueden ayudarte a reducir el valir final a pagar. Para más info sobre esos conceptos, <span className={css.modal}>haz clic aquí</span>.</p>
+        <p className={css.text}>A continuación encuentras un listado de conceptos que pueden ayudarte a reducir el valir final a pagar. Para más info sobre esos conceptos, <span className={css.modal} onClick={this.openModal}>haz clic aquí</span>.</p>
+        <p className={css.subTitle}>Deducciones 2019</p>
         <div className={css.formGroup}>
           <section>
             <label className={css.title}>Cant. Dependien</label>
