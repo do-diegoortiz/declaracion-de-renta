@@ -65,7 +65,7 @@ class Home extends React.Component {
           />
         )}
         {view === 'addDeductions' && (
-          <h1>Hello addDeductions</h1>
+          <Deductions />
         )}
         {view === 'summary' && (
           <h1>Hello summary</h1>

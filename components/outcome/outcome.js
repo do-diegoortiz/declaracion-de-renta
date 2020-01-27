@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import NumberFormat from 'react-number-format'
 
-import css from './outcome.scss';
+import css from './outcome.scss'
 
 const UVT = 34270
 
