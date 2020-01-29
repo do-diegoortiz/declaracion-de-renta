@@ -1,186 +1,165 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
 import NumberFormat from 'react-number-format'
+import { connect } from 'react-redux'
 
-import css from './outcome.scss';
+import * as actions from '../../store/actions/index'
+
+import css from './outcome.scss'
 
 const UVT = 34270
 
-export const Outcome = ({ handleRetentionChange, liquidIncome, totalDeductions, prepaidMedicine, incomeSources }) => {
-  Outcome.propTypes = {
-    handleRetentionChange: PropTypes.func.isRequired,
-    liquidIncome: PropTypes.number.isRequired,
-    totalDeductions: PropTypes.number.isRequired,
-    prepaidMedicine: PropTypes.number,
-    incomeSources: PropTypes.array
-  };
+class Outcome extends Component {
 
-  const totalRetentions = incomeSources.reduce((x, y) => (x + y.retention), 0)
-
-  const retentions = incomeSources.map((income, i) => {
-    return income.retention > 0 ? <h2 className={css.SubTotalContainer} key={i}>
-      <span className={css.Title}>Rte.Fte Trabajo #{i+1}</span>
-      <span className={css.TotalNumber}>
-        <NumberFormat
-          value={income.retention}
-          thousandSeparator={true}
-          prefix='$'
-          decimalScale={0}
-          onValueChange={(values) => {handleRetentionChange(values.value, i)}}
-        />
-      </span>
-    </h2> : null
-  })
-
-  // If totalDeductions plus 25% of (liquid - totalDeductions) is bigger than top limit 40%, we use 40%
-  const liquidIncomeMinusDeductions = (totalDeductions + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.4 : liquidIncome - totalDeductions - ((liquidIncome - totalDeductions) * 0.25)
-  let totalTaxes = 0
-  if (liquidIncomeMinusDeductions > (UVT * 4100)) {
-    totalTaxes = ((liquidIncomeMinusDeductions - (UVT * 4100)) * 0.33) + (UVT * 788)
-  } else if (liquidIncomeMinusDeductions > (UVT * 1700)) {
-    totalTaxes = ((liquidIncomeMinusDeductions - (UVT * 1700)) * 0.28) + (UVT * 116)
-  } else if (liquidIncomeMinusDeductions > (UVT * 1090)) {
-    totalTaxes = ((liquidIncomeMinusDeductions - (UVT * 1090)) * 0.19)
+  componentDidMount = async() => {
+    await this.props.totalRetentions()
+    await this.props.liquidIncomeMinusDeductions()
+    await this.props.totalTaxes()
+    await this.props.deductionsOnTheLimit()
+    await this.props.maxValueToAddInDeductions()
+    await this.props.savingsWithAdviceInVoluntaryRetirementContributions()
   }
+  
+  render () {
+    const { totalRetentions, liquidIncomeMinusDeductions, totalTaxes, deductionsOnTheLimit, savingsForOneMonthOfPrepaidMedicine, maxValueToAddInDeductions, savingsWithAdviceInVoluntaryRetirementContributions } = this.props.outcome
 
-  // Variable to know if I should advice about ways to improve the final payment or not. 38% is pretty close to 40%
-  const deductionsOnTheLimit = (totalDeductions + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.38
+    const retentions = incomeSources.map((income, i) => {
+      return income.retention > 0 ? <h2 className={css.SubTotalContainer} key={i}>
+        <span className={css.Title}>Rte.Fte Trabajo #{i+1}</span>
+        <span className={css.TotalNumber}>
+          <NumberFormat
+            value={income.retention}
+            thousandSeparator={true}
+            prefix='$'
+            decimalScale={0}
+            onValueChange={(values) => {handleRetentionChange(values.value, i)}}
+          />
+        </span>
+      </h2> : null
+    })
 
-  const savingsForOneMonthOfPrepaidMedicine = calculateSavings(500000)
-  const incomeAlreadyPaidInRetentions = 500000 * totalRetentions / savingsForOneMonthOfPrepaidMedicine
+    return (
+      <div className={css.SummaryContainer} key={liquidIncome}>
+        <div className={css.TotalsContainer}>
+          <h2 className={css.SubTotalContainer}>
+            <span className={css.Title}>Renta Líquida:</span>
+            <span className={css.TotalNumber}>
+              <NumberFormat
+                value={liquidIncome}
+                thousandSeparator={true}
+                prefix='$'
+                decimalScale={0}
+              />
+            </span> 
+          </h2>
 
-  // For math, the maximum value to discount in regular deductions is 20% (the other 20% comes from the 25% of 80% [100% - 20%])
-  const maxValueToAddInDeductions = (0.2 * liquidIncome) - totalDeductions - incomeAlreadyPaidInRetentions
-  const savingsWithAdviceInVoluntaryRetirementContributions = calculateSavings(maxValueToAddInDeductions)
+          <h2 className={css.SubTotalContainer}>
+            <span className={css.Title}>Deducciones Totales:</span>
+            <span className={css.TotalNumber}>
+              <NumberFormat
+                value={totalDeductions + (liquidIncome - totalDeductions) * 0.25}
+                thousandSeparator={true}
+                prefix='$'
+                decimalScale={0}
+              />
+            </span>
+          </h2>
 
-  function calculateSavings(adviceValue) {
-    let totalTaxCopy = 0
-    let totalTaxCopyWithAdvice = 0
-    const liquidIncomeMinusDeductionsCopy = (totalDeductions + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.6 : liquidIncome - totalDeductions - ((liquidIncome - totalDeductions) * 0.25)
-    const liquidIncomeMinusDeductionsCopyWithAdvice = (totalDeductions + adviceValue + ((liquidIncome - totalDeductions - adviceValue) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.6 : liquidIncome - totalDeductions - adviceValue - ((liquidIncome - totalDeductions - adviceValue) * 0.25)
-    
-    // when liquidIncomeMinusDeductionsCopyWithAdvice and liquidIncomeMinusDeductionsCopy belong to the same Range, the savings for each $500.000 are 123750 in first validation, 105000 in the second and 71250 in the last group
-    if (liquidIncomeMinusDeductionsCopy > (UVT * 4100)) {
-      totalTaxCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 4100)) * 0.33) + (UVT * 788)
-    } else if (liquidIncomeMinusDeductionsCopy > (UVT * 1700)) {
-      totalTaxCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 1700)) * 0.28) + (UVT * 116)
-    } else if (liquidIncomeMinusDeductionsCopy > (UVT * 1090)) {
-      totalTaxCopy = ((liquidIncomeMinusDeductionsCopy - (UVT * 1090)) * 0.19)
-    }
+          <h2 className={css.SubTotalContainer}>
+            {/* Renta liquida menos total de deducciones (Que no deben exeder el 40%) */}
+            <span className={css.Title}>Renta Líq. Cedular de Trabajo:</span>
+            <span className={css.TotalNumber}>
+              <NumberFormat
+                value={liquidIncomeMinusDeductions}
+                thousandSeparator={true}
+                prefix='$'
+                decimalScale={0}
+              />
+            </span>
+          </h2>
 
-    if (liquidIncomeMinusDeductionsCopyWithAdvice > (UVT * 4100)) {
-      totalTaxCopyWithAdvice = ((liquidIncomeMinusDeductionsCopyWithAdvice - (UVT * 4100)) * 0.33) + (UVT * 788)
-    } else if (liquidIncomeMinusDeductionsCopyWithAdvice > (UVT * 1700)) {
-      totalTaxCopyWithAdvice = ((liquidIncomeMinusDeductionsCopyWithAdvice - (UVT * 1700)) * 0.28) + (UVT * 116)
-    } else if (liquidIncomeMinusDeductionsCopyWithAdvice > (UVT * 1090)) {
-      totalTaxCopyWithAdvice = ((liquidIncomeMinusDeductionsCopyWithAdvice - (UVT * 1090)) * 0.19)
-    }
-    return totalTaxCopy - totalTaxCopyWithAdvice
+          <h2 className={css.SubTotalContainer}>
+            {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
+            <span className={css.Title}>Total Impuesto:</span>
+            <span className={css.TotalNumber}>
+              <NumberFormat
+                value={totalTaxes}
+                thousandSeparator={true}
+                prefix='$'
+                decimalScale={0}
+              />
+            </span>
+          </h2>
+
+          {retentions}
+
+          <h2 className={css.SubTotalContainer}>
+            {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
+            <span className={css.Title}>{(totalTaxes - totalRetentions) >= 0 ? 'Valor de renta a pagar:' : 'La DIAN te debe'}</span>
+            <span className={(totalTaxes - totalRetentions) >= 0 ? css.TotalBadNumber : css.TotalGoodNumber}>
+              <NumberFormat
+                value={totalTaxes > totalRetentions ? totalTaxes - totalRetentions : totalRetentions - totalTaxes}
+                thousandSeparator={true}
+                prefix='$'
+                decimalScale={0}
+              />
+            </span>
+          </h2>
+
+          <br/>
+          {totalRetentions ? 'Si el valor en "Rte.Fte Trabajo" no corresponde a la realidad y tú conoces el real, puedes editar ese número' : null}
+        </div>
+
+        {totalTaxes ? <aside className={css.Advice}>
+          <h3>Te quedan pocos días del año para optimizar tu pago de renta</h3>
+          {
+            deductionsOnTheLimit ? <h3> Hiciste un gran trabajo este año. Pagarás lo mínimo posible </h3> :
+              <ol>
+                <p>Estos son algunos consejos que puedes seguir:</p>
+                {prepaidMedicine ? null : <li>Este año ya no alcanzas, pero te conviene afiliarte a medicina prepagada. Además de tener mejor servicio de salud, con un plan de $500.000 mensual te ahorrarías <b>$ {savingsForOneMonthOfPrepaidMedicine}</b> por mes en el pago de renta</li>}
+
+                <li>Puedes afiliarte a un fondo de pensiones voluntarias y aportar hasta 
+                  <span className={css.AdviceValues}>
+                    <NumberFormat
+                      value={maxValueToAddInDeductions}
+                      thousandSeparator={true}
+                      prefix=' $'
+                      decimalScale={0}
+                    />
+                  </span>
+                  que dejarían tu valor a pagar de renta en el mínimo posible y te ahorrarias 
+                  <span className={css.AdviceValues}>
+                    <NumberFormat
+                      value={savingsWithAdviceInVoluntaryRetirementContributions}
+                      thousandSeparator={true}
+                      prefix=' $'
+                      decimalScale={0}
+                    />
+                  </span>
+                </li>
+                <li>Diciembre es un buen mes para donar. El valor de renta baja poco (<b>$ {savingsForOneMonthOfPrepaidMedicine}</b> por cada $500.000 COP), pero la ciencia dice que ayudar te hará sentir feliz. Eres parte del {incomeSources[0].income > 9000000 ? 1 : 2}% mejor remunerado en Colombia y a pesar de que la corrupción es alta... es un país en dónde se paga un % de impuestos bajo.</li>
+              </ol>
+          }
+        </aside> : null}
+      </ div>
+    )
   }
-
-  return <div className={css.SummaryContainer} key={liquidIncome}>
-    <div className={css.TotalsContainer}>
-      <h2 className={css.SubTotalContainer}>
-        <span className={css.Title}>Renta Líquida:</span>
-        <span className={css.TotalNumber}>
-          <NumberFormat
-            value={liquidIncome}
-            thousandSeparator={true}
-            prefix='$'
-            decimalScale={0}
-          />
-        </span> 
-      </h2>
-
-      <h2 className={css.SubTotalContainer}>
-        <span className={css.Title}>Deducciones Totales:</span>
-        <span className={css.TotalNumber}>
-          <NumberFormat
-            value={totalDeductions + (liquidIncome - totalDeductions) * 0.25}
-            thousandSeparator={true}
-            prefix='$'
-            decimalScale={0}
-          />
-        </span>
-      </h2>
-
-      <h2 className={css.SubTotalContainer}>
-        {/* Renta liquida menos total de deducciones (Que no deben exeder el 40%) */}
-        <span className={css.Title}>Renta Líq. Cedular de Trabajo:</span>
-        <span className={css.TotalNumber}>
-          <NumberFormat
-            value={liquidIncomeMinusDeductions}
-            thousandSeparator={true}
-            prefix='$'
-            decimalScale={0}
-          />
-        </span>
-      </h2>
-
-      <h2 className={css.SubTotalContainer}>
-        {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
-        <span className={css.Title}>Total Impuesto:</span>
-        <span className={css.TotalNumber}>
-          <NumberFormat
-            value={totalTaxes}
-            thousandSeparator={true}
-            prefix='$'
-            decimalScale={0}
-          />
-        </span>
-      </h2>
-
-      {retentions}
-
-      <h2 className={css.SubTotalContainer}>
-        {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
-        <span className={css.Title}>{(totalTaxes - totalRetentions) >= 0 ? 'Valor de renta a pagar:' : 'La DIAN te debe'}</span>
-        <span className={(totalTaxes - totalRetentions) >= 0 ? css.TotalBadNumber : css.TotalGoodNumber}>
-          <NumberFormat
-            value={totalTaxes > totalRetentions ? totalTaxes - totalRetentions : totalRetentions - totalTaxes}
-            thousandSeparator={true}
-            prefix='$'
-            decimalScale={0}
-          />
-        </span>
-      </h2>
-
-      <br/>
-      {totalRetentions ? 'Si el valor en "Rte.Fte Trabajo" no corresponde a la realidad y tú conoces el real, puedes editar ese número' : null}
-    </div>
-
-    {totalTaxes ? <aside className={css.Advice}>
-      <h3>Te quedan pocos días del año para optimizar tu pago de renta</h3>
-      {
-        deductionsOnTheLimit ? <h3> Hiciste un gran trabajo este año. Pagarás lo mínimo posible </h3> :
-          <ol>
-            <p>Estos son algunos consejos que puedes seguir:</p>
-            {prepaidMedicine ? null : <li>Este año ya no alcanzas, pero te conviene afiliarte a medicina prepagada. Además de tener mejor servicio de salud, con un plan de $500.000 mensual te ahorrarías <b>$ {savingsForOneMonthOfPrepaidMedicine}</b> por mes en el pago de renta</li>}
-
-            <li>Puedes afiliarte a un fondo de pensiones voluntarias y aportar hasta 
-              <span className={css.AdviceValues}>
-                <NumberFormat
-                  value={maxValueToAddInDeductions}
-                  thousandSeparator={true}
-                  prefix=' $'
-                  decimalScale={0}
-                />
-              </span>
-              que dejarían tu valor a pagar de renta en el mínimo posible y te ahorrarias 
-              <span className={css.AdviceValues}>
-                <NumberFormat
-                  value={savingsWithAdviceInVoluntaryRetirementContributions}
-                  thousandSeparator={true}
-                  prefix=' $'
-                  decimalScale={0}
-                />
-              </span>
-            </li>
-            <li>Diciembre es un buen mes para donar. El valor de renta baja poco (<b>$ {savingsForOneMonthOfPrepaidMedicine}</b> por cada $500.000 COP), pero la ciencia dice que ayudar te hará sentir feliz. Eres parte del {incomeSources[0].income > 9000000 ? 1 : 2}% mejor remunerado en Colombia y a pesar de que la corrupción es alta... es un país en dónde se paga un % de impuestos bajo.</li>
-          </ol>
-      }
-    </aside> : null}
-  </ div>
 }
 
-export default Outcome
+const mapStateToProps = state => {
+  return {
+    outcome: state.outcome
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    totalRetentions: () => dispatch(actions.totalRetentions()),
+    liquidIncomeMinusDeductions: () => dispatch(actions.liquidIncomeMinusDeductions()),
+    totalTaxes: () => dispatch(actions.totalTaxes()),
+    deductionsOnTheLimit: () => dispatch(actions.deductionsOnTheLimit()),
+    maxValueToAddInDeductions: () => dispatch(actions.maxValueToAddInDeductions()),
+    savingsWithAdviceInVoluntaryRetirementContributions: () => dispatch(actions.savingsWithAdviceInVoluntaryRetirementContributions())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Outcome)
