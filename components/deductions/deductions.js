@@ -156,14 +156,14 @@ class Deductions extends Component {
             width='15rem' 
             minHeight='5.2rem' 
             fontSize='1.1rem' 
-            onClick={() => handleView('summary')} 
+            onClick={() => this.props.handleView('summary')} 
           />
           <BlueButton 
             label='👎 NO TENGO DEDUCCIONES' 
             width='15rem' 
             minHeight='5.2rem' 
             fontSize='1.1rem' 
-            onClick={() => handleView('summary')}
+            onClick={() => this.props.handleView('summary')}
           />
         </section>
       </form>
