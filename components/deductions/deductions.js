@@ -10,6 +10,7 @@ import css from './deductions.scss'
 
 class Deductions extends Component {
   // https://www.youtube.com/watch?v=sHHbAlznq08
+  // https://www.gerencie.com/deduccion-por-concepto-de-dependientes-en-el-impuesto-de-renta.html
   // Deducciones:
   // Dependientes (Hasta el 10% del ingreso bruto o hasta 384 UVT)
   // Medicina prepagada o Plan Complementario (Hasta 16UVT mensual)
@@ -49,7 +50,7 @@ class Deductions extends Component {
           modalClosed={this.closeModal}
         >
           <p className={css.modalText}>
-            - Los dependientes sólo deben ser en primer grado (hijos, padres, hermanos, conyugüe), y no debieron haber tenido ingresos durante 2019 superiores a $x'000.000
+            - Los dependientes sólo deben ser en primer grado (hijos, padres, hermanos, conyugüe), y no debieron haber tenido ingresos durante 2019 superiores a ${(260 * uvt).toLocaleString('en')}
           </p>
           <p className={css.modalText}>
             - Se puede agregar medicina prepagada o complementaria
