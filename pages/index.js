@@ -65,7 +65,9 @@ class Home extends React.Component {
           />
         )}
         {view === 'addDeductions' && (
-          <Deductions />
+          <Deductions
+            handleDeductionChange={handleDeductionChange}
+          />
         )}
         {view === 'summary' && (
           <h1>Hello summary</h1>

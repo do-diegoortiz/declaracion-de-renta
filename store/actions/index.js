@@ -31,3 +31,12 @@ export {
   handleRetentionChange,
   handleLayoffChange
 } from './deductions'
+
+export {
+  totalRetentions,
+  liquidIncomeMinusDeductions,
+  totalTaxes,
+  deductionsOnTheLimit,
+  maxValueToAddInDeductions,
+  savingsWithAdviceInVoluntaryRetirementContributions
+} from './outcome'

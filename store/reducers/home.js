@@ -5,7 +5,8 @@ const initialState = {
   hasToDeclare: false, // When gross income > 1400 UVT
   summaryVisible: false,
   deductionsVisible: false,
-  view: 'addIncomes'
+  view: 'addIncomes',
+  uvt: 34270
 }
 
 const reducer = (state = initialState, action) => {
