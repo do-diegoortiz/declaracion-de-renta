@@ -5,7 +5,7 @@
 ## Stack
 
 * Back: Next ⏭️
-* Front: React ⚛️
+* Front: React + Redux ⚛️
 * Test Unitarios:Jest 🥼
 * Estilos: SASS + Modules 💅
 * Servidor: Zeit 🖥️
