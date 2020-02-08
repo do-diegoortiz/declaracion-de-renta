@@ -133,12 +133,12 @@ const updateSavingsWithAdviceInVoluntaryRetirementContributions = data => {
 }
 
 const calculateSavings = adviceValue => {
-  return (dispatch, getState) => {
+  return (getState) => {
     let totalTaxCopy = 0
     let totalTaxCopyWithAdvice = 0
-    const totalDeductions = getState().deductions.incomeSources
-    const totalIncome = getState().income.incomeSources
-    const incomeOutOfTaxes  = getState().income.incomeSources
+    const totalDeductions = getState().deduction.totalDeductions
+    const totalIncome = getState().income.totalIncome
+    const incomeOutOfTaxes  = getState().income.incomeOutOfTaxes
     let liquidIncome = totalIncome - incomeOutOfTaxes
 
     const liquidIncomeMinusDeductionsCopy = (totalDeductions + ((liquidIncome - totalDeductions) * 0.25)) > liquidIncome * 0.4 ? liquidIncome * 0.6 : liquidIncome - totalDeductions - ((liquidIncome - totalDeductions) * 0.25)

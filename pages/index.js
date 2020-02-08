@@ -71,7 +71,13 @@ class Home extends React.Component {
           />
         )}
         {view === 'summary' && (
-          <h1>Hello summary</h1>
+          <Outcome
+            handleRetentionChange={handleRetentionChange}
+            liquidIncome={totalIncome - incomeOutOfTaxes}
+            totalDeductions={totalDeductions}
+            prepaidMedicine={prepaidMedicine}
+            incomeSources={incomeSources}
+          />
         )}
       </>
     )

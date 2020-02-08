@@ -6,8 +6,6 @@ import * as actions from '../../store/actions/index'
 
 import css from './outcome.scss'
 
-const UVT = 34270
-
 class Outcome extends Component {
 
   componentDidMount = async() => {
@@ -20,7 +18,23 @@ class Outcome extends Component {
   }
   
   render () {
-    const { totalRetentions, liquidIncomeMinusDeductions, totalTaxes, deductionsOnTheLimit, savingsForOneMonthOfPrepaidMedicine, maxValueToAddInDeductions, savingsWithAdviceInVoluntaryRetirementContributions } = this.props.outcome
+    const {
+      totalRetentions,
+      liquidIncomeMinusDeductions,
+      totalTaxes,
+      deductionsOnTheLimit,
+      savingsForOneMonthOfPrepaidMedicine,
+      maxValueToAddInDeductions,
+      savingsWithAdviceInVoluntaryRetirementContributions
+    } = this.props.outcome
+
+    const {
+      handleRetentionChange,
+      liquidIncome,
+      totalDeductions,
+      prepaidMedicine,
+      incomeSources
+    } = this.props
 
     const retentions = incomeSources.map((income, i) => {
       return income.retention > 0 ? <h2 className={css.SubTotalContainer} key={i}>
@@ -110,7 +124,7 @@ class Outcome extends Component {
         </div>
 
         {totalTaxes ? <aside className={css.Advice}>
-          <h3>Te quedan pocos días del año para optimizar tu pago de renta</h3>
+          <h3>El valor de retención en la fuente varía en cada empresa, nosotros hacemos el calculo con un valor promedio pero ese valor puede ser diferente para ti.</h3>
           {
             deductionsOnTheLimit ? <h3> Hiciste un gran trabajo este año. Pagarás lo mínimo posible </h3> :
               <ol>
