@@ -4,10 +4,10 @@ const UVT = 34270
 
 export const totalRetentions = () => {
   return (dispatch, getState) => {
-    let incomeSources = getState().income.incomeSources
-    incomeSources.reduce((x, y) => (x + y.retention), 0)
+    const incomeSources = getState().income.incomeSources
+    const totalRetentions = incomeSources.reduce((x, y) => (x + y.retention), 0)
 
-    dispatch(updateTotalRetentions(incomeSources))
+    dispatch(updateTotalRetentions(totalRetentions))
   }
 }
 
@@ -133,7 +133,7 @@ const updateSavingsWithAdviceInVoluntaryRetirementContributions = data => {
 }
 
 const calculateSavings = adviceValue => {
-  return (getState) => {
+  return (dispatch, getState) => {
     let totalTaxCopy = 0
     let totalTaxCopyWithAdvice = 0
     const totalDeductions = getState().deduction.totalDeductions

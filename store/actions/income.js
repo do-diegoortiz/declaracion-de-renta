@@ -160,6 +160,7 @@ export const handleIncomeChange = (newIncome, index) => {
 
       dispatch(updateRetention(index, newValue, sourcesCopy[index].contract))
       dispatch(updateTotalIncome())
+      dispatch(updateIncomeOutOfTaxes())
     }
   }
 }
