@@ -133,7 +133,7 @@ const updateSavingsWithAdviceInVoluntaryRetirementContributions = data => {
 }
 
 const calculateSavings = adviceValue => {
-  return (getState) => {
+  return (dispatch, getState) => {
     let totalTaxCopy = 0
     let totalTaxCopyWithAdvice = 0
     const totalDeductions = getState().deduction.totalDeductions

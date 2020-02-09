@@ -1,3 +1,5 @@
+@import '../../styles/reset.scss';
+
 .SummaryContainer {
   display: flex;
   flex-wrap: wrap;
@@ -6,21 +8,22 @@
   flex: 1 0 26rem;
 }
 
-.TotalsContainer {
-  border-radius: 2rem;
-  display: flex;
-  flex-direction: column;
-  flex-basis: 44rem;
-  width: 50%;
-  background: #fff;
-  color: #363636;
-  margin: 1rem;
-  padding: 1rem;
+.formTitle {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Comfortaa';
+}
+
+.description {
+  font-size: 1.8rem;
+  text-align: justify;
+  margin: 0.5rem auto 2rem;
 }
 
 .SubTotalContainer {
   display: flex;
-  width: 100%;
 }
 
 .TotalBadNumber {
@@ -44,24 +47,23 @@
 }
 
 .TotalNumber {
-  flex-basis: 50%;
   display: flex;
-  justify-content: flex-start;
-  
+  max-width: 40%;
+
   input {
-    font-size: 2.4rem;
-    color: #343A40;
-    text-align: center;
-    width: 22rem;
+    color: $light-gray;
+    font-size: 1.6rem;
   }
 }
 
 .Title {
-  align-self: center;
-  font-size: 1.2rem;
+  text-align: right;
+  font-size: 1.6rem;
   flex-basis: 50%;
   display: flex;
   justify-content: flex-end;
+  font-weight: 200;
+  margin: 0.5rem 1rem;
 }
 
 .Advice {
@@ -73,6 +75,23 @@
 .AdviceValues input {
   width: 8.5rem;
   font-weight: 700;
+}
+
+.separationLine {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 0; 
+  height: 0.05rem; 
+  background: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+}
+
+.total {
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+
+  input {
+    font-weight: 600;
+  }
 }
 
 @media (max-width: 560px) {
