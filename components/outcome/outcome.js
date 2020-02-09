@@ -53,9 +53,15 @@ class Outcome extends Component {
 
     return (
       <div className={css.SummaryContainer} key={liquidIncome}>
-        <div className={css.TotalsContainer}>
+        <div className={css.container}>
+          <h2 className={css.formTitle}>
+            Listo
+          </h2>
+          <p className={css.description}>
+            El valor de retención en la fuente varía en cada empresa, nosotros hacemos el cálculo con un valor promedio, pero ese valor puede ser diferente para tí.
+          </p>
           <h2 className={css.SubTotalContainer}>
-            <span className={css.Title}>Renta Líquida:</span>
+            <span className={css.Title}>ℹ️Renta Líquida</span>
             <span className={css.TotalNumber}>
               <NumberFormat
                 value={liquidIncome}
@@ -63,11 +69,11 @@ class Outcome extends Component {
                 prefix='$'
                 decimalScale={0}
               />
-            </span> 
+            </span>
           </h2>
 
           <h2 className={css.SubTotalContainer}>
-            <span className={css.Title}>Deducciones Totales:</span>
+            <span className={css.Title}>Deducciones Totales</span>
             <span className={css.TotalNumber}>
               <NumberFormat
                 value={totalDeductions + (liquidIncome - totalDeductions) * 0.25}
@@ -78,10 +84,12 @@ class Outcome extends Component {
             </span>
           </h2>
 
+          <hr className={css.separationLine} />
+
           <h2 className={css.SubTotalContainer}>
             {/* Renta liquida menos total de deducciones (Que no deben exeder el 40%) */}
-            <span className={css.Title}>Renta Líq. Cedular de Trabajo:</span>
-            <span className={css.TotalNumber}>
+            <span className={`${css.Title} ${css.total}`}>Renta líquida cedular de trabajo</span>
+            <span className={`${css.TotalNumber} ${css.total}`}>
               <NumberFormat
                 value={liquidIncomeMinusDeductions}
                 thousandSeparator={true}
@@ -93,7 +101,7 @@ class Outcome extends Component {
 
           <h2 className={css.SubTotalContainer}>
             {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
-            <span className={css.Title}>Total Impuesto:</span>
+            <span className={css.Title}>Total Impuesto</span>
             <span className={css.TotalNumber}>
               <NumberFormat
                 value={totalTaxes}
@@ -108,7 +116,7 @@ class Outcome extends Component {
 
           <h2 className={css.SubTotalContainer}>
             {/* Renta liquida, menos UVT del grupo, por el % del grupo */}
-            <span className={css.Title}>{(totalTaxes - totalRetentions) >= 0 ? 'Valor de renta a pagar:' : 'La DIAN te debe'}</span>
+            <span className={css.Title}>{(totalTaxes - totalRetentions) >= 0 ? 'Valor a pagar:' : 'La DIAN te debe'}</span>
             <span className={(totalTaxes - totalRetentions) >= 0 ? css.TotalBadNumber : css.TotalGoodNumber}>
               <NumberFormat
                 value={totalTaxes > totalRetentions ? totalTaxes - totalRetentions : totalRetentions - totalTaxes}
@@ -119,11 +127,11 @@ class Outcome extends Component {
             </span>
           </h2>
 
-          <br/>
-          {totalRetentions ? 'Si el valor en "Rte.Fte Trabajo" no corresponde a la realidad y tú conoces el real, puedes editar ese número' : null}
+          {/* <br/>
+          {totalRetentions ? 'Si el valor en "Rte.Fte Trabajo" no corresponde a la realidad y tú conoces el real, puedes editar ese número' : null} */}
         </div>
 
-        {totalTaxes ? <aside className={css.Advice}>
+        {/* {totalTaxes ? <aside className={css.Advice}>
           <h3>El valor de retención en la fuente varía en cada empresa, nosotros hacemos el calculo con un valor promedio pero ese valor puede ser diferente para ti.</h3>
           {
             deductionsOnTheLimit ? <h3> Hiciste un gran trabajo este año. Pagarás lo mínimo posible </h3> :
@@ -153,7 +161,7 @@ class Outcome extends Component {
                 <li>Diciembre es un buen mes para donar. El valor de renta baja poco (<b>$ {savingsForOneMonthOfPrepaidMedicine}</b> por cada $500.000 COP), pero la ciencia dice que ayudar te hará sentir feliz. Eres parte del {incomeSources[0].income > 9000000 ? 1 : 2}% mejor remunerado en Colombia y a pesar de que la corrupción es alta... es un país en dónde se paga un % de impuestos bajo.</li>
               </ol>
           }
-        </aside> : null}
+        </aside> : null} */}
       </ div>
     )
   }

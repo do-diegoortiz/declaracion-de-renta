@@ -1,34 +1,22 @@
-import React from 'react';
-import css from './footer.scss';
+import React from 'react'
+import css from './footer.scss'
 
 const Footer = () => {
   return (
-    <footer className={css.finalMessages}>
-      <span>
-        Avisos Parroquiales:
-      </span>
-      <ul>
-        <li>
-          <strong>¿Qué le mejorarías, agregarías...?</strong> <a target='_blank' rel='noreferrer' href='https://forms.gle/qY56BbJXzuK23kPR7'>Encuesta corta</a> de 4 preguntas para seguir mejorando y tener algo mucho más útil en 2020 😉
-        </li>
-        <li>
-          Si no conocen fundaciones a dónde <b>donar</b>, conozco algunas chéveres: <a target='_blank' rel='noreferrer' href='http://biblioseo.org/'>Biblioseo</a>, <a target='_blank' rel='noreferrer' href='https://www.techo.org/colombia/'>Techo</a> y <a target='_blank' rel='noreferrer' href='http://angelesdemedellin.blogspot.com/'>AngelesDeMedellin</a>. Desde enero estará constituida <a target='_blank' rel='noreferrer' href='https://medium.com/codeyourfutureco/introducing-code-your-future-colombia-5f7d3d442eda'> CodeYourFuture Colombia</a> 💪
-        </li>
-        <li> En caso de lanzar nuevas funcionalidades ¿Quieres ser notificado?
-          <form action="https://mailthis.to/diegoortizpaez@gmail.com" 
-            method="POST"> 
-            <label>Nombre:
-              <input type="text" name="name" placeholder="ej. Pedro Perez" className={css.nameInput} />
-            </label>
-            <label>Correo: 
-              <input type="email" name="_replyto" placeholder="ej. pedro@gmail.com" className={css.emailInput} />
-            </label>
-            <input type="submit" value="Enviar" className={css.emailButton}/> 
-          </form>
-        </li>
-      </ul>
+    <footer className={css.container}>
+      <p className={css.description}>
+        Si te pareció de alguna forma útil, compártelo, y si te pareció espectacular compranos un café.
+      </p>
+      <p className={css.description}>
+        Este es un proyecto “open source”, si quieres usarlo, mejorarlo o aportar de alguna forma, aquí te dejamos el link del repositorio en GitHub.
+        <br />
+        <a href='https://github.com/do-diegoortiz/declaracion-de-renta' target='_blank'>
+          https://github.com/do-diegoortiz/declaracion-de-renta
+        </a>
+      </p>
+      
     </footer>
   )
 }
 
-export default Footer;
+export default Footer
