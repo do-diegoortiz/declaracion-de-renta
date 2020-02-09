@@ -7,7 +7,6 @@ import * as actions from '../../store/actions/index'
 import css from './outcome.scss'
 
 class Outcome extends Component {
-
   componentDidMount = async() => {
     await this.props.totalRetentions()
     await this.props.liquidIncomeMinusDeductions()

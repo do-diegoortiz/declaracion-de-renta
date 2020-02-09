@@ -4,7 +4,7 @@ exports[`<MobileHeader /> Check the component UI 1`] = `
 <div>
   <img
     alt="Logo"
-    src={Object {}}
+    src="/images/logo.png"
   />
   <svg
     viewBox="0 30 500 50"
